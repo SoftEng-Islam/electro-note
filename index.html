@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="/logo.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+	<title>ElectroNote</title>
+</head>
+
+<body class="w-screen h-screen relative flex items-center p-2 overflow-hidden ">
+	<div class="h-full w-full flex flex-col p-0 m-0 rounded-xl overflow-hidden" id="app"></div>
+	<!-- <div class="z-30 fixed w-screen h-full left-0 top-0 backdrop-blur ">
+	</div> -->
+
+	<script type="module" src="/src/main.ts"></script>
+	<script defer src="dist-electron/main/functions.js"></script>
+	<script defer src="dist-electron/main/renderer.js"></script>
+</body>
+
+</html>

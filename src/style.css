@@ -1,0 +1,41 @@
+@font-face {
+	font-family: JetBrains;
+	src: url(./fonts/ttf/JetBrainsMono-Regular.ttf);
+}
+:root {
+
+	--dark100: #424243;
+	--dark200: #323233;
+	--dark300: #1e1e1e;
+	--dark400: #161616;
+	--white: #b8b8b8;
+	--blue: #7c94ff;
+	--purple: #c16bf3;
+	--pink: #fc7373;
+	--green: #49c46e;
+	--yellow: #fdc063;
+	--sky: #64ecda;
+	--favColor: var(--yellow);
+	--HeaderHeight: 4rem;
+
+	/* --bgG: linear-gradient(90deg, #03947c 0%, #00bba2 35%, #64ecda 100%); */
+	--bgG: linear-gradient(90deg, #ff6600 0%, #e9912d 35%, #fdc063 100%);
+	/* --bgG: linear-gradient(90deg, #37cf4c 0%, #22dd61 35%, #49c46e 100%);
+	--bgG: linear-gradient(90deg, #e00043 0%, #d1457f 35%, #fc7373 100%);
+	--bgG: linear-gradient(90deg, #9001ce 0%, #9a44cc 35%, #c16bf3 100%);
+	--bgG: linear-gradient(90deg, #125ce6 0%, #3a69c0 35%, #7c94ff 100%); */
+}
+
+body {
+	font-family: JetBrains;
+	/* border: 4px solid var(--favColor); */
+	/* background-color: var(--dark300); */
+	/* -webkit-app-region: drag; */
+	background: var(--bgG);
+}
+
+
+::selection {
+	background: var(--favColor);
+	color: var(--dark400);
+}

@@ -1,0 +1,34 @@
+/** @type {import('tailwindcss').Config} */
+
+export default {
+	content: [
+		"./index.html",
+		"./src/**/*.{js,ts,jsx,tsx,html,vue,sass,scss,css}",
+	],
+
+	safelist: [
+		{
+			pattern: /bg-(gray|yellow|green|cyan|blue|purple|fuchsia|pink)-(200|300|400|500|600|700|800|900)/,
+		},
+		{
+			pattern: /text-(gray|yellow|green|cyan|blue|purple|fuchsia|pink)-(200|300|400|500|600|700|800|900)/,
+		},
+		{
+			pattern: /grid-cols-.+/,
+		}
+		,{
+			pattern: /grid-rows-.+/,
+		}
+	],
+	theme: {
+		extend: {
+
+		},
+	},
+	plugins: [
+		require('@tailwindcss/typography'),
+		require('@tailwindcss/forms'),
+		require('@tailwindcss/aspect-ratio'),
+		require('@tailwindcss/container-queries'),
+	],
+};

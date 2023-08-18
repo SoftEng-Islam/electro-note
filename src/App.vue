@@ -12,9 +12,7 @@ console.log(
 <template lang="pug">
 Header
 div(class="w-full h-full flex items-center overflow-hidden bg-[var(--dark400)]")
-  Notes
-  Pages
-  OpendPage
+	Notes()
+	Pages()
+	OpendPage()
 </template>
-
-<style></style>

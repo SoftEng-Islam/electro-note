@@ -14,6 +14,7 @@ import { Highlight } from "@tiptap/extension-highlight";
 import { useEditor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import { watch, onMounted } from "vue";
+
 const props = defineProps({
 	modelValue: {
 		type: String,
@@ -90,22 +91,22 @@ watch(
 	}
 );
 
-
 onMounted(() => {
-	console.log('onMounted');
+	console.log("onMounted");
 });
 
-function createtable (x, y): {} {
-	return {
-		rows: x,
-		cols: y
-	}
+let showTable = false;
+function showTableCreator() {
+	showTable = !showTable;
 }
 
-console.log(
-	createtable(1,2)
-)
-
+function createtable(x, y) {
+	return editor.value
+		?.chain()
+		.focus()
+		.insertTable({ rows: x, cols: y, withHeaderRow: true })
+		.run();
+}
 
 const myTable: {
 	containerW: number;
@@ -122,8 +123,8 @@ const myTable: {
 } = {
 	containerW: 200,
 	containerH: 200,
-	rowsBoxies: 3,
-	colsBoxies: 4,
+	rowsBoxies: 10,
+	colsBoxies: 10,
 	gap: 2,
 	outline: "1px solid gray",
 	boxBorder: "1px solid red",
@@ -132,7 +133,7 @@ const myTable: {
 	tableBoxies: "",
 	GenerateTable(): any {
 		const tbl = document.createElement("table");
-		tbl.classList.add("myTable");
+		tbl.classList.add(...["myTable"]);
 		tbl.setAttribute("id", "myTableId");
 		const tblBody = document.createElement("tbody");
 		for (let x = 1; x <= this.rowsBoxies; x++) {
@@ -140,12 +141,12 @@ const myTable: {
 			row.classList.add("_row");
 			for (let y = 1; y <= this.colsBoxies; y++) {
 				const cell = document.createElement("td");
-				const cellText = document.createTextNode(`x${x}-y${y}`);
-				cell.appendChild(cellText);
-				cell.classList.add("cell");
-				cell.addEventListener("click", ()=> {createtable(x,y)});
+				// const cellText = document.createTextNode(`x${x}-y${y}`);
+				// cell.appendChild(cellText);
+				cell.classList.add(...["cell"]);
 				row.appendChild(cell);
 			}
+
 			tblBody.appendChild(row);
 		}
 		tbl.appendChild(tblBody);
@@ -153,43 +154,56 @@ const myTable: {
 		return tbl;
 	},
 };
-let theTable: HTMLElement | null  = (myTable.GenerateTable());
+let theTable: HTMLElement | null = myTable.GenerateTable();
 
-window.addEventListener("load", function (){
+window.addEventListener("load", function () {
 	let _cell = document.querySelectorAll(".cell");
 	let _row = document.querySelectorAll("._row");
 	for (let x = 0; x <= _row.length; x++) {
-		for (let j = 0; j < _row[x].querySelectorAll(".cell").length; j++) {
+		for (let Y = 0; Y < _row[x].querySelectorAll(".cell").length; Y++) {
+			let selectCells = _row[x].querySelectorAll(".cell")[Y];
+
+			selectCells.addEventListener("click", function () {
+				createtable(x + 1, Y + 1);
+				console.log(`x: ${x + 1}`);
+				console.log(`Y: ${Y + 1}`);
+			});
+
 			// cols 4
-			_row[x]
-				.querySelectorAll(".cell")
-				[j].addEventListener("mouseenter", function () {
-					_cell.forEach(function (bgCe: any) {
-						bgCe.classList.add("white");
-						bgCe.classList.remove("text-pink-500");
-					});
-					console.log(`x: ${x}`);
-					console.log(`j: ${j}`);
-					for (let a = 0; a <= x; a++) {
-						for (let s = 0; s <= j; s++)
-							_row[a]
-								.querySelectorAll(".cell")
-								[s].classList.add("text-pink-500");
-					}
+			selectCells.addEventListener("mouseenter", function () {
+				_cell.forEach(function (bgCe: any) {
+					bgCe.classList.remove("bg-[var(--favColor)]");
+					bgCe.classList.add("bg-[var(--dark400)]");
 				});
+
+				// console.log(`x: ${x}`);
+				// console.log(`Y: ${Y}`);
+				for (let a = 0; a <= x; a++) {
+					for (let s = 0; s <= Y; s++)
+						_row[a]
+							.querySelectorAll(".cell")
+							[s].classList.add("bg-[var(--favColor)]");
+				}
+			});
 		}
 	}
-})
-
-
-
-
-
-
-
-
+});
 </script>
-
+<script lang="ts">
+export default {
+	data() {
+		return {
+			showTable: false,
+		};
+	},
+	methods: {
+		showTableCreator() {
+			console.log("FuCCCCCCCCCCCCCCCK")
+			this.showTable = !this.showTable;
+		},
+	},
+};
+</script>
 <template lang="pug">
 div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-2 [&_button]:rounded-md [&_button]:p-1 [&>button>svg]:w-6 [&>button>svg]:fill-white " v-if="editor")
 	button(@click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }")
@@ -239,10 +253,11 @@ div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-
 	//- Table
 	//- @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()"
 
-	button( class="" @click="editor.chain().focus().insertTable({ rows: createtable.rows, cols: createtable.cols, withHeaderRow: true }).run()")
+	button( type="button" class="relative" @click.prevent="showTableCreator" )
 		<svg class="icon w-6 h-6 text-gray-200" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path> </g> </svg>
-	button( class="relative" )
-		div( class="z-20 absolute right-0 top-4 w-[250px]" v-html="theTable?.outerHTML")
+		div(v-class="{hidden: showTable}" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-0 top-4 w-[250px] flex flex-col items-center justify-center")
+			span(class="px-3 mb-2 rounded-3xl text-black text-center bg-[var(--favColor)]") 1 x 1
+			div( class="" v-html="theTable?.outerHTML")
 
 	div(class="hidden")
 		button( :disabled="!editor.can().addColumnBefore()" @click="editor.chain().focus().addColumnBefore().run()") addColumnBefore
@@ -283,17 +298,18 @@ div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
 
 <style lang="scss">
 .myTable {
-	@apply border-red-500;
+	@apply rounded-lg overflow-hidden;
 }
 .myTable tbody {
 	@apply p-4;
 }
 .myTable tbody tr {
-	@apply bg-gray-800 ;
+	@apply bg-[var(--dark400)];
 }
-.myTable tbody tr td {
-	@apply w-14 h-14 overflow-hidden  border border-red-500;
+.myTable tbody tr td.cell {
+	@apply w-5 h-5 overflow-hidden border-4 border-transparent;
 }
+
 /* Basic editor styles */
 .ProseMirror {
 	margin: 1rem 0;

@@ -2,7 +2,7 @@
 import { ref } from "vue";
 
 
-import Tiptap from "../components/Tiptap.vue";
+import TipTap from "../components/Tiptap.vue";
 const content = ref(`<h2> Hi there, </h2> <p> this is a basic <em>basic</em> example of <strong>tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists: </p> <ul> <li> That’s a bullet list with one … </li> <li> … or two list items. </li> </ul> <p> Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block: </p> <pre><code class="language-css">body { display: none; }</code></pre> <p> I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too. </p> <blockquote> Wow, that’s amazing. Good work, boy! 👏 <br /> — Mom </blockquote>`);
 
 // export default {
@@ -43,7 +43,7 @@ div(class="flex flex-col items-center w-4/6 h-[95%] mx-5")
 	//- Tab Content
 	div(class="relative w-full h-full flex flex-col overflow-x-hidden items-center outline-none p-4 text-[var(--white)] border border-[var(--dark200)] border-solid rounded-3xl bg-[var(--dark300)]")
 		//- TipEditor
-		Tiptap(v-model="content")
+		<tip-tap v-model="content" spellcheck="false"></tip-tap>
 		div(class="content w-full p-4 bg-gray-800 mt-8")
 			h3(class="mb-5") OutPut Content =>:
 			pre(class="pl-10")

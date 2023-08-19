@@ -13,7 +13,8 @@ import { Color } from "@tiptap/extension-color";
 import { Highlight } from "@tiptap/extension-highlight";
 import { useEditor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
-import { watch, onMounted } from "vue";
+import { watch, onMounted, onBeforeUpdate } from "vue";
+
 
 const props = defineProps({
 	modelValue: {
@@ -26,6 +27,7 @@ Subscript.configure({
 		class: "my-custom-class",
 	},
 });
+
 const emit = defineEmits(["update:modelValue"]);
 
 const CustomTableCell = TableCell.extend({
@@ -62,18 +64,15 @@ const editor = useEditor({
 		Highlight,
 		TextStyle,
 		Gapcursor,
+		TableRow,
+		TableHeader,
+		CustomTableCell,
 		CharacterCount.configure({
 			limit: limit,
 		}),
 		Table.configure({
 			resizable: true,
 		}),
-		TableRow,
-		TableHeader,
-		// Default TableCell
-		// TableCell,
-		// Custom TableCell with backgroundColor attribute
-		CustomTableCell,
 	],
 	onUpdate: () => {
 		emit("update:modelValue", editor.value?.getHTML());
@@ -91,9 +90,7 @@ watch(
 	}
 );
 
-onMounted(() => {
-	console.log("onMounted");
-});
+
 
 let showTable = false;
 function showTableCreator() {
@@ -108,6 +105,12 @@ function createtable(x, y) {
 		.run();
 }
 
+
+
+onMounted(() => {
+	// console.log("onMounted");
+
+});
 const myTable: {
 	containerW: number;
 	containerH: number;
@@ -131,7 +134,7 @@ const myTable: {
 	boxBg: "green",
 	boxHoverBg: "blue",
 	tableBoxies: "",
-	GenerateTable(): any {
+	GenerateTable() {
 		const tbl = document.createElement("table");
 		tbl.classList.add(...["myTable"]);
 		tbl.setAttribute("id", "myTableId");
@@ -146,16 +149,14 @@ const myTable: {
 				cell.classList.add(...["cell"]);
 				row.appendChild(cell);
 			}
-
 			tblBody.appendChild(row);
 		}
 		tbl.appendChild(tblBody);
-		console.log(tbl);
+
 		return tbl;
 	},
 };
 let theTable: HTMLElement | null = myTable.GenerateTable();
-
 window.addEventListener("load", function () {
 	let _cell = document.querySelectorAll(".cell");
 	let _row = document.querySelectorAll("._row");
@@ -187,22 +188,13 @@ window.addEventListener("load", function () {
 			});
 		}
 	}
-});
-</script>
-<script lang="ts">
-export default {
-	data() {
-		return {
-			showTable: false,
-		};
-	},
-	methods: {
-		showTableCreator() {
-			console.log("FuCCCCCCCCCCCCCCCK")
-			this.showTable = !this.showTable;
-		},
-	},
-};
+})
+
+
+
+
+
+
 </script>
 <template lang="pug">
 div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-2 [&_button]:rounded-md [&_button]:p-1 [&>button>svg]:w-6 [&>button>svg]:fill-white " v-if="editor")
@@ -255,7 +247,7 @@ div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-
 
 	button( type="button" class="relative" @click.prevent="showTableCreator" )
 		<svg class="icon w-6 h-6 text-gray-200" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path> </g> </svg>
-		div(v-class="{hidden: showTable}" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-0 top-4 w-[250px] flex flex-col items-center justify-center")
+		div(v-bind:hidden="showTable" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-0 top-4 w-[250px] flex flex-col items-center justify-center")
 			span(class="px-3 mb-2 rounded-3xl text-black text-center bg-[var(--favColor)]") 1 x 1
 			div( class="" v-html="theTable?.outerHTML")
 
@@ -307,7 +299,7 @@ div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
 	@apply bg-[var(--dark400)];
 }
 .myTable tbody tr td.cell {
-	@apply w-5 h-5 overflow-hidden border-4 border-transparent;
+	@apply w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out;
 }
 
 /* Basic editor styles */

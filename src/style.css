@@ -38,4 +38,6 @@ body {
 ::selection {
 	background: var(--favColor);
 	color: var(--dark400);
+	text-shadow: 1px 1px 2px black;
+	/* text-decoration-thickness: 10px; */
 }

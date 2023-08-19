@@ -22,6 +22,15 @@
 	img {
 		@apply rounded-md;
 	}
+	input[type='text']:focus {
+		@apply ring-0;
+	}
+	input {
+		@apply outline-none border-none;
+	}
+	div[contenteditable='true']:focus-visible {
+		@apply outline-none;
+	}
 }
 
 @tailwind components;

@@ -1,3 +1,4 @@
+import { fileURLToPath, URL } from 'node:url'
 const path = require( 'path' );
 import { rmSync } from "node:fs";
 import { defineConfig } from "vite";
@@ -6,7 +7,6 @@ import electron from "vite-plugin-electron";
 import renderer from "vite-plugin-electron-renderer";
 import pkg from "./package.json";
 import vuePugPlugin from "vue-pug-plugin";
-// import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
@@ -15,7 +15,11 @@ export default defineConfig(({ command }) => {
 	const isServe = command === "serve";
 	const isBuild = command === "build";
 	const sourcemap = isServe || !!process.env.VSCODE_DEBUG;
-
+	// resolve: {
+	// 	alias: {
+	// 		'@': fileURLToPath(new URL('./src', import.meta.url))
+	// 	}
+	// };
 	return {
 		plugins: [
 			vue({
@@ -128,7 +132,6 @@ export default defineConfig(({ command }) => {
 					},
 				},
 			]),
-			// ckeditor5( { theme: require.resolve( '@ckeditor/ckeditor5-theme-lark' ) } ),
 			// Use Node.js API in the Renderer-process
 			renderer(),
 		],

@@ -11,10 +11,10 @@ import Superscript from "@tiptap/extension-superscript";
 import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import { Highlight } from "@tiptap/extension-highlight";
-import { useEditor, EditorContent } from "@tiptap/vue-3";
+import { useEditor } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
-import { watch, onMounted, onBeforeUpdate } from "vue";
-
+import { watch } from "vue";
+import {EditorContent } from '@tiptap/vue-3';
 
 const props = defineProps({
 	modelValue: {
@@ -22,42 +22,21 @@ const props = defineProps({
 		default: "",
 	},
 });
-Subscript.configure({
-	HTMLAttributes: {
-		class: "my-custom-class",
-	},
-});
 
 const emit = defineEmits(["update:modelValue"]);
 
-const CustomTableCell = TableCell.extend({
-	addAttributes() {
-		return {
-			// extend the existing attributes …
-			...this.parent?.(),
 
-			// and add a new one …
-			backgroundColor: {
-				default: null,
-				parseHTML: (element) =>
-					element.getAttribute("data-background-color"),
-				renderHTML: (attributes) => {
-					return {
-						"data-background-color": attributes.backgroundColor,
-						style: `background-color: ${attributes.backgroundColor}`,
-					};
-				},
-			},
-		};
-	},
-});
 const limit: number = 2000;
 
 const editor = useEditor({
 	content: props.modelValue,
 	extensions: [
 		StarterKit,
-		Subscript,
+		Subscript.configure({
+			HTMLAttributes: {
+				class: "my-custom-class",
+			},
+		}),
 		Superscript,
 		toggleUnderline,
 		Color,
@@ -66,7 +45,27 @@ const editor = useEditor({
 		Gapcursor,
 		TableRow,
 		TableHeader,
-		CustomTableCell,
+		TableCell.extend({
+			addAttributes() {
+				return {
+					// extend the existing attributes …
+					...this.parent?.(),
+
+					// and add a new one …
+					backgroundColor: {
+						default: null,
+						parseHTML: (element) =>
+							element.getAttribute("data-background-color"),
+						renderHTML: (attributes) => {
+							return {
+								"data-background-color": attributes.backgroundColor,
+								style: `background-color: ${attributes.backgroundColor}`,
+							};
+						},
+					},
+				};
+			},
+		}),
 		CharacterCount.configure({
 			limit: limit,
 		}),
@@ -90,8 +89,6 @@ watch(
 	}
 );
 
-
-
 let showTable = false;
 function showTableCreator() {
 	showTable = !showTable;
@@ -105,12 +102,6 @@ function createtable(x, y) {
 		.run();
 }
 
-
-
-onMounted(() => {
-	// console.log("onMounted");
-
-});
 const myTable: {
 	containerW: number;
 	containerH: number;
@@ -183,16 +174,12 @@ window.addEventListener("load", function () {
 					for (let s = 0; s <= Y; s++)
 						_row[a]
 							.querySelectorAll(".cell")
-							[s].classList.add("bg-[var(--favColor)]");
+						[s].classList.add("bg-[var(--favColor)]");
 				}
 			});
 		}
 	}
 })
-
-
-
-
 
 
 </script>
@@ -292,12 +279,15 @@ div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
 .myTable {
 	@apply rounded-lg overflow-hidden;
 }
+
 .myTable tbody {
 	@apply p-4;
 }
+
 .myTable tbody tr {
 	@apply bg-[var(--dark400)];
 }
+
 .myTable tbody tr td.cell {
 	@apply w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out;
 }
@@ -307,7 +297,8 @@ div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
 	margin: 1rem 0;
 	outline: none;
 	padding: 5px;
-	> * + * {
+
+	>*+* {
 		margin-top: 0.75em;
 	}
 
@@ -360,12 +351,14 @@ div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
 		border-top: 2px solid rgba(#0d0d0d, 0.1);
 		margin: 2rem 0;
 	}
+
 	table {
 		border-collapse: collapse;
 		table-layout: fixed;
 		width: 100%;
 		margin: 0;
 		overflow: hidden;
+
 		td,
 		th {
 			min-width: 1em;
@@ -375,7 +368,7 @@ div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
 			box-sizing: border-box;
 			position: relative;
 
-			> * {
+			>* {
 				margin-bottom: 0;
 			}
 		}

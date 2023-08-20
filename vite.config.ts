@@ -1,5 +1,4 @@
-import { fileURLToPath, URL } from 'node:url'
-const path = require( 'path' );
+import { URL } from 'node:url';
 import { rmSync } from "node:fs";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -15,11 +14,6 @@ export default defineConfig(({ command }) => {
 	const isServe = command === "serve";
 	const isBuild = command === "build";
 	const sourcemap = isServe || !!process.env.VSCODE_DEBUG;
-	// resolve: {
-	// 	alias: {
-	// 		'@': fileURLToPath(new URL('./src', import.meta.url))
-	// 	}
-	// };
 	return {
 		plugins: [
 			vue({
@@ -145,6 +139,11 @@ export default defineConfig(({ command }) => {
 				};
 			})(),
 		clearScreen: false,
+		resolve: {
+			alias: {
+				'vue': 'vue/dist/vue.esm-bundler',
+			},
+		}
 	};
 
 });

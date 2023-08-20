@@ -1,6 +1,12 @@
 {
-	// "compilerOptions": {
-	// 	"target": "ES2015",
-	// 	"types": ["vite/client"]
-	// }
+	"compilerOptions": {
+		"module": "commonjs",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+	},
+	"vueCompilerOptions": {
+		"plugins": [
+			"@vue/language-plugin-pug"
+		]
+	}
 }

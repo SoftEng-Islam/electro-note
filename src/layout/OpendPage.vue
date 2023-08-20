@@ -41,9 +41,9 @@ div(class="flex flex-col items-center w-4/6 h-[95%] mx-5")
 		//-     button(class="") >
 
 	//- Tab Content
-	div(class="relative w-full h-full flex flex-col overflow-x-hidden items-center outline-none p-4 text-[var(--white)] border border-[var(--dark200)] border-solid rounded-3xl bg-[var(--dark300)]")
+	div(spellcheck="false" class="relative w-full h-full flex flex-col overflow-x-hidden items-center outline-none p-4 text-[var(--white)] border border-[var(--dark200)] border-solid rounded-3xl bg-[var(--dark300)]")
 		//- TipEditor
-		<tip-tap v-model="content" spellcheck="false"></tip-tap>
+		<tip-tap v-model="content"></tip-tap>
 		div(class="content w-full p-4 bg-gray-800 mt-8")
 			h3(class="mb-5") OutPut Content =>:
 			pre(class="pl-10")

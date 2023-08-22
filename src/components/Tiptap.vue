@@ -4,7 +4,7 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import CharacterCount from "@tiptap/extension-character-count";
-import Gapcursor from "@tiptap/extension-gapcursor";
+// import Gapcursor from "@tiptap/extension-gapcursor";
 import toggleUnderline from "@tiptap/extension-underline";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
@@ -13,8 +13,8 @@ import { Color } from "@tiptap/extension-color";
 import { Highlight } from "@tiptap/extension-highlight";
 import { useEditor } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
-import { watch } from "vue";
 import {EditorContent } from '@tiptap/vue-3';
+import { ref, watch } from 'vue'
 
 const props = defineProps({
 	modelValue: {
@@ -42,16 +42,13 @@ const editor = useEditor({
 		Color,
 		Highlight,
 		TextStyle,
-		Gapcursor,
+		// Gapcursor,
 		TableRow,
 		TableHeader,
 		TableCell.extend({
 			addAttributes() {
 				return {
-					// extend the existing attributes …
 					...this.parent?.(),
-
-					// and add a new one …
 					backgroundColor: {
 						default: null,
 						parseHTML: (element) =>
@@ -78,6 +75,7 @@ const editor = useEditor({
 	},
 });
 
+
 watch(
 	() => props.modelValue,
 	(value) => {
@@ -89,10 +87,9 @@ watch(
 	}
 );
 
-let showTable = false;
-function showTableCreator() {
-	showTable = !showTable;
-}
+
+
+const showTable = ref(false);
 
 function createtable(x, y) {
 	return editor.value
@@ -101,7 +98,6 @@ function createtable(x, y) {
 		.insertTable({ rows: x, cols: y, withHeaderRow: true })
 		.run();
 }
-
 const myTable: {
 	containerW: number;
 	containerH: number;
@@ -184,7 +180,7 @@ window.addEventListener("load", function () {
 
 </script>
 <template lang="pug">
-div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-2 [&_button]:rounded-md [&_button]:p-1 [&>button>svg]:w-6 [&>button>svg]:fill-white " v-if="editor")
+div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-3 [&_button]:rounded-md [&>button>svg]:w-7 [&>button>svg]:fill-white " v-if="editor")
 	button(@click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }")
 		<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 11H12.5C13.8807 11 15 9.88071 15 8.5C15 7.11929 13.8807 6 12.5 6H8V11ZM18 15.5C18 17.9853 15.9853 20 13.5 20H6V4H12.5C14.9853 4 17 6.01472 17 8.5C17 9.70431 16.5269 10.7981 15.7564 11.6058C17.0979 12.3847 18 13.837 18 15.5ZM8 13V18H13.5C14.8807 18 16 16.8807 16 15.5C16 14.1193 14.8807 13 13.5 13H8Z"/></svg>
 	button(@click="editor.chain().focus().toggleItalic().run()" :disabled="!editor.can().chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }")
@@ -229,12 +225,12 @@ div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-
 	button( :disabled="!editor.can().chain().focus().redo().run()" @click="editor.chain().focus().redo().run()")
 		<svg aria-hidden="true" width="16" height="16" viewBox="0 0 512 512" focusable="false" class="fa-icon"><g><path d="M500.3 0c6.6 0 12 5.4 12 12v200.3c0 6.6-5.4 12-12 12h-200.3c-6.6 0-12-5.4-12-12v-47.4 0c0-6.6 5.4-12 12-12 0.2 0 0.4 0 0.6 0l101.5 4.9c-28.9-43-94.3-77.8-146.1-77.8-97.2 0-176 78.8-176 176 0 97.2 78.8 176 176 176 36.7 0 88.7-19.7 116.3-43.9 1.9-1.6 5.4-3 7.9-3 2.7 0 6.5 1.6 8.5 3.5l34 34c1.9 1.9 3.5 5.7 3.5 8.5 0 3-1.8 7-4 8.9-39 35.3-113.3 63.9-165.8 63.9h-0.3c-136.9 0-247.9-110.9-248-247.8-0.1-136.7 111.3-248.2 248-248.2h0.3c63.2 0 147.7 39.1 188.6 87.3l-4-82.8c0-0.2 0-0.4 0-0.6 0-6.6 5.4-12 12-12h0 47.4z"></path></g></svg>
 
-	//- Table
+	//- Tables
 	//- @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()"
 
-	button( type="button" class="relative" @click.prevent="showTableCreator" )
-		<svg class="icon w-6 h-6 text-gray-200" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path> </g> </svg>
-		div(v-bind:hidden="showTable" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-0 top-4 w-[250px] flex flex-col items-center justify-center")
+	button( type="button" class="relative" )
+		<svg @click.prevent.self="showTable = !showTable" class="icon w-6 h-6 text-gray-200" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path> </g> </svg>
+		div(v-show="showTable" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-[20px] top-[28px] w-[250px] flex flex-col items-center justify-center")
 			span(class="px-3 mb-2 rounded-3xl text-black text-center bg-[var(--favColor)]") 1 x 1
 			div( class="" v-html="theTable?.outerHTML")
 

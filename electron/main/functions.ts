@@ -56,15 +56,15 @@ for (let x = 0; x < favColorList.length; x++) {
 }
 
 // Close Lists, Like list pages, list Notes
-let closeListPages = document.getElementById("closeListPages"),
-	Pages = document.getElementById("Pages");
-closeListPages.addEventListener("click", () => {
-	// Pages.classList.toggle("w-1/5");
-	Pages.classList.toggle("");
-});
+// let closeListPages = document.getElementById("closeListPages"),
+// 	Pages = document.getElementById("Pages");
+// closeListPages.addEventListener("click", () => {
+// 	// Pages.classList.toggle("w-1/5");
+// 	Pages.classList.toggle("");
+// });
 
-// CKEDITOR.replace( 'description' );
-// CKEDITOR.addCss('.cke_editable { background-color: black; color: white }');
+
+
 
 // closeOrResize
 let closeOrResize = document.getElementById("closeOrResize"),

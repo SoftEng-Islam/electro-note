@@ -88,7 +88,7 @@ watch(
 );
 
 
-
+const showTableOptions = ref(false);
 const showTable = ref(false);
 
 function createtable(x, y) {
@@ -180,7 +180,7 @@ window.addEventListener("load", function () {
 
 </script>
 <template lang="pug">
-div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-3 [&_button]:rounded-md [&>button>svg]:w-7 [&>button>svg]:fill-white " v-if="editor")
+div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-5 flex flex-row flex-wrap gap-3 [&_button]:rounded-md [&>button>svg]:w-6 [&>button>svg]:fill-white " v-if="editor")
 	button(@click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }")
 		<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 11H12.5C13.8807 11 15 9.88071 15 8.5C15 7.11929 13.8807 6 12.5 6H8V11ZM18 15.5C18 17.9853 15.9853 20 13.5 20H6V4H12.5C14.9853 4 17 6.01472 17 8.5C17 9.70431 16.5269 10.7981 15.7564 11.6058C17.0979 12.3847 18 13.837 18 15.5ZM8 13V18H13.5C14.8807 18 16 16.8807 16 15.5C16 14.1193 14.8807 13 13.5 13H8Z"/></svg>
 	button(@click="editor.chain().focus().toggleItalic().run()" :disabled="!editor.can().chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }")
@@ -225,33 +225,7 @@ div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-
 	button( :disabled="!editor.can().chain().focus().redo().run()" @click="editor.chain().focus().redo().run()")
 		<svg aria-hidden="true" width="16" height="16" viewBox="0 0 512 512" focusable="false" class="fa-icon"><g><path d="M500.3 0c6.6 0 12 5.4 12 12v200.3c0 6.6-5.4 12-12 12h-200.3c-6.6 0-12-5.4-12-12v-47.4 0c0-6.6 5.4-12 12-12 0.2 0 0.4 0 0.6 0l101.5 4.9c-28.9-43-94.3-77.8-146.1-77.8-97.2 0-176 78.8-176 176 0 97.2 78.8 176 176 176 36.7 0 88.7-19.7 116.3-43.9 1.9-1.6 5.4-3 7.9-3 2.7 0 6.5 1.6 8.5 3.5l34 34c1.9 1.9 3.5 5.7 3.5 8.5 0 3-1.8 7-4 8.9-39 35.3-113.3 63.9-165.8 63.9h-0.3c-136.9 0-247.9-110.9-248-247.8-0.1-136.7 111.3-248.2 248-248.2h0.3c63.2 0 147.7 39.1 188.6 87.3l-4-82.8c0-0.2 0-0.4 0-0.6 0-6.6 5.4-12 12-12h0 47.4z"></path></g></svg>
 
-	//- Tables
-	//- @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()"
 
-	button( type="button" class="relative" )
-		<svg @click.prevent.self="showTable = !showTable" class="icon w-6 h-6 text-gray-200" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path> </g> </svg>
-		div(v-show="showTable" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-[20px] top-[28px] w-[250px] flex flex-col items-center justify-center")
-			span(class="px-3 mb-2 rounded-3xl text-black text-center bg-[var(--favColor)]") 1 x 1
-			div( class="" v-html="theTable?.outerHTML")
-
-	div(class="hidden")
-		button( :disabled="!editor.can().addColumnBefore()" @click="editor.chain().focus().addColumnBefore().run()") addColumnBefore
-		button( :disabled="!editor.can().addColumnAfter()" @click="editor.chain().focus().addColumnAfter().run()") addColumnAfter
-		button( :disabled="!editor.can().deleteColumn()" @click="editor.chain().focus().deleteColumn().run()") deleteColumn
-		button( :disabled="!editor.can().addRowBefore()" @click="editor.chain().focus().addRowBefore().run()") addRowBefore
-		button( :disabled="!editor.can().addRowAfter()" @click="editor.chain().focus().addRowAfter().run()") addRowAfter
-		button( :disabled="!editor.can().deleteRow()" @click="editor.chain().focus().deleteRow().run()") deleteRow
-		button( :disabled="!editor.can().deleteTable()" @click="editor.chain().focus().deleteTable().run()") deleteTable
-		button( :disabled="!editor.can().mergeCells()" @click="editor.chain().focus().mergeCells().run()") mergeCells
-		button( :disabled="!editor.can().splitCell()" @click="editor.chain().focus().splitCell().run()") splitCell
-		button( :disabled="!editor.can().toggleHeaderColumn()" @click="editor.chain().focus().toggleHeaderColumn().run()") toggleHeaderColumn
-		button( :disabled="!editor.can().toggleHeaderRow()" @click="editor.chain().focus().toggleHeaderRow().run()") toggleHeaderRow
-		button( :disabled="!editor.can().toggleHeaderCell()" @click="editor.chain().focus().toggleHeaderCell().run()") toggleHeaderCell
-		button( :disabled="!editor.can().mergeOrSplit()" @click="editor.chain().focus().mergeOrSplit().run()") mergeOrSplit
-		button( :disabled="!editor.can().setCellAttribute('backgroundColor', '#FAF594')" @click="editor.chain().focus().setCellAttribute('backgroundColor', '#FAF594').run()" ) setCellAttribute
-		button( :disabled="!editor.can().fixTables()" @click="editor.chain().focus().fixTables().run()") fixTables
-		button( :disabled="!editor.can().goToNextCell()" @click="editor.chain().focus().goToNextCell().run()" ) goToNextCell
-		button( :disabled="!editor.can().goToPreviousCell()" @click="editor.chain().focus().goToPreviousCell().run()" ) goToPreviousCell
 
 	//- Color
 	button( :class="{ 'is-active': editor.isActive('textStyle', { color: '#958DF1' })}" @click="editor.chain().focus().setColor('#958DF1').run()" )
@@ -266,9 +240,38 @@ div(class="bg-[var(--dark400)] p-2 rounded-lg mb-10 flex flex-row flex-wrap gap-
 		<svg class="icon w-6 h-6 text-gray-200" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M15 18h1.5a2.5 2.5 0 1 0 0-5H3v-2h13.5a4.5 4.5 0 1 1 0 9H15v2l-4-3 4-3v2zM3 4h18v2H3V4zm6 14v2H3v-2h6z"></path> </g> </svg>
 
 
-div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
-	<editor-content class="w-full p-4" :editor="editor" />
-<div class="character-count overflow-hidden" v-if="editor"> {{ editor.storage.characterCount.characters() }}/{{ limit }} characters <br> {{ editor.storage.characterCount.words() }} words </div>
+	//- Tables
+	div(class="flex")
+		button( @mouseenter.prevent="showTable = true" @mouseleave.prevent="showTable = false" type="button" class="relative flex" )
+			<svg class="icon w-6 h-6 fill-white" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path fill="none" d="M0 0h24v24H0z"></path> <path d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path> </g> </svg>
+			div(v-show="showTable" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-0 top-5 w-[250px] flex flex-col items-center justify-center")
+				span(class="px-3 mb-2 rounded-3xl text-black text-center bg-[var(--favColor)]") 1 x 1
+				div( class="" v-html="theTable?.outerHTML")
+		button(type="button" class="relative" @mouseenter.prevent.self="showTableOptions = true" @mouseleave.prevent.self="showTableOptions = false")
+			<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon w-6 h-6 fill-[var(--favColor)]"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"/></svg>
+			div( v-show="showTableOptions" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-0 top-5 w-[250px] flex flex-col items-center justify-center [&_button]:mx-2")
+				button( :disabled="!editor.can().addColumnBefore()" @click="editor.chain().focus().addColumnBefore().run()") addColumnBefore
+				button( :disabled="!editor.can().addColumnAfter()" @click="editor.chain().focus().addColumnAfter().run()") addColumnAfter
+				button( :disabled="!editor.can().deleteColumn()" @click="editor.chain().focus().deleteColumn().run()") deleteColumn
+				button( :disabled="!editor.can().addRowBefore()" @click="editor.chain().focus().addRowBefore().run()") addRowBefore
+				button( :disabled="!editor.can().addRowAfter()" @click="editor.chain().focus().addRowAfter().run()") addRowAfter
+				button( :disabled="!editor.can().deleteRow()" @click="editor.chain().focus().deleteRow().run()") deleteRow
+				button( :disabled="!editor.can().deleteTable()" @click="editor.chain().focus().deleteTable().run()") deleteTable
+				button( :disabled="!editor.can().mergeCells()" @click="editor.chain().focus().mergeCells().run()") mergeCells
+				button( :disabled="!editor.can().splitCell()" @click="editor.chain().focus().splitCell().run()") splitCell
+				button( :disabled="!editor.can().toggleHeaderColumn()" @click="editor.chain().focus().toggleHeaderColumn().run()") toggleHeaderColumn
+				button( :disabled="!editor.can().toggleHeaderRow()" @click="editor.chain().focus().toggleHeaderRow().run()") toggleHeaderRow
+				button( :disabled="!editor.can().toggleHeaderCell()" @click="editor.chain().focus().toggleHeaderCell().run()") toggleHeaderCell
+				button( :disabled="!editor.can().mergeOrSplit()" @click="editor.chain().focus().mergeOrSplit().run()") mergeOrSplit
+				button( :disabled="!editor.can().setCellAttribute('backgroundColor', '#FAF594')" @click="editor.chain().focus().setCellAttribute('backgroundColor', '#FAF594').run()" ) setCellAttribute
+				button( :disabled="!editor.can().fixTables()" @click="editor.chain().focus().fixTables().run()") fixTables
+				button( :disabled="!editor.can().goToNextCell()" @click="editor.chain().focus().goToNextCell().run()" ) goToNextCell
+				button( :disabled="!editor.can().goToPreviousCell()" @click="editor.chain().focus().goToPreviousCell().run()" ) goToPreviousCell
+
+perfect-scrollbar
+	div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
+		<editor-content class="w-full p-4" :editor="editor" />
+	div( class="character-count mt-10" v-if="editor") words {{ editor.storage.characterCount.words() }} <br> characters {{ editor.storage.characterCount.characters() }}/{{ limit }}
 </template>
 
 <style lang="scss">
@@ -358,7 +361,7 @@ div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
 		td,
 		th {
 			min-width: 1em;
-			border: 2px solid #ced4da;
+			border: 2px solid var(--dark200);
 			padding: 3px 5px;
 			vertical-align: top;
 			box-sizing: border-box;
@@ -372,7 +375,11 @@ div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
 		th {
 			font-weight: bold;
 			text-align: left;
-			background-color: #f1f3f5;
+			background-color: var(--dark100);
+			// background-color: #f1f3f5;
+			p {
+				background-color: var(--dark100);
+			}
 		}
 
 		.selectedCell:after {

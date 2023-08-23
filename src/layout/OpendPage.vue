@@ -13,7 +13,7 @@ const content = ref(`<h2> Hi there, </h2> <p> this is a basic <em>basic</em> exa
 </script>
 
 <template lang="pug">
-div(class="relative flex flex-col items-center w-4/6 h-[95%] mx-5")
+div(class="relative flex flex-col items-center w-4/6 h-[90%] mb-10 mx-5")
 	//- Tabs Header
 	div(class="h-16 flex items-center w-full pl-7")
 		//- Tabs
@@ -41,12 +41,11 @@ div(class="relative flex flex-col items-center w-4/6 h-[95%] mx-5")
 		//-     button(class="") >
 
 	//- Tab Content
-	div(spellcheck="false" class=" w-full h-full flex flex-col items-center outline-none p-4 text-[var(--white)] border border-[var(--dark200)] border-solid rounded-3xl bg-[var(--dark300)]")
+	div(spellcheck="false" class="w-full h-full flex flex-col items-center outline-none p-4 text-[var(--white)] border border-[var(--dark200)] border-solid rounded-3xl bg-[var(--dark300)]")
 		//- TipEditor
-		perfect-scrollbar
-			<tip-tap v-model="content"></tip-tap>
-			div(class="content w-full h-auto p-4 bg-gray-800 mt-8 ")
-				h3(class="mb-5") OutPut Content =>:
-				pre(class="pl-10")
-					code(class="overflow-hidden" style="text-wrap: balance") {{ content }}
+		<tip-tap v-model="content"></tip-tap>
+		//- div(class="content w-full h-auto p-4 bg-gray-800 mt-8 ")
+		//- 	h3(class="mb-5") OutPut Content =>:
+		//- 	pre(class="pl-10")
+		//- 		code(class="overflow-hidden" style="text-wrap: balance") {{ content }}
 </template>

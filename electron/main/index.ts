@@ -255,13 +255,12 @@ function createTable(db) {
   (
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
     name   VARCHAR(50) NOT NULL,
-    color   VARCHAR(50) NOT NULL,
+    color  VARCHAR(50) NOT NULL,
     weight INTEGER NOT NULL
   );
 `);
 }
 // createTable(createDbConnection());
-
 
 function insertRow($name, $color, $weight) {
 	const [name = $name, color = $color, weight = $weight] =

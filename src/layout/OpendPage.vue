@@ -20,13 +20,13 @@ div(class="relative flex flex-col items-center w-4/6 h-[90%] mb-10 mx-5")
 		ul(class="h-full flex items-center justify-center")
 			//- active
 			li(class="flex items-center h-full w-auto relative p-2 px-6 pr-10 border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
-				span(class="text-[var(--favColor)] font-bold")
+				span(class="text-[var(--favColor)]")
 					| {{ 'myOpenedTabs[0].id'}} Defualt Note
 				button(type="button" v-on:click="'closeTab()'" class="hover:scale-90 duration-150 flex items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="scale-125"><path fill="var(--pink)" d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Z"/><path fill="var(--pink)" d="M128.5,74a9.67,9.67,0,0,0-14,0L100,88.5l-14-14a9.9,9.9,0,0,0-14,14l14,14-14,14a9.9,9.9,0,0,0,14,14l14-14,14,14a9.9,9.9,0,0,0,14-14l-14-14,14-14A10.77,10.77,0,0,0,128.5,74Z"/></svg>
 			//- unactive
 			li(class="opacity-50 flex items-center h-full w-auto relative p-2 px-6 pr-10 border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:hidden after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
-				span(class="text-[var(--favColor)] font-bold")
+				span(class="text-[var(--favColor)]")
 					| Defualt Note
 				button(type="button" class="flex items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="scale-125"><path fill="var(--pink)" d="M100,15a85,85,0,1,0,85,85A84.93,84.93,0,0,0,100,15Zm0,150a65,65,0,1,1,65-65A64.87,64.87,0,0,1,100,165Z"/><path fill="var(--pink)" d="M128.5,74a9.67,9.67,0,0,0-14,0L100,88.5l-14-14a9.9,9.9,0,0,0-14,14l14,14-14,14a9.9,9.9,0,0,0,14,14l14-14,14,14a9.9,9.9,0,0,0,14-14l-14-14,14-14A10.77,10.77,0,0,0,128.5,74Z"/></svg>

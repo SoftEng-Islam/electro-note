@@ -250,23 +250,23 @@ div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-
 		button(type="button" class="relative" @mouseenter.prevent.self="showTableOptions = true" @mouseleave.prevent.self="showTableOptions = false")
 			<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon w-6 h-6 fill-[var(--favColor)]"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"/></svg>
 			div( v-show="showTableOptions" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-0 top-5 w-[250px] flex flex-col items-center justify-center [&_button]:mx-2")
-				button( :disabled="!editor.can().addColumnBefore()" @click="editor.chain().focus().addColumnBefore().run()") addColumnBefore
-				button( :disabled="!editor.can().addColumnAfter()" @click="editor.chain().focus().addColumnAfter().run()") addColumnAfter
-				button( :disabled="!editor.can().deleteColumn()" @click="editor.chain().focus().deleteColumn().run()") deleteColumn
-				button( :disabled="!editor.can().addRowBefore()" @click="editor.chain().focus().addRowBefore().run()") addRowBefore
-				button( :disabled="!editor.can().addRowAfter()" @click="editor.chain().focus().addRowAfter().run()") addRowAfter
-				button( :disabled="!editor.can().deleteRow()" @click="editor.chain().focus().deleteRow().run()") deleteRow
-				button( :disabled="!editor.can().deleteTable()" @click="editor.chain().focus().deleteTable().run()") deleteTable
-				button( :disabled="!editor.can().mergeCells()" @click="editor.chain().focus().mergeCells().run()") mergeCells
-				button( :disabled="!editor.can().splitCell()" @click="editor.chain().focus().splitCell().run()") splitCell
-				button( :disabled="!editor.can().toggleHeaderColumn()" @click="editor.chain().focus().toggleHeaderColumn().run()") toggleHeaderColumn
-				button( :disabled="!editor.can().toggleHeaderRow()" @click="editor.chain().focus().toggleHeaderRow().run()") toggleHeaderRow
-				button( :disabled="!editor.can().toggleHeaderCell()" @click="editor.chain().focus().toggleHeaderCell().run()") toggleHeaderCell
-				button( :disabled="!editor.can().mergeOrSplit()" @click="editor.chain().focus().mergeOrSplit().run()") mergeOrSplit
-				button( :disabled="!editor.can().setCellAttribute('backgroundColor', '#FAF594')" @click="editor.chain().focus().setCellAttribute('backgroundColor', '#FAF594').run()" ) setCellAttribute
-				button( :disabled="!editor.can().fixTables()" @click="editor.chain().focus().fixTables().run()") fixTables
-				button( :disabled="!editor.can().goToNextCell()" @click="editor.chain().focus().goToNextCell().run()" ) goToNextCell
-				button( :disabled="!editor.can().goToPreviousCell()" @click="editor.chain().focus().goToPreviousCell().run()" ) goToPreviousCell
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().addColumnBefore()" @click="editor.chain().focus().addColumnBefore().run()") addColumnBefore
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().addColumnAfter()" @click="editor.chain().focus().addColumnAfter().run()") addColumnAfter
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().deleteColumn()" @click="editor.chain().focus().deleteColumn().run()") deleteColumn
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().addRowBefore()" @click="editor.chain().focus().addRowBefore().run()") addRowBefore
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().addRowAfter()" @click="editor.chain().focus().addRowAfter().run()") addRowAfter
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().deleteRow()" @click="editor.chain().focus().deleteRow().run()") deleteRow
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().deleteTable()" @click="editor.chain().focus().deleteTable().run()") deleteTable
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().mergeCells()" @click="editor.chain().focus().mergeCells().run()") mergeCells
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().splitCell()" @click="editor.chain().focus().splitCell().run()") splitCell
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().toggleHeaderColumn()" @click="editor.chain().focus().toggleHeaderColumn().run()") toggleHeaderColumn
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().toggleHeaderRow()" @click="editor.chain().focus().toggleHeaderRow().run()") toggleHeaderRow
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().toggleHeaderCell()" @click="editor.chain().focus().toggleHeaderCell().run()") toggleHeaderCell
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().mergeOrSplit()" @click="editor.chain().focus().mergeOrSplit().run()") mergeOrSplit
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().setCellAttribute('backgroundColor', '#FAF594')" @click="editor.chain().focus().setCellAttribute('backgroundColor', '#FAF594').run()" ) setCellAttribute
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().fixTables()" @click="editor.chain().focus().fixTables().run()") fixTables
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().goToNextCell()" @click="editor.chain().focus().goToNextCell().run()" ) goToNextCell
+				button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().goToPreviousCell()" @click="editor.chain().focus().goToPreviousCell().run()" ) goToPreviousCell
 
 perfect-scrollbar
 	div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")

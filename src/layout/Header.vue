@@ -1,6 +1,4 @@
 <script lang="ts">
-import { RouterLink } from "vue-router";
-import { useIpcRenderer } from '@vueuse/electron';
 
 
 export default {
@@ -10,22 +8,10 @@ export default {
 			LogoLink: "Https://www.google.com",
 		};
 	},
-	mounted() {
-
-	},
-	setup(){
-		const ipcRenderer = useIpcRenderer()
-		// const closeBtn = () => ipcRenderer.invoke<string>("closeApp")
-		// const msg = computed(() => result.value?.msg)
-		const closeBtn = () => ipcRenderer.send('closeApp')
-
-
-		return {
-			ipcRenderer,
-			closeBtn
-		}
-	},
 	methods: {
+		closeBtn(){
+
+		}
 	}
 };
 </script>

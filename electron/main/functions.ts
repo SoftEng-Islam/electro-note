@@ -4,10 +4,10 @@ console.log(ipcRenderer);
 
 
 // close App
-let closeBtn = document.getElementById("closeBtn");
-closeBtn.addEventListener("click", () => {
-	ipc.send("closeApp");
-});
+// let closeBtn = document.getElementById("closeBtn");
+// closeBtn.addEventListener("click", () => {
+// 	ipc.send("closeApp");
+// });
 
 // minimize
 let minimize = document.getElementById("minimize");

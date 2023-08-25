@@ -101,9 +101,9 @@ async function createWindow() {
 		title: "ElectroNote",
 		icon: join(process.env.PUBLIC, "favicon.ico"),
 		webPreferences: {
-			preload,
 			nodeIntegration: true,
 			contextIsolation: false,
+			preload,
 		},
 	});
 
@@ -117,9 +117,9 @@ async function createWindow() {
 		parent: win,
 		show: false,
 		webPreferences: {
-			preload,
 			nodeIntegration: true,
 			contextIsolation: false,
+			preload,
 		},
 	});
 

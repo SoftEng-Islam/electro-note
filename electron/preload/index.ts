@@ -26,42 +26,91 @@ const safeDOM = {
 		}
 	},
 };
+
 function useLoading() {
-	const className = `loaders-css__square-spin`;
 	const styleContent = `
-@keyframes square-spin {
-	25% { transform: perspective(100px) rotateX(180deg) rotateY(0); }
-	50% { transform: perspective(100px) rotateX(180deg) rotateY(180deg); }
-	75% { transform: perspective(100px) rotateX(0) rotateY(180deg); }
-	100% { transform: perspective(100px) rotateX(0) rotateY(0); }
-}
-.${className} > div {
-	animation-fill-mode: both;
-	width: 50px;
-	height: 50px;
-	background: #fff;
-	animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
-}
-.app-loading-wrap {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #282c34;
-	z-index: 9;
-}
+		#preloader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background-color: #222;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 100;
+		}
+		#loader {
+			display: block;
+			position: relative;
+			width: 150px;
+			height: 150px;
+			margin: -75px 0 0 -75px;
+			border-radius: 50%;
+			border: 3px solid transparent;
+			border-top-color: #9370DB;
+			-webkit-animation: spin 2s linear infinite;
+			animation: spin 2s linear infinite;
+		}
+		#loader:before {
+			content: "";
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			right: 5px;
+			bottom: 5px;
+			border-radius: 50%;
+			border: 3px solid transparent;
+			border-top-color: #BA55D3;
+			-webkit-animation: spin 3s linear infinite;
+			animation: spin 3s linear infinite;
+		}
+		#loader:after {
+			content: "";
+			position: absolute;
+			top: 15px;
+			left: 15px;
+			right: 15px;
+			bottom: 15px;
+			border-radius: 50%;
+			border: 3px solid transparent;
+			border-top-color: #FF00FF;
+			-webkit-animation: spin 1.5s linear infinite;
+			animation: spin 1.5s linear infinite;
+		}
+		@-webkit-keyframes spin {
+			0%   {
+				-webkit-transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+			100% {
+				-webkit-transform: rotate(360deg);
+				-ms-transform: rotate(360deg);
+				transform: rotate(360deg);
+			}
+		}
+		@keyframes spin {
+			0%   {
+				-webkit-transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+			100% {
+				-webkit-transform: rotate(360deg);
+				-ms-transform: rotate(360deg);
+				transform: rotate(360deg);
+			}
+		}
     `;
 	const oStyle = document.createElement("style");
 	const oDiv = document.createElement("div");
 
 	oStyle.id = "app-loading-style";
 	oStyle.innerHTML = styleContent;
-	oDiv.className = "app-loading-wrap";
-	oDiv.innerHTML = `<div class="${className}"><div></div></div>`;
+	oDiv.id = "preloader";
+	oDiv.innerHTML = `<div id="loader"></div>`;
 
 	return {
 		appendLoading() {
@@ -95,3 +144,4 @@ window.addEventListener("DOMContentLoaded", () => {
 		replaceText(`${type}-version`, process.versions[type]);
 	}
 });
+

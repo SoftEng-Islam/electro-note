@@ -250,11 +250,14 @@ function createDbConnection() {
 
 // createDbConnection();
 function createTable(db) {
-	db.exec(`CREATE TABLE sharks(
-    ID INTEGER PRIMARY KEY AUTOINCREMENT,
-    name   VARCHAR(50) NOT NULL,
-    color  VARCHAR(50) NOT NULL,
-    weight INTEGER NOT NULL);
+	db.exec(`
+	CREATE TABLE sharks
+	(
+		ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		name   VARCHAR(50) NOT NULL,
+		color   VARCHAR(50) NOT NULL,
+		weight INTEGER NOT NULL
+	);
 `);
 }
 // createTable(createDbConnection());

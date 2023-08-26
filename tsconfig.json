@@ -1,4 +1,4 @@
-{
+{	"compileOnSave": false,
 	"compilerOptions": {
 		"target": "esnext",
 		"useDefineForClassFields": true,
@@ -10,9 +10,13 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"lib": [
 			"esnext",
 			"dom"
+		],
+		"types": [
+			"node"
 		]
 	},
 	"include": [

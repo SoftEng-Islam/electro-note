@@ -91,7 +91,7 @@ watch(
 const showTableOptions = ref(false);
 const showTable = ref(false);
 
-function createtable(x, y) {
+function createtable(x: number, y: number) {
 	return editor.value
 		?.chain()
 		.focus()

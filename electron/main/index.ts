@@ -1,34 +1,16 @@
 const electron = require("electron");
-import {
-	app,
-	BrowserWindow,
-	shell,
-	ipcMain,
-	webContents,
-	Tray,
-	Menu,
-	MenuItem,
-} from "electron";
+import { app, BrowserWindow, shell, ipcMain, webContents, Tray, Menu, MenuItem, } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
-// const electron = "vite-plugin-electron";
+
 const ipc = ipcMain;
 const windowStateKeeper = require("electron-window-state");
-// The built directory structure
-//
-// ├─┬ dist-electron
-// │ ├─┬ main
-// │ │ └── index.js    > Electron-Main
-// │ └─┬ preload
-// │   └── index.js    > Preload-Scripts
-// ├─┬ dist
-// │ └── index.html    > Electron-Renderer
-//
+
+
+
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
-process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
-	? join(process.env.DIST_ELECTRON, "../public")
-	: process.env.DIST;
+process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL ? join(process.env.DIST_ELECTRON, "../public") : process.env.DIST;
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -46,26 +28,31 @@ if (!app.requestSingleInstanceLock()) {
 // Read more on https://www.electronjs.org/docs/latest/tutorial/security
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
+// Our Windows
 let win: BrowserWindow | null = null;
 let login: BrowserWindow | null = null;
+
+
 // Here, you can also use other preload
 const preload = join(__dirname, "../preload/index.js");
-const url = process.env.VITE_DEV_SERVER_URL;
+const url: string | undefined = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const loginHtml = join(process.env.DIST, "login.html");
+
+
 // #########################
 // #### Tray
 // #########################
 let trayMenu = Menu.buildFromTemplate([{ label: "Item 1" }, { role: "quit" }]);
 let tray;
 function createTray() {
-	tray = new Tray(join(process.env.PUBLIC, "logo.png"));
+	tray = new Tray(join(process.env.DIST,"../public/logo.png"));
 	tray.setToolTip("ElectroNote");
 	tray.on("click", (e) => {
 		if (e.shiftKey) {
 			app.quit();
 		} else {
-			win.isVisible() ? win.hide() : win.show();
+			win!.isVisible() ? win!.hide() : win!.show();
 		}
 	});
 	tray.setContextMenu(trayMenu);
@@ -99,10 +86,10 @@ async function createWindow() {
 		y: winState.y,
 		frame: false,
 		title: "ElectroNote",
-		icon: join(process.env.PUBLIC, "favicon.ico"),
+		// icon: join("favicon.ico"),
 		webPreferences: {
 			nodeIntegration: true,
-			contextIsolation: false,
+			contextIsolation: true,
 			preload,
 		},
 	});
@@ -113,25 +100,25 @@ async function createWindow() {
 		frame: false,
 		transparent: true,
 		title: "Login",
-		icon: join(process.env.PUBLIC, "favicon.ico"),
+		// icon: join(process.env.PUBLIC, "favicon.ico"),
 		parent: win,
 		show: false,
 		webPreferences: {
 			nodeIntegration: true,
-			contextIsolation: false,
+			contextIsolation: true,
 			preload,
 		},
 	});
 
 	if (process.env.VITE_DEV_SERVER_URL) {
 		// electron-vite-vue#298
-		win.loadURL(url);
+		win.loadURL(url!);
 		// Open devTool if the app is not packaged
 		// win.webContents.openDevTools();
 	} else {
 		win.loadFile(indexHtml);
 	}
-	login.loadURL(url);
+	login.loadURL(url!);
 	login.loadFile(loginHtml);
 
 	//######## Menus
@@ -151,20 +138,20 @@ async function createWindow() {
 
 	// close
 	ipc.on("closeApp", () => {
-		win.close();
+		win!.close();
 	});
 
 	// minimizeApp
 	ipc.on("minimizeApp", () => {
-		win.minimize();
+		win!.minimize();
 	});
 
 	// maximizeApp
 	ipc.on("maximizeApp", () => {
-		if (win.isMaximized()) {
-			win.restore();
+		if (win!.isMaximized()) {
+			win!.restore();
 		} else {
-			win.maximize();
+			win!.maximize();
 		}
 	});
 

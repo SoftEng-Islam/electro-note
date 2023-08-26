@@ -10,21 +10,19 @@ console.log(ipcRenderer);
 // });
 
 // minimize
-let minimize = document.getElementById("minimize");
-minimize.addEventListener("click", () => {
+let minimize : HTMLElement | null = document.getElementById("minimize");
+minimize!.addEventListener("click", () => {
 	ipc.send("minimizeApp");
 });
 
 // maximize
 let maximize = document.getElementById("maximize");
-maximize.addEventListener("click", () => {
+maximize!.addEventListener("click", () => {
 	ipc.send("maximizeApp");
 });
 
 // Change FavColor
-let favColorList = document
-		.getElementById("favColorsUL")
-		.querySelectorAll("li"),
+let favColorList = document.getElementById("favColorsUL")!.querySelectorAll("li"),
 	root = document.querySelector(":root") as HTMLElement;
 
 let gradin = {
@@ -72,12 +70,12 @@ let closeOrResize = document.getElementById("closeOrResize"),
 	isDown = false;
 
 
-closeOrResize.addEventListener("mousedown", function (event) {
+closeOrResize!.addEventListener("mousedown", function (event) {
 	isDown = true;
 	window.addEventListener( "mousemove", function (e) {
 		e.preventDefault();
 		if (isDown) {
-			notes.style.width = e.clientX + "px";
+			notes!.style.width = e.clientX + "px";
 		}
 	},true);
 },true);

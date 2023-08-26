@@ -88,8 +88,9 @@ async function createWindow() {
 		title: "ElectroNote",
 		// icon: join("favicon.ico"),
 		webPreferences: {
+			// enableRemoteModule: true,
 			nodeIntegration: true,
-			contextIsolation: true,
+			contextIsolation: false,
 			preload,
 		},
 	});
@@ -104,9 +105,9 @@ async function createWindow() {
 		parent: win,
 		show: false,
 		webPreferences: {
-			nodeIntegration: true,
-			contextIsolation: true,
-			preload,
+			// nodeIntegration: true,
+			// contextIsolation: false,
+			// preload,
 		},
 	});
 

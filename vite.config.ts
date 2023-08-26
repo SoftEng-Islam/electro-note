@@ -107,25 +107,7 @@ export default defineConfig(({ command }) => {
 						},
 					},
 				},
-				{
-					entry: "electron/main/renderer",
-					vite: {
-						build: {
-							sourcemap: sourcemap ? "inline" : undefined, // #332
-							minify: isBuild,
-							outDir: "dist-electron/main",
-							rollupOptions: {
-								external: Object.keys(
-									"dependencies" in pkg
-										? pkg.dependencies
-										: {}
-								),
-							},
-						},
-					},
-				},
 			]),
-			// Use Node.js API in the Renderer-process
 			renderer(),
 		],
 		server:

@@ -27,20 +27,20 @@ header(class="border-[var(--dark200)] border-b w-full flex items-center p-2 sele
 		input(class="h-full bg-transparent outline-none placeholder:focus:opacity-40 text-white" type="text" placeholder="Type To Search...")
 
 	//- User Section
+	ul(class="ml-2 h-9 p-1 rounded-full flex items-center justify-center bg-[var(--dark200)] border-[var(--favColor)]" id="favColorsUL")
+		li(data-color="var(--blue)"   class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--blue)]")
+		li(data-color="var(--sky)"    class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--sky)]")
+		li(data-color="var(--purple)" class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--purple)]")
+		li(data-color="var(--green)"  class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--green)]")
+		li(data-color="var(--yellow)" class="duration-200 hover:scale-95 scale-125 mx-2 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--yellow)]")
+		li(data-color="var(--pink)"   class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--pink)]")
 	div(class="flex items-center justify-center" style="-webkit-app-region: no-drag")
-		div(class="mx-2 h-10 w-10 rounded-lg border-2 border-solid bg-white border-[var(--favColor)]" id="avatar")
-			img(src="")
 		RouterLink(to="/options" tag="button" class="p-1")
 			div(class="flex" id="settings")
 				<svg class="h-9" enable-background="new 0 0 32 32" id="Editable-line" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><circle cx="16" cy="16" fill="none" id="XMLID_224_" r="4" stroke="var(--favColor)" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/><path d="  M27.758,10.366l-1-1.732c-0.552-0.957-1.775-1.284-2.732-0.732L23.5,8.206C21.5,9.36,19,7.917,19,5.608V5c0-1.105-0.895-2-2-2h-2  c-1.105,0-2,0.895-2,2v0.608c0,2.309-2.5,3.753-4.5,2.598L7.974,7.902C7.017,7.35,5.794,7.677,5.242,8.634l-1,1.732  c-0.552,0.957-0.225,2.18,0.732,2.732L5.5,13.402c2,1.155,2,4.041,0,5.196l-0.526,0.304c-0.957,0.552-1.284,1.775-0.732,2.732  l1,1.732c0.552,0.957,1.775,1.284,2.732,0.732L8.5,23.794c2-1.155,4.5,0.289,4.5,2.598V27c0,1.105,0.895,2,2,2h2  c1.105,0,2-0.895,2-2v-0.608c0-2.309,2.5-3.753,4.5-2.598l0.526,0.304c0.957,0.552,2.18,0.225,2.732-0.732l1-1.732  c0.552-0.957,0.225-2.18-0.732-2.732L26.5,18.598c-2-1.155-2-4.041,0-5.196l0.526-0.304C27.983,12.546,28.311,11.323,27.758,10.366z " fill="none" id="XMLID_242_" stroke="var(--favColor)" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/></svg>
+		div(class="mx-2 h-9 w-9 rounded-full border-2 border-solid bg-[var(--dark100)] border-[var(--favColor)]" id="avatar")
+			img(src="")
 
-		ul(class="ml-2 h-9 p-1 rounded-full flex items-center justify-center bg-[var(--dark200)] border-[var(--favColor)]" id="favColorsUL")
-			li(data-color="var(--blue)"   class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--blue)]")
-			li(data-color="var(--sky)"    class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--sky)]")
-			li(data-color="var(--purple)" class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--purple)]")
-			li(data-color="var(--green)"  class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--green)]")
-			li(data-color="var(--yellow)" class="duration-200 hover:scale-95 scale-125 mx-2 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--yellow)]")
-			li(data-color="var(--pink)"   class="duration-200 hover:scale-95 cursor-pointer h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--pink)]")
 	//- Main App Fram
 	div(class="h-7 ml-5 flex items-center justify-center" style="-webkit-app-region: no-drag")
 		button(class="duration-150 hover:opacity-50 w-7 rounded-md h-7 mx-1 bg-yellow-400" id="minimize" )

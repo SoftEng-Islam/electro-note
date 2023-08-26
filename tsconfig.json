@@ -11,6 +11,7 @@
 		"isolatedModules": true,
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
+		"composite": true,
 		"lib": [
 			"esnext",
 			"dom"
@@ -19,15 +20,14 @@
 			"node"
 		]
 	},
+	"files": [
+		"./package.json"
+	],
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.d.ts",
 		"src/**/*.tsx",
-		"src/**/*.vue"
+		"src/**/*.vue",
+		"./vite.config.ts"
 	],
-	"references": [
-		{
-			"path": "./tsconfig.node.json"
-		}
-	]
 }

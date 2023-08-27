@@ -23,9 +23,6 @@ if (!app.requestSingleInstanceLock()) {
 	process.exit(0);
 }
 
-// Remove electron security warnings
-// This warning only shows in development mode
-// Read more on https://www.electronjs.org/docs/latest/tutorial/security
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 // Our Windows
@@ -34,7 +31,7 @@ let login: BrowserWindow | null = null;
 
 
 // Here, you can also use other preload
-const preload = join(__dirname, "../preload/index.js");
+// const preload = join(__dirname, "./preloader.js");
 const url: string | undefined = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const loginHtml = join(process.env.DIST, "login.html");
@@ -46,7 +43,7 @@ const loginHtml = join(process.env.DIST, "login.html");
 let trayMenu = Menu.buildFromTemplate([{ label: "Item 1" }, { role: "quit" }]);
 let tray;
 function createTray() {
-	tray = new Tray(join(process.env.DIST,"../public/logo.png"));
+	tray = new Tray(join(process.env.DIST!,"../public/logo.png"));
 	tray.setToolTip("ElectroNote");
 	tray.on("click", (e) => {
 		if (e.shiftKey) {
@@ -91,7 +88,7 @@ async function createWindow() {
 			// enableRemoteModule: true,
 			nodeIntegration: true,
 			contextIsolation: false,
-			preload,
+			preload: join(__dirname, "./preloader.js"),
 		},
 	});
 
@@ -107,7 +104,7 @@ async function createWindow() {
 		webPreferences: {
 			// nodeIntegration: true,
 			// contextIsolation: false,
-			// preload,
+			// preload: join(__dirname, "./preloader.js"),
 		},
 	});
 
@@ -200,7 +197,7 @@ app.on("activate", () => {
 ipcMain.handle("open-win", (_, arg) => {
 	const childWindow = new BrowserWindow({
 		webPreferences: {
-			preload,
+			preload: join(__dirname, "./preloader.js"),
 			nodeIntegration: true,
 			contextIsolation: false,
 		},

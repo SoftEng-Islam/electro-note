@@ -1,15 +1,17 @@
 <script lang="ts">
+import { ipcRenderer } from 'electron';
+
 export default {
 	name: "Header",
 	data() {
 		return {
-			LogoLink: "Https://www.google.com",
+			LogoLink: "https://www.google.com",
 		};
 	},
 	methods: {
 		closeBtn(){
 			console.log("ok");
-			window.Electron.ipcRenderer.send('closeApp'); // Working
+			ipcRenderer.send("closeApp")
 		}
 	}
 };

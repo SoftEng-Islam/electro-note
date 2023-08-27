@@ -1,6 +1,6 @@
 const { ipcRenderer } = require("electron");
 const ipc = ipcRenderer;
-console.log(ipcRenderer);
+// console.log(ipcRenderer);
 
 
 // close App

@@ -52,32 +52,13 @@ export default defineConfig(({ command }) => {
 					},
 				},
 				{
-					entry: "electron/preload/index.ts",
+					entry: "electron/main/preloader.ts",
 					onstart(options) {
-						// Notify the Renderer-Process to reload the page when the Preload-Scripts build is complete,
-						// instead of restarting the entire Electron App.
 						options.reload();
 					},
 					vite: {
 						build: {
-							sourcemap: sourcemap ? "inline" : undefined, // #332
-							minify: isBuild,
-							outDir: "dist-electron/preload",
-							rollupOptions: {
-								external: Object.keys(
-									"dependencies" in pkg
-										? pkg.dependencies
-										: {}
-								),
-							},
-						},
-					},
-				},
-				{
-					entry: "electron/main/functions.ts",
-					vite: {
-						build: {
-							sourcemap: sourcemap ? "inline" : undefined, // #332
+							sourcemap: sourcemap ? "inline" : undefined,
 							minify: isBuild,
 							outDir: "dist-electron/main",
 							rollupOptions: {
@@ -91,10 +72,10 @@ export default defineConfig(({ command }) => {
 					},
 				},
 				{
-					entry: "electron/main/menu.ts",
+					entry: ["electron/main/functions.ts","electron/main/menu.ts"],
 					vite: {
 						build: {
-							sourcemap: sourcemap ? "inline" : undefined, // #332
+							sourcemap: sourcemap ? "inline" : undefined,
 							minify: isBuild,
 							outDir: "dist-electron/main",
 							rollupOptions: {

@@ -1,5 +1,4 @@
 @tailwind base;
-
 @layer base {
 	h1 {
 		@apply text-4xl font-bold;
@@ -32,13 +31,15 @@
 		@apply outline-none;
 	}
 }
-
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
 
 
 
+
+
+/* Start Own CSS */
 @font-face {
 	font-family: JetBrains;
 	src: url(./fonts/ttf/JetBrainsMono-Regular.ttf);

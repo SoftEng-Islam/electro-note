@@ -1,5 +1,6 @@
 <script lang="ts">
 import { ipcRenderer } from 'electron';
+import { IndexType } from 'typescript';
 
 export default {
 	name: "Header",
@@ -14,16 +15,16 @@ export default {
 				"var(--pink)": "linear-gradient(90deg, #e00043 0%, #d1457f 35%, #fc7373 100%)",
 				"var(--purple)": "linear-gradient(90deg, #9001ce 0%, #9a44cc 35%, #c16bf3 100%)",
 				"var(--blue)": "linear-gradient(90deg, #125ce6 0%, #3a69c0 35%, #7c94ff 100%)",
-			}
+			},
+			LiColorActive: "var(--yellow)",
 		};
 	},
 	methods: {
-		changeAppColor(color: string) {
+		changeAppColor(color: any) {
+			this.LiColorActive = color;
 			this.rootElement.style.setProperty("--favColor", color);
-			// console.log(this.gradin[color]);
-			// this.rootElement.style.setProperty("--bgG", this.gradin[color]);
-			// favColorList[z].classList.remove("scale-125", "mx-2");
-			// favColorList[x].classList.add("scale-125", "mx-2");
+			// Error Typescript Element implicitly has an 'any' type because expression of type 'any' can't be used to index type
+			this.rootElement.style.setProperty("--bgG", this.gradin[color]);
 		},
 		closeBtn(){
 			ipcRenderer.send("closeApp")
@@ -51,13 +52,13 @@ header(class="border-[var(--dark200)] border-b w-full flex items-center p-2 sele
 
 
 	//- App Colors Theme
-	ul(class="ml-2 h-9 p-1 rounded-full flex items-center justify-center bg-[var(--dark200)] border-[var(--favColor)]")
-		li( @click="changeAppColor('var(--blue)')"  	class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--blue)]")
-		li( @click="changeAppColor('var(--sky)')"  		class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--sky)]")
-		li( @click="changeAppColor('var(--purple)')" 	class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--purple)]")
-		li( @click="changeAppColor('var(--green)')" 	class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--green)]")
-		li( @click="changeAppColor('var(--yellow)')" 	class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--yellow)] scale-125 mx-2")
-		li( @click="changeAppColor('var(--pink)')" 		class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--pink)]")
+	ul(class="ml-2 h-9 p-1 rounded-full flex items-center justify-center bg-[var(--dark200)] border-[var(--favColor)]" style="app-region: no-drag;")
+		li( @click="changeAppColor('var(--blue)')" 		:class="LiColorActive === 'var(--blue)' ? 'scale-125 mx-2': ''" class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--blue)]")
+		li( @click="changeAppColor('var(--sky)')" 		:class="LiColorActive === 'var(--sky)' ? 'scale-125 mx-2': ''" class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--sky)]")
+		li( @click="changeAppColor('var(--purple)')" 	:class="LiColorActive === 'var(--purple)' ? 'scale-125 mx-2': ''" class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--purple)]")
+		li( @click="changeAppColor('var(--green)')" 	:class="LiColorActive === 'var(--green)' ? 'scale-125 mx-2': ''" class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--green)]")
+		li( @click="changeAppColor('var(--yellow)')" 	:class="LiColorActive === 'var(--yellow)' ? 'scale-125 mx-2': ''" class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--yellow)]")
+		li( @click="changeAppColor('var(--pink)')" 		:class="LiColorActive === 'var(--pink)' ? 'scale-125 mx-2': ''" class="cursor-pointer duration-200 hover:scale-95 h-6 w-6 rounded-full m-1 border-2 border-solid border-white bg-[var(--pink)]")
 
 
 

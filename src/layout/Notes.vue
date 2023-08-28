@@ -30,7 +30,7 @@ export default {
 				event.preventDefault();
 				if (thatIsDown) {
 
-					thatNotesStyle = event.clientX + "px";
+					// thatNotesStyle = event.clientX + "px";
 				}
 			},true);
 		},

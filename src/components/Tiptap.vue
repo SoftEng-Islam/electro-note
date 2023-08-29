@@ -82,6 +82,8 @@ watch(
 	}
 );
 
+
+// Table
 const showTableOptions = ref(false);
 const showTable = ref(false);
 let tableRows = ref(10);

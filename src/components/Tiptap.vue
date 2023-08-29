@@ -13,7 +13,7 @@ import { Highlight } from "@tiptap/extension-highlight";
 import { useEditor } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorContent } from "@tiptap/vue-3";
-import { Ref, ref, watch } from "vue";
+import { ref, watch } from "vue";
 
 const props = defineProps({
 	modelValue: {
@@ -82,14 +82,13 @@ watch(
 	}
 );
 
-
 // new Table Here
 const showTableOptions = ref(false);
 const showTable = ref(false);
-let tableRows = ref(10);
-let tableCols = ref(10);
-let hoverdRows = ref(0);
-let hoverdCols = ref(0);
+const tableRows = 10;
+const tableCols = 10;
+let hoverdRows = ref();
+let hoverdCols = ref();
 
 function createtable(row: any, col: any) {
 	return editor.value
@@ -98,11 +97,7 @@ function createtable(row: any, col: any) {
 		.insertTable({ rows: row, cols: col, withHeaderRow: true })
 		.run();
 }
-function showCellsEffect(row: Ref<number>, col: Ref<number>) {
-	console.log(row, col);
-	hoverdRows = row;
-	hoverdCols = col;
-}
+
 </script>
 <template lang="pug">
 div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-5 flex flex-row flex-wrap gap-3 [&_button]:rounded-md [&>button>svg]:w-6 [&>button>svg]:fill-white " v-if="editor")
@@ -168,13 +163,24 @@ div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-
 	//- Tables
 	div(class="flex")
 		button( @mouseenter.prevent="showTable = true" @mouseleave.prevent="showTable = false" type="button" class="relative flex" )
-			<svg class="icon w-6 h-6 fill-white" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path fill="none" d="M0 0h24v24H0z"></path> <path d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path> </g> </svg>
-			table(v-show="showTable" class="absolute z-20 right-0 top-5 w-[250px]")
-				tbody(class="p-4")
-					thead()
-						th(class="w-full text-center") {{ hoverdRows }} x {{ hoverdCols }}
-					tr(v-for="row in tableRow" data-row="row" class="bg-[var(--dark400)]")
-						td(v-for="col in tableCols"  :class="col <= hoverdCols && row <= hoverdRows ? 'bg-red-500' : 'bg-red-900'" :data-cell-col="col" :data-cell-row="row" @mouseenter="showCellsEffect(row,col)" @click="createtable(row,col)" class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out")
+			<svg class="icon w-6 h-6 fill-white" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path fill="none" d="M0 0h24v24H0z"></path> <path d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></g></svg>
+			table(v-show="showTable" class="absolute z-20 right-0 top-5 w-[240px] bg-[var(--dark100)] rounded-xl shadow-lg shadow-[var(--dark300)]")
+				tbody(class="w-full flex flex-col items-center justify-center pb-3")
+					thead(class="w-full flex justify-center items-center py-2")
+						th(class="text-center bg-[var(--favColor)] px-2 rounded-md text-black duration-200") {{ hoverdRows || 0 }} x {{ hoverdCols || 0 }}
+					tr(
+						v-for="row in tableRows"
+						data-row="row"
+						class="bg-[var(--dark400)]"
+					)
+						td(
+							v-for="col in tableCols"
+							:class="col <= hoverdCols && row <= hoverdRows ? 'opacity-100' : 'opacity-25'"
+							:data-cell-col="col"
+							:data-cell-row="row"
+							@mouseover="hoverdRows = row; hoverdCols = col;"
+							@click="createtable(row,col)"
+							class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)]")
 
 		button(type="button" class="relative" @mouseenter.prevent.self="showTableOptions = true" @mouseleave.prevent.self="showTableOptions = false")
 			<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon w-6 h-6 fill-[var(--favColor)]"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"/></svg>

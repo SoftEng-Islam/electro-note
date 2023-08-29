@@ -12,8 +12,8 @@ import { Color } from "@tiptap/extension-color";
 import { Highlight } from "@tiptap/extension-highlight";
 import { useEditor } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
-import {EditorContent } from '@tiptap/vue-3';
-import { ref, watch } from 'vue'
+import { EditorContent } from "@tiptap/vue-3";
+import { ref, watch } from "vue";
 
 const props = defineProps({
 	modelValue: {
@@ -50,7 +50,8 @@ const editor = useEditor({
 							element.getAttribute("data-background-color"),
 						renderHTML: (attributes) => {
 							return {
-								"data-background-color": attributes.backgroundColor,
+								"data-background-color":
+									attributes.backgroundColor,
 								style: `background-color: ${attributes.backgroundColor}`,
 							};
 						},
@@ -70,7 +71,6 @@ const editor = useEditor({
 	},
 });
 
-
 watch(
 	() => props.modelValue,
 	(value) => {
@@ -81,7 +81,6 @@ watch(
 		editor.value?.commands.setContent(value, false);
 	}
 );
-
 
 const showTableOptions = ref(false);
 const showTable = ref(false);
@@ -96,13 +95,12 @@ function createtable(row: number, col: number) {
 		.focus()
 		.insertTable({ rows: row, cols: col, withHeaderRow: true })
 		.run();
-};
-function showCellsEffect(row: number, col: number){
-	console.log(row , col);
+}
+function showCellsEffect(row: number, col: number) {
+	console.log(row, col);
 	hoverdRows = row;
 	hoverdCols = col;
 }
-
 </script>
 <template lang="pug">
 div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-5 flex flex-row flex-wrap gap-3 [&_button]:rounded-md [&>button>svg]:w-6 [&>button>svg]:fill-white " v-if="editor")
@@ -209,7 +207,7 @@ perfect-scrollbar
 	outline: none;
 	padding: 5px;
 
-	>*+* {
+	> * + * {
 		margin-top: 0.75em;
 	}
 
@@ -279,7 +277,7 @@ perfect-scrollbar
 			box-sizing: border-box;
 			position: relative;
 
-			>* {
+			> * {
 				margin-bottom: 0;
 			}
 		}

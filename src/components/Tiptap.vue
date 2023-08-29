@@ -13,7 +13,7 @@ import { Highlight } from "@tiptap/extension-highlight";
 import { useEditor } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorContent } from "@tiptap/vue-3";
-import { ref, watch } from "vue";
+import { Ref, ref, watch } from "vue";
 
 const props = defineProps({
 	modelValue: {
@@ -84,19 +84,19 @@ watch(
 
 const showTableOptions = ref(false);
 const showTable = ref(false);
-let tableRows = 10;
-let tableCols = 10;
-let hoverdRows = 0;
-let hoverdCols = 0;
+let tableRows = ref(10);
+let tableCols = ref(10);
+let hoverdRows = ref(0);
+let hoverdCols = ref(0);
 
-function createtable(row: number, col: number) {
+function createtable(row: any, col: any) {
 	return editor.value
 		?.chain()
 		.focus()
 		.insertTable({ rows: row, cols: col, withHeaderRow: true })
 		.run();
 }
-function showCellsEffect(row: number, col: number) {
+function showCellsEffect(row: Ref<number>, col: Ref<number>) {
 	console.log(row, col);
 	hoverdRows = row;
 	hoverdCols = col;

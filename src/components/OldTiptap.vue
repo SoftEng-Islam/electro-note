@@ -4,6 +4,7 @@ import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
 import TableRow from "@tiptap/extension-table-row";
 import CharacterCount from "@tiptap/extension-character-count";
+// import Gapcursor from "@tiptap/extension-gapcursor";
 import toggleUnderline from "@tiptap/extension-underline";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
@@ -21,7 +22,10 @@ const props = defineProps({
 		default: "",
 	},
 });
+
 const emit = defineEmits(["update:modelValue"]);
+
+
 const limit: number = 2000;
 
 const editor = useEditor({
@@ -38,6 +42,7 @@ const editor = useEditor({
 		Color,
 		Highlight,
 		TextStyle,
+		// Gapcursor,
 		TableRow,
 		TableHeader,
 		TableCell.extend({
@@ -85,23 +90,93 @@ watch(
 
 const showTableOptions = ref(false);
 const showTable = ref(false);
-let tableRows = 10;
-let tableCols = 10;
-let hoverdRows = 0;
-let hoverdCols = 0;
 
-function createtable(row: number, col: number) {
+function createtable(x: number, y: number) {
 	return editor.value
 		?.chain()
 		.focus()
-		.insertTable({ rows: row, cols: col, withHeaderRow: true })
+		.insertTable({ rows: x, cols: y, withHeaderRow: true })
 		.run();
-};
-function showCellsEffect(row: number, col: number){
-	console.log(row , col);
-	hoverdRows = row;
-	hoverdCols = col;
 }
+const myTable: {
+	containerW: number;
+	containerH: number;
+	rowsBoxies: number;
+	colsBoxies: number;
+	gap: Number;
+	outline: String;
+	boxBorder: String;
+	boxBg: String;
+	boxHoverBg: String;
+	tableBoxies: string;
+	GenerateTable: Function;
+} = {
+	containerW: 200,
+	containerH: 200,
+	rowsBoxies: 10,
+	colsBoxies: 10,
+	gap: 2,
+	outline: "1px solid gray",
+	boxBorder: "1px solid red",
+	boxBg: "green",
+	boxHoverBg: "blue",
+	tableBoxies: "",
+	GenerateTable() {
+		const tbl = document.createElement("table");
+		tbl.classList.add(...["myTable"]);
+		tbl.setAttribute("id", "myTableId");
+		const tblBody = document.createElement("tbody");
+		for (let x = 1; x <= this.rowsBoxies; x++) {
+			const row = document.createElement("tr");
+			row.classList.add("_row");
+			for (let y = 1; y <= this.colsBoxies; y++) {
+				const cell = document.createElement("td");
+				// const cellText = document.createTextNode(`x${x}-y${y}`);
+				// cell.appendChild(cellText);
+				cell.classList.add(...["cell"]);
+				row.appendChild(cell);
+			}
+			tblBody.appendChild(row);
+		}
+		tbl.appendChild(tblBody);
+
+		return tbl;
+	},
+};
+let theTable: HTMLElement | null = myTable.GenerateTable();
+window.addEventListener("load", function () {
+	let _cell = document.querySelectorAll(".cell");
+	let _row = document.querySelectorAll("._row");
+	for (let x = 0; x <= _row.length; x++) {
+		for (let Y = 0; Y < _row[x].querySelectorAll(".cell").length; Y++) {
+			let selectCells = _row[x].querySelectorAll(".cell")[Y];
+
+			selectCells.addEventListener("click", function () {
+				createtable(x + 1, Y + 1);
+				console.log(`x: ${x + 1}`);
+				console.log(`Y: ${Y + 1}`);
+			});
+
+			// cols 4
+			selectCells.addEventListener("mouseenter", function () {
+				_cell.forEach(function (bgCe: any) {
+					bgCe.classList.remove("bg-[var(--favColor)]");
+					bgCe.classList.add("bg-[var(--dark400)]");
+				});
+
+				// console.log(`x: ${x}`);
+				// console.log(`Y: ${Y}`);
+				for (let a = 0; a <= x; a++) {
+					for (let s = 0; s <= Y; s++)
+						_row[a]
+							.querySelectorAll(".cell")
+						[s].classList.add("bg-[var(--favColor)]");
+				}
+			});
+		}
+	}
+})
+
 
 </script>
 <template lang="pug">
@@ -169,13 +244,9 @@ div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-
 	div(class="flex")
 		button( @mouseenter.prevent="showTable = true" @mouseleave.prevent="showTable = false" type="button" class="relative flex" )
 			<svg class="icon w-6 h-6 fill-white" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g><path fill="none" d="M0 0h24v24H0z"></path> <path d="M4 8h16V5H4v3zm10 11v-9h-4v9h4zm2 0h4v-9h-4v9zm-8 0v-9H4v9h4zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path> </g> </svg>
-			table(v-show="showTable" class="absolute z-20 right-0 top-5 w-[250px]")
-				tbody(class="p-4")
-					thead()
-						th(class="w-full text-center") {{ hoverdRows }} x {{ hoverdCols }}
-					tr(v-for="row in tableRow" data-row="row" class="bg-[var(--dark400)]")
-						td(v-for="col in tableCols"  :class="col <= hoverdCols && row <= hoverdRows ? 'bg-red-500' : 'bg-red-900'" :data-cell-col="col" :data-cell-row="row" @mouseenter="showCellsEffect(row,col)" @click="createtable(row,col)" class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out")
-
+			div(v-show="showTable" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-0 top-5 w-[250px] flex flex-col items-center justify-center")
+				span(class="px-3 mb-2 rounded-3xl text-black text-center bg-[var(--favColor)]") 1 x 1
+				div( class="" v-html="theTable?.outerHTML")
 		button(type="button" class="relative" @mouseenter.prevent.self="showTableOptions = true" @mouseleave.prevent.self="showTableOptions = false")
 			<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon w-6 h-6 fill-[var(--favColor)]"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"/></svg>
 			div( v-show="showTableOptions" class="p-4 bg-[var(--dark200)] rounded-xl overflow-hidden absolute z-20 right-0 top-5 w-[250px] flex flex-col items-center justify-center [&_button]:mx-2")
@@ -204,6 +275,23 @@ perfect-scrollbar
 </template>
 
 <style lang="scss">
+.myTable {
+	@apply rounded-lg overflow-hidden;
+}
+
+.myTable tbody {
+	@apply p-4;
+}
+
+.myTable tbody tr {
+	@apply bg-[var(--dark400)];
+}
+
+.myTable tbody tr td.cell {
+	@apply w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out;
+}
+
+/* Basic editor styles */
 .ProseMirror {
 	margin: 1rem 0;
 	outline: none;

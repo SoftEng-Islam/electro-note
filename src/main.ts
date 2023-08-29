@@ -12,7 +12,7 @@ import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css';
 
 
 import { ElContainer, ElHeader, ElMain, ElFooter, ElButton } from "element-plus";
-import ElementTiptap from "element-plus";
+// import ElementTiptap from "element-plus";
 
 
 createApp(App)
@@ -22,7 +22,7 @@ createApp(App)
 	.use(ElMain)
 	.use(ElFooter)
 	.use(ElButton)
-	.use(ElementTiptap)
+	// .use(ElementTiptap)
 	.use(router)
 	.use(PerfectScrollbar)
 	.mount("#app")

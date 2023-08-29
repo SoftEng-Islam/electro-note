@@ -10,7 +10,7 @@ export default {
 			theResult: "",
 			show: "hidden",
 			isDown: true,
-			notesStyle: ''
+			notesStyle: <string | number | null> '',
 		};
 	},
 	methods: {
@@ -26,13 +26,7 @@ export default {
 		},
 		closeOrResizeD() {
 			let thatIsDown = this.isDown;
-			window.addEventListener( "mousemove", function (event) {
-				event.preventDefault();
-				if (thatIsDown) {
-
-					thatNotesStyle = event.clientX + "px";
-				}
-			},true);
+			// this.notesStyle = window.addEventListener("mousemove", (event): string => thatIsDown ? (event.clientX + "px").toString() : '');
 		},
 		closeOrResizeU() {
 			this.isDown = false;

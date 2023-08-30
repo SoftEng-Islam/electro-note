@@ -102,7 +102,7 @@ const RangeOfColors = [100,200,300,400,500,600,700,800,900,950];
 function addColor(color: string) {
 	console.log(color);
 	// return editor.value?.chain().focus().setColor(color).run();
-	return editor.value?.chain().focus().wrapIn(color, 'class').run();
+	// return editor.value?.chain().focus().wrapIn(color, class).run();
 }
 
 

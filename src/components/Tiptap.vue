@@ -82,21 +82,31 @@ watch(
 	}
 );
 
-// new Table Here
+// Create Data Table
 const showTableOptions = ref(false);
 const showTable = ref(false);
 const tableRows = 10;
 const tableCols = 10;
 let hoverdRows = ref();
 let hoverdCols = ref();
-
 function createtable(row: any, col: any) {
-	return editor.value
-		?.chain()
-		.focus()
-		.insertTable({ rows: row, cols: col, withHeaderRow: true })
-		.run();
+	return editor.value?.chain().focus().insertTable({ rows: row, cols: col, withHeaderRow: true }) .run();
 }
+
+// Add Color To Text
+const showColorsTable = ref(false);
+const showColors = ref(false);
+let hoverdColor = ref("white");
+const NameOfColors = ["gray","yellow","green","cyan","blue","purple","fuchsia","pink"];
+const RangeOfColors = [100,200,300,400,500,600,700,800,900,950];
+function addColor(color: string) {
+	console.log(color);
+	// return editor.value?.chain().focus().setColor(color).run();
+	return editor.value?.chain().focus().wrapIn(color, 'class').run();
+}
+
+
+
 
 </script>
 <template lang="pug">
@@ -148,8 +158,27 @@ div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-
 
 
 	//- Color
-	button( :class="{ 'is-active': editor.isActive('textStyle', { color: '#958DF1' })}" @click="editor.chain().focus().setColor('#958DF1').run()" )
+	button(@mouseenter.prevent="showColors = true" @mouseleave.prevent="showColors = false" :class="{ 'is-active': editor.isActive('textStyle', { color: '#958DF1' })}" )
 		<svg aria-hidden="true" width="11" height="16" viewBox="0 0 352 512" focusable="false" class="fa-icon"><g><path d="M205.2 22.1c47 158.5 146.8 200.1 146.8 311.8 0 98.4-78.7 178.1-176 178.1s-176-79.7-176-178.1c0-111.2 100-154.1 146.8-311.8 9-30.1 50.5-28.8 58.4 0zM176 448c8.8 0 16-7.2 16-16s-7.2-16-16-16c-44.1 0-80-35.9-80-80 0-8.8-7.2-16-16-16s-16 7.2-16 16c0 61.8 50.3 112 112 112z"></path></g></svg>
+		//- v-show="showColorsTable"
+		table( class="absolute z-20 right-0 top-5 w-[240px] bg-[var(--dark100)] rounded-xl shadow-lg shadow-[var(--dark300)]")
+				tbody(class="w-full flex flex-col items-center justify-center pb-3")
+					thead(class="w-full flex justify-center items-center py-2")
+						th(class="text-center bg-[var(--dark200)] px-2 rounded-md text-black duration-200" :class="`text-${hoverdColor}`") {{ hoverdColor || 'Text Color' }}
+					tr(
+						v-for="rowColor in NameOfColors"
+						:data-row="rowColor"
+						class="bg-[var(--dark400)]"
+					)
+						td(
+							class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)]"
+							v-for="color in RangeOfColors"
+							:class="`bg-${rowColor}-${color}`"
+							@mouseover="hoverdColor = `${rowColor}-${color}`"
+							@click="addColor(`text-${rowColor}-${color}`)"
+						)
+					tfoot(class="w-full flex justify-center items-center py-2")
+						th(class="text-center bg-white px-2 rounded-md text-black duration-200" :class="`text-${hoverdColor}`") {{ hoverdColor || 'Text Color' }}
 
 	//- Highlight
 	button(class="bg-gray-500" :class="{ 'is-active': editor.isActive('highlight', { color: '#ffc078' })}" @click="editor.chain().focus().toggleHighlight({ color: '#ffc078' }).run()")
@@ -174,13 +203,14 @@ div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-
 						class="bg-[var(--dark400)]"
 					)
 						td(
+							class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)]"
 							v-for="col in tableCols"
 							:class="col <= hoverdCols && row <= hoverdRows ? 'opacity-100' : 'opacity-25'"
 							:data-cell-col="col"
 							:data-cell-row="row"
 							@mouseover="hoverdRows = row; hoverdCols = col;"
 							@click="createtable(row,col)"
-							class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)]")
+						)
 
 		button(type="button" class="relative" @mouseenter.prevent.self="showTableOptions = true" @mouseleave.prevent.self="showTableOptions = false")
 			<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon w-6 h-6 fill-[var(--favColor)]"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"/></svg>

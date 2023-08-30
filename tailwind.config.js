@@ -8,10 +8,10 @@ export default {
 
 	safelist: [
 		{
-			pattern: /bg-(gray|yellow|green|cyan|blue|purple|fuchsia|pink)-(200|300|400|500|600|700|800|900)/,
+			pattern: /bg-(gray|yellow|green|cyan|blue|purple|fuchsia|pink)-(100|200|300|400|500|600|700|800|900|950)/,
 		},
 		{
-			pattern: /text-(gray|yellow|green|cyan|blue|purple|fuchsia|pink)-(200|300|400|500|600|700|800|900)/,
+			pattern: /text-(gray|yellow|green|cyan|blue|purple|fuchsia|pink)-(100|200|300|400|500|600|700|800|900|950)/,
 		},
 		{
 			pattern: /grid-cols-.+/,

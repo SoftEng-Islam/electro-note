@@ -14,41 +14,6 @@ import { useEditor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import { ref, watch } from "vue";
 
-
-
-import {updateMark} from 'tiptap-commands'
-
-export default class FontFamily extends Mark {
-	get name() {
-		return 'font_family'
-	}
-
-	get schema() {
-		return {
-		attrs: {
-			font_family: {
-			default: '',
-			},
-		},
-		content: 'inline*',
-		group: 'block',
-		draggable: false,
-		parseDOM: [{
-			style: 'font-family',
-			getAttrs: mark => ({font_family: mark})
-		}],
-		toDOM: mark => ['span', {style: `font-family: ${mark.attrs.font_family}`}, 0],
-		}
-	}
-	commands({type}) {
-		return (attrs) => updateMark(type, attrs)
-	}
-}
-
-
-
-
-
 const props = defineProps({
 	modelValue: {
 		type: String,
@@ -135,11 +100,9 @@ const NameOfColors = ["gray","yellow","green","cyan","blue","purple","fuchsia","
 const RangeOfColors = [100,200,300,400,500,600,700,800,900,950];
 function addColor(color: string) {
 	console.log(color);
-	return editor.value?.chain().focus().setColor('#fff').run();
-	// return editor.value?.chain().focus().wrapIn('span', {class:"color"}).run();
-	//  editor.value?.commands.toggleWrap('heading', { level: 1 });
+	// return editor.value?.chain().focus().setColor('#fff').run();
+	return editor.value?.commands.toggleWrap('heading', { class: 'dsf' });
 }
-
 
 </script>
 <template lang="pug">

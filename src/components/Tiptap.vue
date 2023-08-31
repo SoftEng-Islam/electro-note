@@ -95,9 +95,10 @@ function createtable(row: any, col: any) {
 // Add Color To Text
 const showColorsTable = ref(false);
 const showColors = ref(false);
-let hoverdColor = ref("");
 const NameOfColors = ["gray","yellow","green","cyan","blue","purple","fuchsia","pink"];
 const RangeOfColors = [100,200,300,400,500,600,700,800,900,950];
+
+let hoverdColor = ref("");
 function addColor(color: string) {
 	return editor.value?.chain().focus().setColor('#fff').run();
 }

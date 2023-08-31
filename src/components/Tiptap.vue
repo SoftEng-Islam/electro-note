@@ -99,7 +99,7 @@ let hoverdColor = ref("white");
 const NameOfColors = ["gray","yellow","green","cyan","blue","purple","fuchsia","pink"];
 const RangeOfColors = [100,200,300,400,500,600,700,800,900,950];
 function addColor(color: string) {
-	console.log(color);
+	// console.log(color);
 	// return editor.value?.chain().focus().setColor('#fff').run();
 	return editor.value?.commands.toggleWrap('heading', { class: 'dsf' });
 }

@@ -10,9 +10,33 @@ import Superscript from "@tiptap/extension-superscript";
 import TextStyle from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
 import { Highlight } from "@tiptap/extension-highlight";
-import { useEditor, EditorContent } from "@tiptap/vue-3";
+import { useEditor, EditorContent, Extension } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import { ref, watch } from "vue";
+
+
+import Paragraph from '@tiptap/extension-paragraph'
+
+const CustomParagraph = Paragraph.extend({
+	draggable: true,
+	addAttributes() {
+		return {
+			color: {
+				default: 'pink',
+			}
+		}
+	}
+})
+
+
+const SetColorClass = Extension.create({
+	name: "setColorClass",
+	// add
+
+})
+
+
+
 
 const props = defineProps({
 	modelValue: {
@@ -173,7 +197,7 @@ div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-
 						class="bg-[var(--dark400)]"
 					)
 						td(
-							class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)]"
+							class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)] hover:scale-125"
 							v-for="color in RangeOfColors"
 							:class="`bg-${rowColor}-${color}`"
 							@mouseover="hoverdColor = `${rowColor}-${color}`"

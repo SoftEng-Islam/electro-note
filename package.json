@@ -106,6 +106,7 @@
 		"vue3-perfect-scrollbar": "^1.6.1"
 	},
 	"dependencies": {
+		"@databases/sql": "^3.3.0",
 		"@electron/rebuild": "^3.3.0",
 		"electron": "^25.0.1",
 		"rollup": "^2.70.1",

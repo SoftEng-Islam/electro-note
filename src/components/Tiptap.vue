@@ -94,9 +94,7 @@ const editor = useEditor({
 	},
 });
 
-watch(
-	() => props.modelValue,
-	(value) => {
+watch(() => props.modelValue, (value) => {
 		const isSame = editor.value?.getHTML() === value;
 		if (isSame) {
 			return;
@@ -121,7 +119,6 @@ const showColorsTable = ref(false);
 const showColors = ref(false);
 const NameOfColors = ["gray","yellow","green","cyan","blue","purple","fuchsia","pink"];
 const RangeOfColors = [100,200,300,400,500,600,700,800,900,950];
-
 let hoverdColor = ref("");
 function addColor(color: string) {
 	return editor.value?.chain().focus().setColor('#fff').run();

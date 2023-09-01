@@ -1,6 +1,8 @@
 <script lang="ts">
 import { KeyboardInputEvent } from 'electron';
 import sql from '@databases/sql';
+// db.query(sql`SELECT * FROM users;`);
+
 export default {
 	data() {
 		return {

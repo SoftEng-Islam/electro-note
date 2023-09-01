@@ -14,8 +14,12 @@ import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css';
 import { ElContainer, ElHeader, ElMain, ElFooter, ElButton } from "element-plus";
 // import ElementTiptap from "element-plus";
 
+// @databases & sql
+import sql from '@databases/sql';
+
 
 createApp(App)
+	.use(sql)
 	.use(createPinia())
 	.use(ElContainer)
 	.use(ElHeader)

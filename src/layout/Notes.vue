@@ -1,6 +1,6 @@
 <script lang="ts">
 import { KeyboardInputEvent } from 'electron';
-
+import sql from '@databases/sql';
 export default {
 	data() {
 		return {

@@ -19,7 +19,6 @@ import sql from '@databases/sql';
 
 
 createApp(App)
-	.use(sql)
 	.use(createPinia())
 	.use(ElContainer)
 	.use(ElHeader)

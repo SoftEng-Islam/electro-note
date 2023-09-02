@@ -186,8 +186,8 @@ div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-
 		table(show="showColorsTable" class="absolute z-20 right-0 top-5 w-[240px] bg-[var(--dark100)] rounded-xl shadow-lg shadow-[var(--dark300)]")
 				tbody(class="w-full flex flex-col items-center justify-center pb-3")
 					thead(class="w-full flex justify-center items-center gap-x-2 py-2")
-						th(class="text-sm text-center px-2 rounded-md duration-200 bg-[var(--dark200)] text-white" :class="`text-${hoverdColor}`") {{ hoverdColor || 'Text' }}
-						th(class="text-sm text-center px-2 rounded-md duration-200 bg-white text-black" :class="`text-${hoverdColor}`") {{ hoverdColor || 'Text' }}
+						th(class="darkth text-sm text-center py-1 px-2 rounded-md duration-200 bg-[var(--dark400)]" :class="`text-${hoverdColor}`") {{ hoverdColor || 'Text' }}
+						th(class="lighth text-sm text-center py-1 px-2 rounded-md duration-200 bg-white" :class="`text-${hoverdColor}`") {{ hoverdColor || 'Text' }}
 					tr(
 						v-for="rowColor in NameOfColors"
 						:data-row="rowColor"

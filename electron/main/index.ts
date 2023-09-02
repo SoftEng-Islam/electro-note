@@ -23,7 +23,7 @@ if (!app.requestSingleInstanceLock()) {
 	process.exit(0);
 }
 
-// process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'false'
 
 // Our Windows
 let win: BrowserWindow | null = null;
@@ -137,12 +137,10 @@ async function createWindow() {
 	ipc.on("closeApp", () => {
 		win!.close();
 	});
-
 	// minimizeApp
 	ipc.on("minimizeApp", () => {
 		win!.minimize();
 	});
-
 	// maximizeApp
 	ipc.on("maximizeApp", () => {
 		if (win!.isMaximized()) {
@@ -209,17 +207,45 @@ ipcMain.handle("open-win", (_, arg) => {
 	}
 });
 
+
+
+console.log('databases');
 // $$$$$$$$$$$$$$$$$$
 // $$$$ Database $$$$
 // $$$$$$$$$$$$$$$$$$
 
+
+// import connect, {sql} from '@databases/sqlite';
+// const db = connect();
+// db.query(sql`SELECT * FROM users;`).then(
+//   (results) => console.log(results),
+//   (err) => console.error(err),
+// );
+
+
+
+
 const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
-const filepath = "./fish.db";
+const filepath = "./dbs/Data.sqlite3";
+
+
+function createTable(db) {
+	db.exec(`
+	CREATE TABLE sharks
+	(
+		ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		name   VARCHAR(50) NOT NULL,
+		color   VARCHAR(50) NOT NULL,
+		weight INTEGER NOT NULL
+	);
+`);
+}
 
 function createDbConnection() {
 	if (fs.existsSync(filepath)) {
 		return new sqlite3.Database(filepath);
+		console.log('return new sqlite3.Database(filepath);');
 	} else {
 		const db = new sqlite3.Database(filepath, (error) => {
 			if (error) {
@@ -233,17 +259,7 @@ function createDbConnection() {
 }
 
 // createDbConnection();
-function createTable(db) {
-	db.exec(`
-	CREATE TABLE sharks
-	(
-		ID INTEGER PRIMARY KEY AUTOINCREMENT,
-		name   VARCHAR(50) NOT NULL,
-		color   VARCHAR(50) NOT NULL,
-		weight INTEGER NOT NULL
-	);
-`);
-}
+
 // createTable(createDbConnection());
 
 function insertRow($name, $color, $weight) {
@@ -261,7 +277,12 @@ function insertRow($name, $color, $weight) {
 	);
 }
 
-// insertRow("Islam", "red", "2000");
+
+ipc.on("createNote", (event, Argument) => {
+	console.log('Islam Arguments');
+	console.log(...Argument);
+	// insertRow("Islam", "red", "2000");
+});
 
 function selectRows() {
 	createDbConnection().each(`SELECT * FROM sharks`, (error, row) => {

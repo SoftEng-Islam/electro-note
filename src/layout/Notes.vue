@@ -1,7 +1,6 @@
 <script lang="ts">
 import { KeyboardInputEvent } from 'electron';
-import sql from '@databases/sql';
-// db.query(sql`SELECT * FROM users;`);
+import { ipcRenderer } from 'electron';
 
 export default {
 	data() {
@@ -13,6 +12,8 @@ export default {
 			show: "hidden",
 			isDown: true,
 			notesStyle: <string | number | null> '',
+			notePlaceholder: 'Create Note',
+
 		};
 	},
 	methods: {
@@ -20,8 +21,10 @@ export default {
 			this.theResult = event.target.value
 		},
 		createNote() {
+			console.log(this.enteredValue)
 			this.notes.push(this.enteredValue);
-			// this.enteredValue = 'empty';
+			this.enteredValue = '';
+			ipcRenderer.send("createNote", "new note");
 		},
 		returnNotes() {
 			return this.NotesList;
@@ -67,10 +70,10 @@ div(class="duration-200 z-10 relative h-full bg-[var(--dark400)]  p-3 w-1/5 bord
 		div(:style="{'width': notesStyle}" class="w-full pt-7 p-3 border-t border-solid border-[var(--dark100)]")
 			ul(class="w-full")
 				li(v-for="note in notes" class="duration-150 cursor-pointer hover:bg-[var(--dark200)] p-2 pl-4 my-5 rounded-xl text-[var(--favColor)] bg-[var(--dark300)]") {{ note || "New Note" }}
-		//- add Notes
-		div(class="select-none mt-auto p-1 px-4 gap-2 overflow-hidden min-h-12 flex flex-wrap items-center justify-center rounded-xl  hover:scale-95 hover:cursor-pointer duration-300" style="background-color: var(--dark300);")
-			span(class="text-5xl  text-green-500") +
-			button(v-on:click="createNote" type="button" class="text-white outline-none m-0 p-0") Create NoteBook
+		//- Create Note
+		div(class="select-none mt-auto p-1 px-4 gap-2 overflow-hidden min-h-12 flex flex-wrap items-center justify-center rounded-xl  hover:scale-95 hover:cursor-pointer duration-300 bg-[var(--dark300)]")
+			input(class="bg-[var(--dark200)] w-[90%]" type="text" v-model="enteredValue" :placeholder="notePlaceholder" @focus="notePlaceholder = ''" @focusout="notePlaceholder = 'Create Note'")
+			button(v-on:click="createNote" type="button" class="text-5xl text-green-500 outline-none m-0 p-0") +
 		//- Close
 	button(type="button" @mousedown="closeOrResizeD" @mouseup="closeOrResizeU" class="hover:shadow-lg hover:shadow-[var(--favColor)] hover:cursor-pointer w-8 h-8 rounded-full bg-[var(--dark300)] text-[var(--favColor)] border-2 border-solid border-[var(--favColor)] absolute top-1/2 right-[-1rem] translate-y-[-50%]")
 		<svg xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-left"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>

@@ -72,9 +72,10 @@ div(class="duration-200 z-10 relative h-full bg-[var(--dark400)]  p-3 w-1/5 bord
 				li(v-for="note in notes" class="duration-150 cursor-pointer hover:bg-[var(--dark200)] p-2 pl-4 my-5 rounded-xl text-[var(--favColor)] bg-[var(--dark300)]") {{ note || "New Note" }}
 		//- Create Note
 		div(class="mt-auto overflow-hidden flex gap-2 flex-row  items-center justify-center duration-300")
-			input(class="bg-[var(--dark200)] w-[85%] text-white rounded-full" type="text" v-model="enteredValue" :placeholder="notePlaceholder" @focus="notePlaceholder = ''" @focusout="notePlaceholder = 'Create Note'")
-			button(v-on:click="createNote" type="button" class="w-10 h-10 m-0 p-0 text-5xl flex items-center justify-center rounded-full select-none outline-none hover:scale-95 bg-[var(--dark200)]  text-green-500") +
-		//- Close
+			input(class="w-[85%] rounded-xl placeholder:text-gray-400 bg-[var(--dark200)] text-white" type="text" v-model="enteredValue" :placeholder="notePlaceholder" @focus="notePlaceholder = ''" @focusout="notePlaceholder = 'Create Note'")
+			button(v-on:click="createNote" type="button" class="w-10 h-10 m-0 p-0 text-5xl flex items-center justify-center rounded-full select-none outline-none hover:scale-95 bg-green-500")
+				<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-full fill-[var(--dark300)]"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z"/></svg>
+	//- Close
 	button(type="button" @mousedown="closeOrResizeD" @mouseup="closeOrResizeU" class="hover:shadow-lg hover:shadow-[var(--favColor)] hover:cursor-pointer w-8 h-8 rounded-full bg-[var(--dark300)] text-[var(--favColor)] border-2 border-solid border-[var(--favColor)] absolute top-1/2 right-[-1rem] translate-y-[-50%]")
-		<svg xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-left"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
+		<svg xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="11 17 6 12 11 7"></polyline><polyline points="18 17 13 12 18 7"></polyline></svg>
 </template>

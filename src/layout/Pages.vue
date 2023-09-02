@@ -50,7 +50,7 @@ div(class="z-0 relative h-full bg-[var(--dark300)] flex flex-col items-center p-
 			li(v-for="page in pages" class="my-5 p-2 pl-4 rounded-xl text-[var(--favColor)] bg-[var(--dark400)]") {{ page || "New Page" }}
 	//- Add Note Pages
 	div(class="mt-auto overflow-hidden flex gap-2 flex-row  items-center justify-center duration-300")
-		input(class="w-[85%] rounded-xl placeholder:text-gray-400 bg-[var(--dark200)] text-white" type="text" v-model="enteredValue" :placeholder="pagePlaceholder" @focus="pagePlaceholder = ''" @focusout="pagePlaceholder = 'Create Note'")
+		input(class="w-[85%] rounded-xl placeholder:text-gray-400 bg-[var(--dark200)] text-white" type="text" v-model="enteredValue" :placeholder="pagePlaceholder" @focus="pagePlaceholder = ''" @focusout="pagePlaceholder = 'Add Page'")
 		button(v-on:click="createPage" type="button" class="w-10 h-10 m-0 p-0 text-5xl flex items-center justify-center rounded-full select-none outline-none hover:scale-95 bg-green-500")
 			<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-full fill-[var(--dark300)]"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z"/></svg>
 	//- Close

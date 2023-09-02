@@ -31,9 +31,9 @@ div(class="relative flex flex-col items-center w-4/6 h-[90%] mb-10 mx-5")
 				button(type="button" class="flex items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
 					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="scale-125"><path fill="var(--pink)" d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 10.5858L14.8284 7.75736L16.2426 9.17157L13.4142 12L16.2426 14.8284L14.8284 16.2426L12 13.4142L9.17157 16.2426L7.75736 14.8284L10.5858 12L7.75736 9.17157L9.17157 7.75736L12 10.5858Z"/></svg>
 			//- Add New Page
-			li(class="w-8 h-8 flex items-center justify-center")
-				button(type="button" class="w-8 h-8 duration-150 hover:scale-90 bg-[var(--dark100)] rounded-full")
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path class="fill-[var(--favColor)]" d="M50.67,29.33h-16v-16a2.67,2.67,0,0,0-5.34,0v16h-16a2.67,2.67,0,0,0,0,5.34h16v16a2.67,2.67,0,0,0,5.34,0v-16h16a2.67,2.67,0,0,0,0-5.34Z"/></svg>
+			//- li(class="mb-2 w-8 h-8 flex items-center justify-center")
+			//- 	button(type="button" class="w-7 h-7 duration-150 hover:scale-90 bg-[var(--dark100)] rounded-full")
+			//- 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-full" ><path class="fill-[var(--favColor)]" d="M50.67,29.33h-16v-16a2.67,2.67,0,0,0-5.34,0v16h-16a2.67,2.67,0,0,0,0,5.34h16v16a2.67,2.67,0,0,0,5.34,0v-16h16a2.67,2.67,0,0,0,0-5.34Z"/></svg>
 
 		//- Next & Prev
 		//- div(class="")

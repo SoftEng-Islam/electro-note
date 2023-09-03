@@ -88,12 +88,12 @@ header(class="border-[var(--dark200)] border-b w-full flex items-center p-2 sele
 </template>
 <style scoped lang="scss">
 .toggleMode {
-	@apply h-8 w-20 mx-3 flex flex-row items-center justify-center bg-[var(--dark100)] rounded-full;
+	@apply h-8 w-20 px-1 mx-3 flex flex-row items-center justify-center bg-[var(--dark100)] rounded-full;
 	input {
 		@apply w-0 h-0;
 		visibility: hidden;
 		&:checked + label {
-			@apply bg-[#242424];
+			@apply bg-[var(--dark100)];
 		}
 		&:checked + label:after {
 			@apply left-full;

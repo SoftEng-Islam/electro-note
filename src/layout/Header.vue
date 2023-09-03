@@ -106,21 +106,15 @@ header(class="border-[var(--dark200)] border-b w-full flex items-center p-2 sele
 			background: linear-gradient(180deg,#777,#3a3a3a);
 		}
 		&:active:after{
-			width: 130px;
+			@apply w-7;
 		}
 		&:checked + label svg.sun {
-			fill:#7e7e7e;
+			@apply fill-[#7e7e7e]
 		}
 		&:checked + label svg.moon {
-			fill:#fff;
+			@apply fill-white;
 		}
 	}
-
-
-
-
-
-
 
 
 	label {
@@ -132,23 +126,15 @@ header(class="border-[var(--dark200)] border-b w-full flex items-center p-2 sele
 			background: linear-gradient(180deg,#ffcc89,#d8860b);
 			box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
 		}
-		label svg {
-		position: absolute;
-		width: 60px;
-		top:20px;
-		z-index: 100;
+		& svg {
+			@apply absolute w-7 top-5 z-10;
+		}
+		& svg.sun {
+			@apply left-5 fill-white duration-300;
+		}
+		& svg.moon {
+			@apply  left-5 fill-[#7e7e7e] duration-300;
+		}
 	}
-	label svg.sun {
-		left:20px;
-		fill:#fff;
-		transition: 0.3s;
-	}
-	label svg.moon {
-		left:170px;
-		fill:#7e7e7e;
-		transition: 0.3s;
-	}
-	}
-
 }
 </style>

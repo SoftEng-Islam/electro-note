@@ -90,23 +90,17 @@ header(class="border-[var(--dark200)] border-b w-full flex items-center p-2 sele
 </template>
 <style scoped lang="scss">
 .toggleMode {
-	@apply h-8 w-16 mx-3 flex flex-col items-center justify-center;
-
-
-
+	@apply h-8 w-16 mx-3 flex items-center justify-center overflow-hidden;
 	input {
-		@apply w-0 h-0 hidden;
-		// visibility: hidden;
+		@apply w-0 h-0;
+		visibility: hidden;
 		&:checked + label {
 			@apply bg-[#242424];
 		}
 		&:checked + label:after {
-			left:100px;
+			@apply left-16;
 			transform: translateX(-100%);
 			background: linear-gradient(180deg,#777,#3a3a3a);
-		}
-		&:active:after{
-			@apply w-7;
 		}
 		&:checked + label svg.sun {
 			@apply fill-[#7e7e7e]
@@ -116,24 +110,26 @@ header(class="border-[var(--dark200)] border-b w-full flex items-center p-2 sele
 		}
 	}
 
-
 	label {
 		@apply w-16 h-8 relative block bg-[#ebebeb] rounded-full cursor-pointer duration-300;
 		box-shadow: inset 0px 5px 15px rgba(0,0,0,0.4), inset 0px -5px 15px rgba(255,255,255,0.4);
 		&:after {
 			content: "";
-			@apply w-7 h-7 absolute top-6 left-6 rounded-full duration-300;
+			@apply w-7 h-7 absolute top-0 left-0 rounded-full duration-300;
 			background: linear-gradient(180deg,#ffcc89,#d8860b);
 			box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
 		}
 		& svg {
-			@apply absolute w-7 top-5 z-10;
+			@apply absolute w-8 top-0 z-10;
 		}
 		& svg.sun {
-			@apply left-5 fill-white duration-300;
+			@apply left-0 fill-white duration-300;
 		}
 		& svg.moon {
-			@apply  left-5 fill-[#7e7e7e] duration-300;
+			@apply  left-16 fill-[#7e7e7e] duration-300;
+		}
+		&:active:after{
+			@apply w-10;
 		}
 	}
 }

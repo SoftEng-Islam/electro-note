@@ -19,6 +19,7 @@
 		}
 	},
 	"scripts": {
+		"postinstall": "install-app-deps",
 		"dev": "vite",
 		"build": "vue-tsc --noEmit && vite build && electron-builder",
 		"preview": "vite preview"
@@ -79,7 +80,7 @@
 		"bcrypt": "^5.1.0",
 		"codemirror": "^6.0.1",
 		"css-loader": "^6.8.1",
-		"electron-builder": "^24.4.0",
+		"electron-builder": "^24.6.3",
 		"electron-window-state": "^5.0.3",
 		"element-plus": "^2.3.9",
 		"lowlight": "^2.9.0",

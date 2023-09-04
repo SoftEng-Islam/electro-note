@@ -232,7 +232,7 @@ const filepath = "./dbs/Data.sqlite3";
 
 function createTable(db) {
 	db.exec(`
-	CREATE TABLE sharks
+	CREATE TABLE Notes
 	(
 		ID INTEGER PRIMARY KEY AUTOINCREMENT,
 		name   VARCHAR(50) NOT NULL,
@@ -257,48 +257,43 @@ function createDbConnection() {
 		return db;
 	}
 }
-
-// createDbConnection();
+createDbConnection();
 
 // createTable(createDbConnection());
-
-function insertRow($name, $color, $weight) {
-	const [name = $name, color = $color, weight = $weight] =
-		process.argv.slice(2);
+function insertRow($NoteName: string, $Color: string) {
+	const [noteName = $NoteName, color = $Color] = process.argv.slice(2);
 	createDbConnection().run(
-		`INSERT INTO sharks (name, color, weight) VALUES (?, ?, ?)`,
-		[name, color, weight],
+		`INSERT INTO Notes (NoteName, Color) VALUES (?, ?)`,
+		[noteName, color],
 		function (error) {
-			if (error) {
-				console.error(error.message);
-			}
+			if (error) {console.error(error.message);}
 			console.log(`Inserted a row with the ID: ${this.lastID}`);
 		}
 	);
 }
 
-
 ipc.on("createNote", (_event, Argument) => {
-	console.log(Argument);
-	const Arg = Argument;
-	insertRow("arg", "red", "2000");
+	// console.log(Argument);
+	// const Arg = Argument;
+	insertRow("any", "red", "2000");
 });
 
+
+
 function selectRows() {
-	createDbConnection().each(`SELECT * FROM sharks`, (error, row) => {
+	createDbConnection().each(`SELECT * FROM Notes`, (error, row) => {
 		if (error) {
 			throw new Error(error.message);
 		}
 		console.log(row);
 	});
 }
-
 selectRows();
 
 function updateRow($id, $name, $color) {
 	let [id, name, color] = process.argv.slice(3);
 	createDbConnection().run(
-		`UPDATE sharks SET name = ? , color = ? WHERE id = ?`,
+		`UPDATE Notes SET name = ? , color = ? WHERE id = ?`,
 		[(name = $name), (color = $color), (id = $id)],
 		function (error) {
 			if (error) {
@@ -314,7 +309,7 @@ function updateRow($id, $name, $color) {
 async function deleteRow() {
 	const [id] = process.argv.slice(2);
 	createDbConnection().run(
-		`DELETE FROM sharks WHERE id = ?`,
+		`DELETE FROM Notes WHERE id = ?`,
 		[id],
 		function (error) {
 			if (error) {

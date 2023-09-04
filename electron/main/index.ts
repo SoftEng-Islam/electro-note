@@ -2,7 +2,7 @@ const electron = require("electron");
 import { app, BrowserWindow, shell, ipcMain, webContents, Tray, Menu, MenuItem, } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
-
+const fs = require("fs");
 const ipc = ipcMain;
 const windowStateKeeper = require("electron-window-state");
 
@@ -225,10 +225,8 @@ console.log('databases');
 
 
 
-const fs = require("fs");
 const sqlite3 = require("sqlite3").verbose();
 const filepath = "./dbs/Data.sqlite3";
-
 
 function createTable(db) {
 	db.exec(`
@@ -262,8 +260,10 @@ createDbConnection();
 // createTable(createDbConnection());
 function insertRow($NoteName: string, $Color: string) {
 	const [noteName = $NoteName, color = $Color] = process.argv.slice(2);
+	// INSERT INTO "main"."Notes"("ID","NoteName","Color") VALUES (NULL,'','');
+
 	createDbConnection().run(
-		`INSERT INTO Notes (NoteName, Color) VALUES (?, ?)`,
+		`INSERT INTO Notes (ID, NoteName, Color) VALUES (NULL, ?, ?)`,
 		[noteName, color],
 		function (error) {
 			if (error) {console.error(error.message);}
@@ -275,7 +275,7 @@ function insertRow($NoteName: string, $Color: string) {
 ipc.on("createNote", (_event, Argument) => {
 	// console.log(Argument);
 	// const Arg = Argument;
-	insertRow("any", "red", "2000");
+	insertRow("any", "red");
 });
 
 
@@ -288,7 +288,7 @@ function selectRows() {
 		console.log(row);
 	});
 }
-selectRows();
+// selectRows();
 
 function updateRow($id, $name, $color) {
 	let [id, name, color] = process.argv.slice(3);
@@ -320,4 +320,4 @@ async function deleteRow() {
 	);
 }
 
-//   deleteRow();
+// deleteRow();

@@ -23,8 +23,8 @@ export default {
 		createNote() {
 			console.log(this.enteredValue)
 			this.notes.push(this.enteredValue);
+			ipcRenderer.send("createNote", this.enteredValue);
 			this.enteredValue = '';
-			ipcRenderer.send("createNote", "new note");
 		},
 		returnNotes() {
 			return this.NotesList;

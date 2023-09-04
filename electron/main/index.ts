@@ -278,10 +278,10 @@ function insertRow($name, $color, $weight) {
 }
 
 
-ipc.on("createNote", (event, Argument) => {
-	console.log('Islam Arguments');
-	console.log(...Argument);
-	// insertRow("Islam", "red", "2000");
+ipc.on("createNote", (_event, Argument) => {
+	console.log(Argument);
+	const Arg = Argument;
+	insertRow("arg", "red", "2000");
 });
 
 function selectRows() {

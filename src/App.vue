@@ -5,6 +5,6 @@ console.log( "[App.vue]", `Hello world from Electron ${process.versions.electron
 
 <template lang="pug">
 Header
-div(class="left-0 w-full h-full flex items-center overflow-hidden bg-[var(--dark400)]")
+div(class="left-0 w-full h-full flex items-center overflow-hidden bg-[var(--dark400)]  dark:bg-[var(--dark400)]")
 	<router-view />
 </template>

@@ -217,8 +217,12 @@ console.log('databases');
 // const filepath = "./dbs/ElectronNote.db";
 
 
-import db from 'better-sqlite';
-
+const sqlite = require('better-sqlite3');
+const db = new sqlite('./dbs/ElectronNote.db');
+const sql = "SELECT * FROM Notes";
+let stmt = db.prepare(gry);
+let res = stmt.all();
+console.log(res);
 
 
 

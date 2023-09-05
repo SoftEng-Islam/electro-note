@@ -226,7 +226,7 @@ console.log('databases');
 
 
 const sqlite3 = require("sqlite3").verbose();
-const filepath = "./dbs/Data.sqlite3";
+const filepath = "./dbs/ElectronNote.db";
 
 function createTable(db) {
 	db.exec(`
@@ -255,16 +255,13 @@ function createDbConnection() {
 		return db;
 	}
 }
-createDbConnection();
-
+// createDbConnection();
 // createTable(createDbConnection());
+
 function insertRow($NoteName: string, $Color: string) {
 	const [noteName = $NoteName, color = $Color] = process.argv.slice(2);
-	// INSERT INTO "main"."Notes"("ID","NoteName","Color") VALUES (NULL,'','');
-
 	createDbConnection().run(
-		`INSERT INTO Notes (ID, NoteName, Color) VALUES (NULL, ?, ?)`,
-		[noteName, color],
+		`INSERT INTO Notes (NoteName , Color)`, [noteName, color],
 		function (error) {
 			if (error) {console.error(error.message);}
 			console.log(`Inserted a row with the ID: ${this.lastID}`);
@@ -273,9 +270,8 @@ function insertRow($NoteName: string, $Color: string) {
 }
 
 ipc.on("createNote", (_event, Argument) => {
-	// console.log(Argument);
-	// const Arg = Argument;
-	insertRow("any", "red");
+	console.log(Argument);
+	insertRow(Argument, "Green");
 });
 
 

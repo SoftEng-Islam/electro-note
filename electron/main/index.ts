@@ -220,7 +220,7 @@ console.log('databases');
 const sqlite = require('better-sqlite3');
 const db = new sqlite('./dbs/ElectronNote.db');
 const sql = "SELECT * FROM Notes";
-let stmt = db.prepare(gry);
+let stmt = db.prepare(sql);
 let res = stmt.all();
 console.log(res);
 

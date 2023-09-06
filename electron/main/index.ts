@@ -217,12 +217,17 @@ console.log('databases');
 // const filepath = "./dbs/ElectronNote.db";
 
 
-const sqlite = require('better-sqlite3');
-const db = new sqlite('./dbs/ElectronNote.db');
-const sql = "SELECT * FROM Notes";
-let stmt = db.prepare(sql);
-let res = stmt.all();
-console.log(res);
+const db = require('better-sqlite3')('./dbs/ElectronNote.db', { verbose: console.log });
+const statement = `CREATE TABLE COMPANY(ID INT PRIMARY KEY NOT NULL,NAME TEXT NOT NULL,AGE INT NOT NULL,ADDRESS CHAR(50));`;
+const tbl = db.prepare(statement);
+tbl.run();
+console.log('successful: ', db);
+
+// const db = new sqlite('./dbs/ElectronNote.db');
+// const sql = "SELECT * FROM Notes";
+// let stmt = db.prepare(sql);
+// let res = stmt.all();
+// console.log(res);
 
 
 

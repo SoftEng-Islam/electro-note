@@ -79,6 +79,7 @@
 		"babel-core": "^4.7.16",
 		"babel-loader": "^9.1.2",
 		"bcrypt": "^5.1.0",
+		"better-sqlite3": "^8.6.0",
 		"codemirror": "^6.0.1",
 		"css-loader": "^6.8.1",
 		"electron-builder": "^24.6.3",
@@ -110,7 +111,6 @@
 	},
 	"dependencies": {
 		"@databases/sql": "^3.3.0",
-		"better-sqlite3": "^8.6.0",
 		"electron": "^25.0.1",
 		"rollup": "^2.70.1",
 		"typescript": "^5.0.2",

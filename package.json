@@ -1,0 +1,28 @@
+{
+	"name": "electro-note",
+	"version": "1.0.0",
+	"description": "Simple Desktop Note",
+	"main": "postcss.config.js",
+	"dependencies": {
+		"chalk": "^4.1.2",
+		"debug": "^4.3.4",
+		"detect-libc": "^2.0.2",
+		"eastasianwidth": "^0.2.0",
+		"fs-extra": "^10.1.0",
+		"got": "^11.8.6",
+		"node-abi": "^3.47.0",
+		"node-api-version": "^0.1.4",
+		"node-gyp": "^9.4.0",
+		"ora": "^5.4.1",
+		"semver": "^7.5.4",
+		"tar": "^6.2.0",
+		"yargs": "^17.7.2"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC"
+}
+

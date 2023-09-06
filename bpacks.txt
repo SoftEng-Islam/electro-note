@@ -1,4 +1,5 @@
 
+@databases/sql
 @electron/rebuild
 @tailwindcss/aspect-ratio
 @tailwindcss/container-queries
@@ -56,6 +57,7 @@ bcrypt
 better-sqlite3
 codemirror
 css-loader
+electron
 electron-builder
 electron-rebuild
 electron-window-state
@@ -68,24 +70,22 @@ postcss-loader
 pug
 pug-plain-loader
 raw-loader
+rollup
 sass
 sass-loader
 sqlite3
 tailwindcss
+typescript
+vite
 vite-plugin-electron
 vite-plugin-electron-renderer
 vite-plugin-pug
 vite-svg-loader
+vue
 vue-loader
 vue-loader-plugin
 vue-pug-plugin
 vue-router
 vue-template-compiler
-vue3-perfect-scrollbar
-@databases/sql
-electron
-rollup
-typescript
-vite
-vue
 vue-tsc
+vue3-perfect-scrollbar

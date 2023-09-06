@@ -218,9 +218,10 @@ console.log('databases');
 
 
 var Database = require('better-sqlite3');
-// var db = new Database('./dbs/ElectronNote.db', options);
-// var row = db.prepare('SELECT * FROM users WHERE id=?').get(userId);
-// console.log(row.firstName, row.lastName, row.email);
+var db = new Database('foobar.db', { verbose: console.log });
+
+var row = db.prepare('SELECT * FROM users WHERE id=?').get(1);
+console.log(row.firstName, row.lastName, row.email);
 
 // const db = new sqlite('./dbs/ElectronNote.db');
 // const sql = "SELECT * FROM Notes";

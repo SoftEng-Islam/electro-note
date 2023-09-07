@@ -216,17 +216,7 @@ console.log('databases');
 
 
 const sqlite3 = require("sqlite3").verbose();
-const filepath = "./dbs/ElectronNote.db";
-
-
-
-
-
-
-
-
-
-
+const filepath = "./Databases/ElectronNote.db";
 
 
 function createTable(db) {
@@ -256,7 +246,7 @@ function createDbConnection() {
 		return db;
 	}
 }
-// createDbConnection();
+createDbConnection();
 // createTable(createDbConnection());
 
 function insertRow($NoteName: string, $Color: string) {

@@ -213,21 +213,10 @@ console.log('databases');
 // $$$$$$$$$$$$$$$$$$
 // $$$$ Database $$$$
 // $$$$$$$$$$$$$$$$$$
-// const sqlite3 = require("sqlite3").verbose();
-// const filepath = "./dbs/ElectronNote.db";
 
 
-var Database = require('better-sqlite3');
-var db = new Database('foobar.db', { verbose: console.log });
-
-var row = db.prepare('SELECT * FROM users WHERE id=?').get(1);
-console.log(row.firstName, row.lastName, row.email);
-
-// const db = new sqlite('./dbs/ElectronNote.db');
-// const sql = "SELECT * FROM Notes";
-// let stmt = db.prepare(sql);
-// let res = stmt.all();
-// console.log(res);
+const sqlite3 = require("sqlite3").verbose();
+const filepath = "./dbs/ElectronNote.db";
 
 
 
@@ -239,92 +228,93 @@ console.log(row.firstName, row.lastName, row.email);
 
 
 
-// function createTable(db) {
-// 	db.exec(`
-// 	CREATE TABLE Notes
-// 	(
-// 		ID INTEGER PRIMARY KEY AUTOINCREMENT,
-// 		name   VARCHAR(50) NOT NULL,
-// 		color   VARCHAR(50) NOT NULL,
-// 		weight INTEGER NOT NULL
-// 	);
-// `);
-// }
 
-// function createDbConnection() {
-// 	if (fs.existsSync(filepath)) {
-// 		return new sqlite3.Database(filepath);
-// 		console.log('return new sqlite3.Database(filepath);');
-// 	} else {
-// 		const db = new sqlite3.Database(filepath, (error) => {
-// 			if (error) {
-// 				return console.error(error.message);
-// 			}
-// 			createTable(db);
-// 		});
-// 		console.log("Connection with SQLite has been established");
-// 		return db;
-// 	}
-// }
-// // createDbConnection();
-// // createTable(createDbConnection());
+function createTable(db) {
+	db.exec(`
+	CREATE TABLE Notes
+	(
+		ID INTEGER PRIMARY KEY AUTOINCREMENT,
+		name   VARCHAR(50) NOT NULL,
+		color   VARCHAR(50) NOT NULL,
+		weight INTEGER NOT NULL
+	);
+`);
+}
 
-// function insertRow($NoteName: string, $Color: string) {
-// 	const [noteName = $NoteName, color = $Color] = process.argv.slice(2);
-// 	createDbConnection().run(
-// 		`INSERT INTO Notes (NoteName , Color)`, [noteName, color],
-// 		function (error) {
-// 			if (error) {console.error(error.message);}
-// 			console.log(`Inserted a row with the ID: ${this.lastID}`);
-// 		}
-// 	);
-// }
+function createDbConnection() {
+	if (fs.existsSync(filepath)) {
+		return new sqlite3.Database(filepath);
+		console.log('return new sqlite3.Database(filepath);');
+	} else {
+		const db = new sqlite3.Database(filepath, (error) => {
+			if (error) {
+				return console.error(error.message);
+			}
+			createTable(db);
+		});
+		console.log("Connection with SQLite has been established");
+		return db;
+	}
+}
+// createDbConnection();
+// createTable(createDbConnection());
 
-// ipc.on("createNote", (_event, Argument) => {
-// 	console.log(Argument);
-// 	insertRow(Argument, "Green");
-// });
+function insertRow($NoteName: string, $Color: string) {
+	const [noteName = $NoteName, color = $Color] = process.argv.slice(2);
+	createDbConnection().run(
+		`INSERT INTO Notes (NoteName , Color)`, [noteName, color],
+		function (error) {
+			if (error) {console.error(error.message);}
+			console.log(`Inserted a row with the ID: ${this.lastID}`);
+		}
+	);
+}
+
+ipc.on("createNote", (_event, Argument) => {
+	console.log(Argument);
+	insertRow(Argument, "Green");
+});
 
 
 
-// function selectRows() {
-// 	createDbConnection().each(`SELECT * FROM Notes`, (error, row) => {
-// 		if (error) {
-// 			throw new Error(error.message);
-// 		}
-// 		console.log(row);
-// 	});
-// }
-// // selectRows();
+function selectRows() {
+	createDbConnection().each(`SELECT * FROM Notes`, (error, row) => {
+		if (error) {
+			throw new Error(error.message);
+		}
+		console.log(row);
+	});
+}
+// selectRows();
 
-// function updateRow($id, $name, $color) {
-// 	let [id, name, color] = process.argv.slice(3);
-// 	createDbConnection().run(
-// 		`UPDATE Notes SET name = ? , color = ? WHERE id = ?`,
-// 		[(name = $name), (color = $color), (id = $id)],
-// 		function (error) {
-// 			if (error) {
-// 				console.error(error.message);
-// 			}
-// 			console.log(`Row ${id} has been updated`);
-// 		}
-// 	);
-// }
+function updateRow($id, $name, $color) {
+	let [id, name, color] = process.argv.slice(3);
+	createDbConnection().run(
+		`UPDATE Notes SET name = ? , color = ? WHERE id = ?`,
+		[(name = $name), (color = $color), (id = $id)],
+		function (error) {
+			if (error) {
+				console.error(error.message);
+			}
+			console.log(`Row ${id} has been updated`);
+		}
+	);
+}
 
-// // updateRow(1, "Ahmed", "Green");
+// updateRow(1, "Ahmed", "Green");
 
-// async function deleteRow() {
-// 	const [id] = process.argv.slice(2);
-// 	createDbConnection().run(
-// 		`DELETE FROM Notes WHERE id = ?`,
-// 		[id],
-// 		function (error) {
-// 			if (error) {
-// 				return console.error(error.message);
-// 			}
-// 			console.log(`Row with the ID ${id} has been deleted`);
-// 		}
-// 	);
-// }
+async function deleteRow() {
+	const [id] = process.argv.slice(2);
+	createDbConnection().run(
+		`DELETE FROM Notes WHERE id = ?`,
+		[id],
+		function (error) {
+			if (error) {
+				return console.error(error.message);
+			}
+			console.log(`Row with the ID ${id} has been deleted`);
+		}
+	);
+}
 
-// // deleteRow();
+// deleteRow();

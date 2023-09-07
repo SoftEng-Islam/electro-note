@@ -233,8 +233,8 @@ function createTable(db) {
 
 function createDbConnection() {
 	if (fs.existsSync(filepath)) {
-		return new sqlite3.Database(filepath);
 		console.log('return new sqlite3.Database(filepath);');
+		return new sqlite3.Database(filepath);
 	} else {
 		const db = new sqlite3.Database(filepath, (error) => {
 			if (error) {

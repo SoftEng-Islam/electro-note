@@ -1,14 +1,19 @@
 <script lang="ts">
 import { KeyboardInputEvent } from 'electron';
 import { ipcRenderer } from 'electron';
+import { ref } from 'vue'
+// console.clear()
+let NotesListRF;
 ipcRenderer.on("fetchNotes", (_event, args)=> {
 	console.log(args);
-})
+	NotesListRF = ref(args);
+});
+
 
 export default {
 	data() {
 		return {
-			NotesList: ["Enlish","France","Arabic"],
+			NotesList: ["Islam", "Ahmed", "Mohamed"],
 			notes: <string[]>[],
 			enteredValue: <string>"",
 			theResult: "",
@@ -72,7 +77,7 @@ div(class="duration-200 z-10 relative h-full bg-[var(--dark400)]  p-3 w-1/5 bord
 		//- Notes
 		div(:style="{'width': notesStyle}" class="w-full pt-7 p-3 border-t border-solid border-[var(--dark100)]")
 			ul(class="w-full")
-				li(v-for="note in notes" class="duration-150 cursor-pointer hover:bg-[var(--dark200)] p-2 pl-4 my-5 rounded-xl text-[var(--favColor)] bg-[var(--dark300)]") {{ note || "New Note" }}
+				li(v-for="note in NotesListRF" class="duration-150 cursor-pointer hover:bg-[var(--dark200)] p-2 pl-4 my-5 rounded-xl text-[var(--favColor)] bg-[var(--dark300)]") {{ note || "New Note" }}
 		//- Create Note
 		div(class="mt-auto overflow-hidden flex gap-2 flex-row  items-center justify-center duration-300")
 			input( v-on:keydown.enter="createNote" class="w-[85%] rounded-xl placeholder:text-gray-400 bg-[var(--dark200)] text-white" type="text" v-model="enteredValue" :placeholder="notePlaceholder" @focus="notePlaceholder = ''" @focusout="notePlaceholder = 'Create Note'")

@@ -242,6 +242,9 @@ function insertNote (NoteName, NoteColor) {
 	stmt.run(NoteName,NoteColor);
     stmt.finalize();
 	db.close();
+	db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
+        console.log(row.id + ": " + row.NoteName);
+    });
 }
 
 ipc.on("createNote", (_event, Argument) => {

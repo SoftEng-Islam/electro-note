@@ -220,23 +220,34 @@ console.log('databases');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./Databases/ElectronNote.db');
 
-db.serialize(() => {
-    db.run("CREATE TABLE lorem (info TEXT)");
+// db.serialize(() => {
+//     db.run("CREATE TABLE lorem (info TEXT)");
 
-    const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-    for (let i = 0; i < 10; i++) {
-        stmt.run("Ipsum " + i);
-    }
+//     const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+//     for (let i = 0; i < 10; i++) {
+//         stmt.run("Ipsum " + i);
+//     }
+//     stmt.finalize();
+
+//     db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
+//         console.log(row.id + ": " + row.info);
+//     });
+// });
+
+// db.close();
+
+
+function insertNote (NoteName, NoteColor) {
+    const stmt = db.prepare("INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)");
+	stmt.run(NoteName,NoteColor);
     stmt.finalize();
+	db.close();
+}
 
-    db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
-        console.log(row.id + ": " + row.info);
-    });
+ipc.on("createNote", (_event, Argument) => {
+	console.log(Argument);
+	insertNote(Argument, "Green");
 });
-
-db.close();
-
-
 
 
 

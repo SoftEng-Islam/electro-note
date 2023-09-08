@@ -239,15 +239,17 @@ const db = new sqlite3.Database("./Databases/ElectronNote.db");
 // db.close();
 
 function insertNote(NoteName, NoteColor) {
-	const stmt = db.prepare(
-		"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
-	);
-	stmt.run(NoteName, NoteColor);
-	stmt.finalize();
-	db.close();
-	db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
-		console.log(row.id + ": " + row.NoteName);
+	db.serialize(() => {
+		const stmt = db.prepare(
+			"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
+		);
+		stmt.run(NoteName, NoteColor);
+		stmt.finalize();
+		db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
+			console.log(row.id + ": " + row.NoteName);
+		});
 	});
+	db.close();
 }
 
 ipc.on("createNote", (_event, Argument) => {

@@ -155,15 +155,18 @@ async function createWindow() {
 
 	// Test actively push message to the Electron-Renderer
 	win.webContents.on("did-finish-load", () => {
-		win?.webContents.send(
-			"main-process-message",
-			new Date().toLocaleString()
-			);
-		let	myNotes = new Array();
-		db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
-			myNotes.push(row.NoteName)
-		});
-		console.log(myNotes);
+		win?.webContents.send("main-process-message", new Date().toLocaleString());
+
+		let	myNotes = [];
+		const sqlite31 = require("sqlite3").verbose();
+		const db1 = new sqlite31.Database("./Databases/ElectronNote.db");
+		db1.serialize(() => {
+			db1.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
+				// console.log("line 167: " + row.id + ": " + row.NoteName);
+				myNotes += row.NoteName;
+				console.log(myNotes);
+			});
+		})
 		win?.webContents.send('fetchNotes', 'myNotes');
 	});
 
@@ -216,7 +219,7 @@ ipcMain.handle("open-win", (_, arg) => {
 	}
 });
 
-console.log("databases");
+console.log("databases line 223");
 // $$$$$$$$$$$$$$$$$$
 // $$$$ Database $$$$
 // $$$$$$$$$$$$$$$$$$

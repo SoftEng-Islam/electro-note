@@ -159,7 +159,12 @@ async function createWindow() {
 			"main-process-message",
 			new Date().toLocaleString()
 			);
-		win?.webContents.send('fetchNotes', ['File Saved']);
+		let	myNotes = new Array();
+		db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
+			myNotes.push(row.NoteName)
+		});
+		console.log(myNotes);
+		win?.webContents.send('fetchNotes', 'myNotes');
 	});
 
 	// Make all links open with the browser, not with the application

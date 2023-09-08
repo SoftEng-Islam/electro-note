@@ -3,17 +3,17 @@ import { KeyboardInputEvent } from 'electron';
 import { ipcRenderer } from 'electron';
 import { ref } from 'vue'
 // console.clear()
-let NotesListRF;
-ipcRenderer.on("fetchNotes", (_event, args)=> {
-	console.log(args);
-	NotesListRF = ref(args);
+let NotesListRF = ipcRenderer.on("fetchNotes", (_event, args)=> {
+	return args;
 });
 
 
 export default {
 	data() {
 		return {
-			NotesList: ["Islam", "Ahmed", "Mohamed"],
+			NotesList: ipcRenderer.on("fetchNotes", (_event, args)=> {
+	return args;
+}),
 			notes: <string[]>[],
 			enteredValue: <string>"",
 			theResult: "",

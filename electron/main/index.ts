@@ -159,8 +159,8 @@ async function createWindow() {
 
 		const sqlite31 = require("sqlite3").verbose();
 		const db1 = new sqlite31.Database("./Databases/ElectronNote.db");
+		let	myNotes = [];
 		db1.serialize(() => {
-			let	myNotes = [];
 			db1.each("SELECT rowid AS id, NoteName FROM Notes", (err, row ) => {
 				// console.log("line 167: " + row.id + ": " + row.NoteName);
 				myNotes.push(row.NoteName);

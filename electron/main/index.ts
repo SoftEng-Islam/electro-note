@@ -1,16 +1,25 @@
 const electron = require("electron");
-import { app, BrowserWindow, shell, ipcMain, webContents, Tray, Menu, MenuItem, } from "electron";
+import {
+	app,
+	BrowserWindow,
+	shell,
+	ipcMain,
+	webContents,
+	Tray,
+	Menu,
+	MenuItem,
+} from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
 const fs = require("fs");
 const ipc = ipcMain;
 const windowStateKeeper = require("electron-window-state");
 
-
-
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
-process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL ? join(process.env.DIST_ELECTRON, "../public") : process.env.DIST;
+process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
+	? join(process.env.DIST_ELECTRON, "../public")
+	: process.env.DIST;
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -23,12 +32,11 @@ if (!app.requestSingleInstanceLock()) {
 	process.exit(0);
 }
 
-process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'false'
+process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "false";
 
 // Our Windows
 let win: BrowserWindow | null = null;
 let login: BrowserWindow | null = null;
-
 
 // Here, you can also use other preload
 // const preload = join(__dirname, "./preloader.js");
@@ -36,14 +44,13 @@ const url: string | undefined = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const loginHtml = join(process.env.DIST, "login.html");
 
-
 // #########################
 // #### Tray
 // #########################
 let trayMenu = Menu.buildFromTemplate([{ label: "Item 1" }, { role: "quit" }]);
 let tray;
 function createTray() {
-	tray = new Tray(join(process.env.DIST!,"../public/logo.png"));
+	tray = new Tray(join(process.env.DIST!, "../public/logo.png"));
 	tray.setToolTip("ElectroNote");
 	tray.on("click", (e) => {
 		if (e.shiftKey) {
@@ -207,18 +214,13 @@ ipcMain.handle("open-win", (_, arg) => {
 	}
 });
 
-
-
-console.log('databases');
+console.log("databases");
 // $$$$$$$$$$$$$$$$$$
 // $$$$ Database $$$$
 // $$$$$$$$$$$$$$$$$$
 
-
-
-
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./Databases/ElectronNote.db');
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
 // db.serialize(() => {
 //     db.run("CREATE TABLE lorem (info TEXT)");
@@ -236,15 +238,16 @@ const db = new sqlite3.Database('./Databases/ElectronNote.db');
 
 // db.close();
 
-
-function insertNote (NoteName, NoteColor) {
-    const stmt = db.prepare("INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)");
-	stmt.run(NoteName,NoteColor);
-    stmt.finalize();
+function insertNote(NoteName, NoteColor) {
+	const stmt = db.prepare(
+		"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
+	);
+	stmt.run(NoteName, NoteColor);
+	stmt.finalize();
 	db.close();
 	db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
-        console.log(row.id + ": " + row.NoteName);
-    });
+		console.log(row.id + ": " + row.NoteName);
+	});
 }
 
 ipc.on("createNote", (_event, Argument) => {
@@ -252,15 +255,8 @@ ipc.on("createNote", (_event, Argument) => {
 	insertNote(Argument, "Green");
 });
 
-
-
-
-
-
-
 // const sqlite3 = require("sqlite3").verbose();
 // const filepath = "./Databases/ElectronNote.db";
-
 
 // function createTable(db) {
 // 	db.exec(`
@@ -307,8 +303,6 @@ ipc.on("createNote", (_event, Argument) => {
 // 	console.log(Argument);
 // 	insertRow(Argument, "Green");
 // });
-
-
 
 // function selectRows() {
 // 	createDbConnection().each(`SELECT * FROM Notes`, (error, row) => {

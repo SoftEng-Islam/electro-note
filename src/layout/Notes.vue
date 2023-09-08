@@ -1,6 +1,9 @@
 <script lang="ts">
 import { KeyboardInputEvent } from 'electron';
 import { ipcRenderer } from 'electron';
+ipcRenderer.on("fetchNotes", (_event, args)=> {
+	console.log(args);
+})
 
 export default {
 	data() {

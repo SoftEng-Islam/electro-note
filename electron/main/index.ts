@@ -1,19 +1,14 @@
-const electron = require("electron");
-import {
-	app,
-	BrowserWindow,
-	shell,
-	ipcMain,
-	webContents,
-	Tray,
-	Menu,
-	MenuItem,
-} from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
-const fs = require("fs");
-const ipc = ipcMain;
+const electron = require("electron");
+import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
 const windowStateKeeper = require("electron-window-state");
+
+
+// DataBases
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database("./Databases/ElectronNote.db");
+
 
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
@@ -141,15 +136,15 @@ async function createWindow() {
 	});
 
 	// close
-	ipc.on("closeApp", () => {
+	ipcMain.on("closeApp", () => {
 		win!.close();
 	});
 	// minimizeApp
-	ipc.on("minimizeApp", () => {
+	ipcMain.on("minimizeApp", () => {
 		win!.minimize();
 	});
 	// maximizeApp
-	ipc.on("maximizeApp", () => {
+	ipcMain.on("maximizeApp", () => {
 		if (win!.isMaximized()) {
 			win!.restore();
 		} else {
@@ -157,12 +152,14 @@ async function createWindow() {
 		}
 	});
 
+
 	// Test actively push message to the Electron-Renderer
 	win.webContents.on("did-finish-load", () => {
 		win?.webContents.send(
 			"main-process-message",
 			new Date().toLocaleString()
-		);
+			);
+		win?.webContents.send('fetchNotes', ['File Saved']);
 	});
 
 	// Make all links open with the browser, not with the application
@@ -219,27 +216,11 @@ console.log("databases");
 // $$$$ Database $$$$
 // $$$$$$$$$$$$$$$$$$
 
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
-// db.serialize(() => {
-//     db.run("CREATE TABLE lorem (info TEXT)");
-
-//     const stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-//     for (let i = 0; i < 10; i++) {
-//         stmt.run("Ipsum " + i);
-//     }
-//     stmt.finalize();
-
-//     db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
-//         console.log(row.id + ": " + row.info);
-//     });
-// });
-
-// db.close();
 
 function insertNote(NoteName, NoteColor) {
 	db.serialize(() => {
+		//	db.run("CREATE TABLE Notes (NoteName TEXT)");
 		const stmt = db.prepare(
 			"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
 		);
@@ -252,10 +233,11 @@ function insertNote(NoteName, NoteColor) {
 	db.close();
 }
 
-ipc.on("createNote", (_event, Argument) => {
+ipcMain.on("createNote", (_event, Argument) => {
 	console.log(Argument);
 	insertNote(Argument, "Green");
 });
+
 
 // const sqlite3 = require("sqlite3").verbose();
 // const filepath = "./Databases/ElectronNote.db";
@@ -301,7 +283,7 @@ ipc.on("createNote", (_event, Argument) => {
 // 	);
 // }
 
-// ipc.on("createNote", (_event, Argument) => {
+// ipcMain.on("createNote", (_event, Argument) => {
 // 	console.log(Argument);
 // 	insertRow(Argument, "Green");
 // });

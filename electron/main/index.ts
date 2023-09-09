@@ -238,7 +238,7 @@ function insertNote(NoteName, NoteColor) {
 			console.log(row.id + ": " + row.NoteName);
 		});
 	});
-	db.close();
+	// db.close();
 }
 
 ipcMain.on("createNote", (_event, Argument) => {

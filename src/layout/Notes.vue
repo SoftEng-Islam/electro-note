@@ -3,19 +3,14 @@ import { KeyboardInputEvent } from 'electron';
 import { ipcRenderer } from 'electron';
 import { ref } from 'vue'
 // console.clear()
-let NotesListRF = ipcRenderer.on("fetchNotes", (_event, args)=> {
-	return args;
-});
+
 
 
 export default {
 	data() {
 		return {
-			NotesList: ipcRenderer.on("fetchNotes", (_event, args)=> {
-	return args;
-}),
-			notes: <string[]>[],
-			enteredValue: <string>"",
+			// notes: <string[]>[],
+			// enteredValue: <string>"",
 			theResult: "",
 			show: "hidden",
 			isDown: true,
@@ -24,18 +19,29 @@ export default {
 
 		};
 	},
+	setup() {
+		let NotesListRF = ref([]);
+		let enteredValue = ref();
+
+		ipcRenderer.on("fetchNotes", (_event, args)=> {NotesListRF.value = args});
+		console.log(ipcRenderer.on("fetchNotes", (_event, args)=> {NotesListRF.value = args}));
+
+		function createNote() {
+			console.log(enteredValue)
+			// this.notes.push(this.enteredValue);
+			// NotesListRF.value = enteredValue;
+			ipcRenderer.send("createNote", enteredValue);
+			enteredValue = ref();
+		};
+		return {
+			NotesListRF
+			,enteredValue
+			,createNote
+		}
+	},
 	methods: {
 		searchResults(event: any) {
 			this.theResult = event.target.value
-		},
-		createNote() {
-			console.log(this.enteredValue)
-			this.notes.push(this.enteredValue);
-			ipcRenderer.send("createNote", this.enteredValue);
-			this.enteredValue = '';
-		},
-		returnNotes() {
-			return this.NotesList;
 		},
 		closeOrResizeD() {
 			let thatIsDown = this.isDown;
@@ -80,7 +86,7 @@ div(class="duration-200 z-10 relative h-full bg-[var(--dark400)]  p-3 w-1/5 bord
 				li(v-for="note in NotesListRF" class="duration-150 cursor-pointer hover:bg-[var(--dark200)] p-2 pl-4 my-5 rounded-xl text-[var(--favColor)] bg-[var(--dark300)]") {{ note || "New Note" }}
 		//- Create Note
 		div(class="mt-auto overflow-hidden flex gap-2 flex-row  items-center justify-center duration-300")
-			input( v-on:keydown.enter="createNote" class="w-[85%] rounded-xl placeholder:text-gray-400 bg-[var(--dark200)] text-white" type="text" v-model="enteredValue" :placeholder="notePlaceholder" @focus="notePlaceholder = ''" @focusout="notePlaceholder = 'Create Note'")
+			input( v-on:keydown.enter="createNote()" class="w-[85%] rounded-xl placeholder:text-gray-400 bg-[var(--dark200)] text-white" type="text" :value="enteredValue" :placeholder="notePlaceholder" @focus="notePlaceholder = ''" @focusout="notePlaceholder = 'Create Note'")
 			button(v-on:click="createNote" type="button" class="w-10 h-10 m-0 p-0 text-5xl flex items-center justify-center rounded-full select-none outline-none hover:scale-95 bg-green-500")
 				<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-full fill-[var(--dark300)]"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z"/></svg>
 	//- Close

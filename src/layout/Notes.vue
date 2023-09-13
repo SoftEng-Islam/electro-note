@@ -2,8 +2,6 @@
 import { KeyboardInputEvent } from 'electron';
 import { ipcRenderer } from 'electron';
 import { Ref, ref } from 'vue'
-// console.clear()
-
 
 
 export default {

@@ -4,16 +4,14 @@ import electron from "electron";
 import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
 import windowStateKeeper from "electron-window-state";
 
-// Import Database
+// Database
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
 
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
-process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
-	? join(process.env.DIST_ELECTRON, "../public")
-	: process.env.DIST;
+process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL ? join(process.env.DIST_ELECTRON, "../public") : process.env.DIST;
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();

@@ -112,44 +112,43 @@ async function createWindow() {
 
 	if (process.env.VITE_DEV_SERVER_URL) {
 		win.loadURL(url!);
-		// Open devTool if the app is not packaged
-		// win.webContents.openDevTools();
+		win.webContents.openDevTools();
 	} else {
 		win.loadFile(indexHtml);
 	}
 	login.loadURL(url!);
 	login.loadFile(loginHtml);
 
-	//######## Menus
+
+	/**
+	 * Menus
+	 */
 	// Menu.setApplicationMenu(mainMenu);
 	win.webContents.on("context-menu", (e) => {
 		contextMenu.popup();
 	});
-	//######## End
 
-	electron.powerMonitor.on("resume", (e) => {
-		if (!win) createWindow();
-	});
 
-	electron.powerMonitor.on("suspend", (e) => {
-		console.log("Saving Some Data");
-	});
+
+
+
+
+
+
+	electron.powerMonitor.on("resume", (e) => {if (!win) createWindow();});
+	electron.powerMonitor.on("suspend", (e) => {console.log("Saving Some Data");});
+
 
 	// close
-	ipcMain.on("closeApp", () => {
-		win!.close();
-	});
+	ipcMain.on("closeApp", () => {win!.close();});
+
 	// minimizeApp
-	ipcMain.on("minimizeApp", () => {
-		win!.minimize();
-	});
+	ipcMain.on("minimizeApp", () => {win!.minimize();});
+
 	// maximizeApp
 	ipcMain.on("maximizeApp", () => {
-		if (win!.isMaximized()) {
-			win!.restore();
-		} else {
-			win!.maximize();
-		}
+		if (win!.isMaximized()) {win!.restore();}
+		else {win!.maximize();}
 	});
 
 

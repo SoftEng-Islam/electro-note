@@ -18,7 +18,7 @@ export default {
 	},
 	setup() {
 		let NotesListRF = ref([]);
-		let enteredValue = ref();
+		let enteredValue: Ref = ref("");
 
 		ipcRenderer.on("fetchNotes", (_event, args)=> {NotesListRF.value = args});
 		console.log(ipcRenderer.on("fetchNotes", (_event, args)=> {NotesListRF.value = args}));
@@ -45,7 +45,14 @@ export default {
 		},
 		closeOrResizeU() {
 			this.isDown = false;
+		},
+		enterNote(name: string) {
+			console.log(name);
+		},
+		noteContextmenu(name: string){
+			console.log(name);
 		}
+
 	},
 };
 </script>
@@ -79,7 +86,7 @@ div(class="duration-200 z-10 relative h-full bg-[var(--dark400)]  p-3 w-1/5 bord
 		//- Notes
 		div(:style="{'width': notesStyle}" class="w-full pt-7 p-3 border-t border-solid border-[var(--dark100)]")
 			ul(class="w-full")
-				li(v-for="note in NotesListRF" class="duration-150 cursor-pointer hover:bg-[var(--dark200)] p-2 pl-4 my-5 rounded-xl text-[var(--favColor)] bg-[var(--dark300)]") {{ note || "New Note" }}
+				li(v-for="note in NotesListRF" @click="enterNote(note)" @contextmenu="noteContextmenu(note)" class="duration-150 cursor-pointer hover:bg-[var(--dark200)] p-2 pl-4 my-5 rounded-xl text-[var(--favColor)] bg-[var(--dark300)]") {{ note || "New Note" }}
 		//- Create Note
 		div(class="mt-auto overflow-hidden flex gap-2 flex-row  items-center justify-center duration-300")
 			input(v-model="enteredValue" v-on:keydown.enter="createNote" class="w-[85%] rounded-xl placeholder:text-gray-400 bg-[var(--dark200)] text-white" type="text" :placeholder="notePlaceholder" @focus="notePlaceholder = ''" @focusout="notePlaceholder = 'Create Note'")

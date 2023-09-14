@@ -50,7 +50,7 @@ export default {
 }
 </script>
 <template lang="pug">
-header(class="border-[var(--dark200)] border-b w-full flex items-center p-2 select-none h-[var(--HeaderHeight)] bg-white dark:bg-[var(--dark300)]" style="-webkit-app-region: drag;")
+header(class="w-full p-2 flex items-center select-none h-[var(--HeaderHeight)] border-[var(--dark200)] border-b bg-white dark:bg-[var(--dark300)]" style="-webkit-app-region: drag;")
 	//- RouterLink(to="/" tag="a" class="p-1 text-white" style="-webkit-app-region: no-drag") home
 	//- Logo
 	a(class="ml-4 text-xl outline-none text-[var(--favColor)]" :href="LogoLink" style="-webkit-app-region: no-drag") ElectroNote #[span(class="text-xs opacity-70") v1.0]

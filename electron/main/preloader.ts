@@ -1,5 +1,6 @@
 // alert("preloader.ts :- It Worked!");
 
+/*
 function domReady(
 	condition: DocumentReadyState[] = ["complete", "interactive"]
 ) {
@@ -146,3 +147,4 @@ window.addEventListener("DOMContentLoaded", () => {
 		replaceText(`${type}-version`, process.versions[type]);
 	}
 });
+*/

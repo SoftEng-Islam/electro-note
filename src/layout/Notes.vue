@@ -14,7 +14,6 @@ export default {
 			isDown: true,
 			notesStyle: <string | number | null> '',
 			notePlaceholder: 'Create Note',
-
 		};
 	},
 	setup() {

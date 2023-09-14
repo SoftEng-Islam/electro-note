@@ -1,11 +1,10 @@
 import { release } from "node:os";
 import { join } from "node:path";
-const electron = require("electron");
+import electron from "electron";
 import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
-const windowStateKeeper = require("electron-window-state");
+import windowStateKeeper from "electron-window-state";
 
-
-// DataBases
+// Import Database
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
@@ -33,11 +32,13 @@ process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "false";
 let win: BrowserWindow | null = null;
 let login: BrowserWindow | null = null;
 
-// Here, you can also use other preload
+
 // const preload = join(__dirname, "./preloader.js");
 const url: string | undefined = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const loginHtml = join(process.env.DIST, "login.html");
+
+
 
 // #########################
 // #### Tray
@@ -57,6 +58,8 @@ function createTray() {
 	tray.setContextMenu(trayMenu);
 }
 
+
+
 // #########################
 // #### Context Menu
 // #########################
@@ -66,6 +69,10 @@ let contextMenu = Menu.buildFromTemplate([
 	{ role: "editMenu" },
 	{ label: "Item 3" },
 ]);
+
+
+
+
 
 // #########################
 // #### Create Window
@@ -177,13 +184,14 @@ async function createWindow() {
 	// win.webContents.on('will-navigate', (event, url) => { }) #344
 }
 
-app.whenReady().then(createWindow);
 
+
+
+app.whenReady().then(createWindow);
 app.on("window-all-closed", () => {
 	win = null;
 	if (process.platform !== "darwin") app.quit();
 });
-
 app.on("second-instance", () => {
 	if (win) {
 		// Focus on the main window if the user tried to open another
@@ -191,7 +199,6 @@ app.on("second-instance", () => {
 		win.focus();
 	}
 });
-
 app.on("activate", () => {
 	const allWindows = BrowserWindow.getAllWindows();
 	if (allWindows.length) {
@@ -200,6 +207,8 @@ app.on("activate", () => {
 		createWindow();
 	}
 });
+
+
 
 // New window example arg: new windows url
 ipcMain.handle("open-win", (_, arg) => {
@@ -218,13 +227,11 @@ ipcMain.handle("open-win", (_, arg) => {
 	}
 });
 
-console.log("databases line 223");
+
+
 // $$$$$$$$$$$$$$$$$$
 // $$$$ Database $$$$
 // $$$$$$$$$$$$$$$$$$
-
-
-
 function insertNote(NoteName, NoteColor) {
 	db.serialize(() => {
 		//	db.run("CREATE TABLE Notes (NoteName TEXT)");

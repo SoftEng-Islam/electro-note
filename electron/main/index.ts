@@ -116,8 +116,8 @@ async function createWindow() {
 	} else {
 		win.loadFile(indexHtml);
 	}
-	login.loadURL(url!);
-	login.loadFile(loginHtml);
+	// login.loadURL(url!);
+	// login.loadFile(loginHtml);
 
 
 	/**

@@ -182,8 +182,7 @@ div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-
 	)
 	button(@mouseenter.prevent="showColors = true" @mouseleave.prevent="showColors = false" :class="{ 'is-active': editor.isActive('textStyle', { color: '#958DF1' })}" )
 		<svg aria-hidden="true" width="11" height="16" viewBox="0 0 352 512" focusable="false" class="fa-icon"><g><path d="M205.2 22.1c47 158.5 146.8 200.1 146.8 311.8 0 98.4-78.7 178.1-176 178.1s-176-79.7-176-178.1c0-111.2 100-154.1 146.8-311.8 9-30.1 50.5-28.8 58.4 0zM176 448c8.8 0 16-7.2 16-16s-7.2-16-16-16c-44.1 0-80-35.9-80-80 0-8.8-7.2-16-16-16s-16 7.2-16 16c0 61.8 50.3 112 112 112z"></path></g></svg>
-		//-
-		table(show="showColorsTable" class="absolute z-20 right-0 top-5 w-[240px] bg-[var(--dark100)] rounded-xl shadow-lg shadow-[var(--dark300)]")
+		table(v-show="showColors" class="absolute z-20 right-0 top-5 w-[240px] bg-[var(--dark100)] rounded-xl shadow-lg shadow-[var(--dark300)]")
 				tbody(class="w-full flex flex-col items-center justify-center pb-3")
 					thead(class="w-full flex justify-center items-center gap-x-2 py-2")
 						th(class="darkth text-sm text-center py-1 px-2 rounded-md duration-200 bg-[var(--dark400)]" :class="`text-${hoverdColor}`") {{ hoverdColor || 'Text' }}

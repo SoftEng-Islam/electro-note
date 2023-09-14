@@ -57,7 +57,6 @@ function createTray() {
 }
 
 
-
 // #########################
 // #### Context Menu
 // #########################
@@ -67,9 +66,6 @@ let contextMenu = Menu.buildFromTemplate([
 	{ role: "editMenu" },
 	{ label: "Item 3" },
 ]);
-
-
-
 
 
 // #########################
@@ -181,8 +177,6 @@ async function createWindow() {
 	});
 	// win.webContents.on('will-navigate', (event, url) => { }) #344
 }
-
-
 
 
 app.whenReady().then(createWindow);

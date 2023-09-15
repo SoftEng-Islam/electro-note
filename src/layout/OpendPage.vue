@@ -255,16 +255,16 @@ div(class="relative w-4/6 h-full flex flex-col items-center justify-start py-5 m
 
 
 	//- Tabs Header
-	div(class="h-14 flex items-center w-full pl-7")
+	div(class="h-14 pl-7 flex items-center w-full")
 		//- Tabs
 		ul(class="h-full flex items-center justify-center")
 			//- active
-			li(class="flex items-center h-14 w-auto relative p-2 px-6 pr-10 [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
+			li(class="h-full w-auto py-2 pl-6 pr-10 relative flex items-center [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
 				span(class="w-full text-ellipsis overflow-hidden text-[var(--favColor)]") Defualt Note
 				button(type="button" v-on:click="'closeTab()'" class="hover:scale-90 duration-150 hidden items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
 					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="scale-125"><path fill="var(--pink)" d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 10.5858L14.8284 7.75736L16.2426 9.17157L13.4142 12L16.2426 14.8284L14.8284 16.2426L12 13.4142L9.17157 16.2426L7.75736 14.8284L10.5858 12L7.75736 9.17157L9.17157 7.75736L12 10.5858Z"/></svg>
 			//- unactive
-			li(class="opacity-50 flex items-center h-full w-auto relative p-2 px-6 pr-10 [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:hidden after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
+			li(class="opacity-50 h-full w-auto py-2 pl-6 pr-10 flex items-center relative [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:hidden after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
 				span(class="text-[var(--favColor)]") Defualt Note
 				button(type="button" class="hidden items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
 					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="scale-125"><path fill="var(--pink)" d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 10.5858L14.8284 7.75736L16.2426 9.17157L13.4142 12L16.2426 14.8284L14.8284 16.2426L12 13.4142L9.17157 16.2426L7.75736 14.8284L10.5858 12L7.75736 9.17157L9.17157 7.75736L12 10.5858Z"/></svg>

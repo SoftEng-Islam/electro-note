@@ -35,24 +35,11 @@ const CustomParagraph = Paragraph.extend({
 
 const SetColorClass = Extension.create({
 	name: "setColorClass",
-	// add
-
 })
-
-
-
-
-const props = defineProps({
-	modelValue: {
-		type: String,
-		default: "",
-	},
-});
-const emit = defineEmits(["update:modelValue"]);
 const limit: number = 2000;
 
 const editor = useEditor({
-	content: props.modelValue,
+	content: content.value,
 	extensions: [
 		StarterKit,
 		Subscript.configure({
@@ -98,14 +85,10 @@ const editor = useEditor({
 	},
 });
 
-watch(() => props.modelValue, (value) => {
-		const isSame = editor.value?.getHTML() === value;
-		if (isSame) {
-			return;
-		}
-		editor.value?.commands.setContent(value, false);
-	}
-);
+watch(() => content.value, (value) => {
+	if (editor.value?.getHTML() === value) {return;}
+	editor.value?.commands.setContent(value, false);
+});
 
 // Create Data Table
 const showTableOptions = ref(false);

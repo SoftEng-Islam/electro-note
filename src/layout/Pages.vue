@@ -23,7 +23,7 @@ export default {
 <template lang="pug">
 div(class="z-0 relative h-full bg-[var(--dark300)] flex flex-col items-center p-3 w-1/5 border-r-2 border-solid border-[var(--favColor)]" id="Pages")
 	//- Search
-	div(class="relative w-6/7 p-3 m-2 mb-5 flex items-center justify-center")
+	div(class="relative w-6/7 p-3 mb-2 flex items-center justify-center")
 		div(class="z-10 w-full pl-4 h-9 flex items-center justify-center rounded-xl bg-[var(--dark200)]")
 			input(class="h-7 w-4/5 outline-none text-white placeholder:focus:opacity-40 bg-transparent" type="text" placeholder="Search...")
 			button(class="outline-none")
@@ -45,7 +45,7 @@ div(class="z-0 relative h-full bg-[var(--dark300)] flex flex-col items-center p-
 				li(class="") Custom
 		li(class="mx-4 hover:text-white hover:cursor-pointer") Select
 	//- Notes
-	div(class="w-full pt-7 p-3 border-t border-solid border-[var(--dark100)]")
+	div(class="w-full pt-5 p-3 border-t border-solid border-[var(--dark100)]")
 		ul(class="w-full")
 			li(v-for="page in pages" class="my-5 p-2 pl-4 rounded-xl text-[var(--favColor)] bg-[var(--dark400)]") {{ page || "New Page" }}
 	//- Add Note Pages

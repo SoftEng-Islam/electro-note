@@ -115,18 +115,13 @@ function addColor(color: string) {
 }
 
 
-
-
-
-
-
 </script>
 
 <template lang="pug">
 div(class="relative w-4/6 h-full flex flex-col items-center justify-start py-5 mx-5")
 
 	//- Tiptap ToolsBar
-	div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-5 flex flex-row flex-wrap gap-3 [&_button]:rounded-md [&>button>svg]:w-5 [&>button>svg]:fill-white " v-if="editor")
+	div(class="w-full p-2 pt-0 rounded-lg mb-2 flex flex-row flex-wrap gap-2 [&>button]:px-1 [&>button]:bg-[var(--dark100)] [&>button]:rounded-md [&>button>svg]:w-5 [&>button>svg]:fill-white " v-if="editor")
 		button(@click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }")
 			<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 11H12.5C13.8807 11 15 9.88071 15 8.5C15 7.11929 13.8807 6 12.5 6H8V11ZM18 15.5C18 17.9853 15.9853 20 13.5 20H6V4H12.5C14.9853 4 17 6.01472 17 8.5C17 9.70431 16.5269 10.7981 15.7564 11.6058C17.0979 12.3847 18 13.837 18 15.5ZM8 13V18H13.5C14.8807 18 16 16.8807 16 15.5C16 14.1193 14.8807 13 13.5 13H8Z"/></svg>
 		button(@click="editor.chain().focus().toggleItalic().run()" :disabled="!editor.can().chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }")
@@ -174,12 +169,7 @@ div(class="relative w-4/6 h-full flex flex-col items-center justify-start py-5 m
 
 
 		//- Color
-		input(
-			type="color"
-			@input="editor.chain().focus().setColor(event.target.value).run()"
-			@value="editor.getAttributes('textStyle').color"
-			@data-testid="setColor"
-		)
+		//- input(type="color" @input="editor.chain().focus().setColor(event.target.value).run()" @value="editor.getAttributes('textStyle').color" @data-testid="setColor" )
 		button(@mouseenter.prevent="showColors = true" @mouseleave.prevent="showColors = false" :class="{ 'is-active': editor.isActive('textStyle', { color: '#958DF1' })}" )
 			<svg aria-hidden="true" width="11" height="16" viewBox="0 0 352 512" focusable="false" class="fa-icon"><g><path d="M205.2 22.1c47 158.5 146.8 200.1 146.8 311.8 0 98.4-78.7 178.1-176 178.1s-176-79.7-176-178.1c0-111.2 100-154.1 146.8-311.8 9-30.1 50.5-28.8 58.4 0zM176 448c8.8 0 16-7.2 16-16s-7.2-16-16-16c-44.1 0-80-35.9-80-80 0-8.8-7.2-16-16-16s-16 7.2-16 16c0 61.8 50.3 112 112 112z"></path></g></svg>
 			table(v-show="showColors" class="absolute z-20 right-0 top-5 w-[240px] bg-[var(--dark100)] rounded-xl shadow-lg shadow-[var(--dark300)]")
@@ -187,18 +177,8 @@ div(class="relative w-4/6 h-full flex flex-col items-center justify-start py-5 m
 						thead(class="w-full flex justify-center items-center gap-x-2 py-2")
 							th(class="darkth text-sm text-center py-1 px-2 rounded-md duration-200 bg-[var(--dark400)]" :class="`text-${hoverdColor}`") {{ hoverdColor || 'Text' }}
 							th(class="lighth text-sm text-center py-1 px-2 rounded-md duration-200 bg-white" :class="`text-${hoverdColor}`") {{ hoverdColor || 'Text' }}
-						tr(
-							v-for="rowColor in NameOfColors"
-							:data-row="rowColor"
-							class="bg-[var(--dark400)]"
-						)
-							td(
-								class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)] hover:scale-125"
-								v-for="color in RangeOfColors"
-								:class="`bg-${rowColor}-${color}`"
-								@mouseover="hoverdColor = `${rowColor}-${color}`"
-								@click="addColor(`text-${rowColor}-${color}`)"
-							)
+						tr( v-for="rowColor in NameOfColors" :data-row="rowColor" class="bg-[var(--dark400)]" )
+							td( class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)] hover:scale-125" v-for="color in RangeOfColors" :class="`bg-${rowColor}-${color}`" @mouseover="hoverdColor = `${rowColor}-${color}`" @click="addColor(`text-${rowColor}-${color}`)" )
 
 		//- Highlight
 		button(class="bg-gray-500" :class="{ 'is-active': editor.isActive('highlight', { color: '#ffc078' })}" @click="editor.chain().focus().toggleHighlight({ color: '#ffc078' }).run()")
@@ -217,20 +197,8 @@ div(class="relative w-4/6 h-full flex flex-col items-center justify-start py-5 m
 					tbody(class="w-full flex flex-col items-center justify-center pb-3")
 						thead(class="w-full flex justify-center items-center py-2")
 							th(class="text-center bg-[var(--favColor)] px-2 rounded-md text-black duration-200") {{ hoverdRows || 0 }} x {{ hoverdCols || 0 }}
-						tr(
-							v-for="row in tableRows"
-							data-row="row"
-							class="bg-[var(--dark400)]"
-						)
-							td(
-								class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)]"
-								v-for="col in tableCols"
-								:class="col <= hoverdCols && row <= hoverdRows ? 'opacity-100' : 'opacity-25'"
-								:data-cell-col="col"
-								:data-cell-row="row"
-								@mouseover="hoverdRows = row; hoverdCols = col;"
-								@click="createtable(row,col)"
-							)
+						tr( v-for="row in tableRows" data-row="row" class="bg-[var(--dark400)]" )
+							td( class="w-5 h-5 overflow-hidden border-4 border-transparent rounded-lg duration-200 ease-in-out bg-[var(--favColor)]" v-for="col in tableCols" :class="col <= hoverdCols && row <= hoverdRows ? 'opacity-100' : 'opacity-25'" :data-cell-col="col" :data-cell-row="row" @mouseover="hoverdRows = row; hoverdCols = col;" @click="createtable(row,col)" )
 
 			button(type="button" class="relative" @mouseenter.prevent.self="showTableOptions = true" @mouseleave.prevent.self="showTableOptions = false")
 				<svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon w-6 h-6 fill-[var(--favColor)]"><path d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"/></svg>
@@ -255,16 +223,16 @@ div(class="relative w-4/6 h-full flex flex-col items-center justify-start py-5 m
 
 
 	//- Tabs Header
-	div(class="h-14 pl-7 flex items-center w-full")
+	div(class="h-12 pl-7 flex items-center w-full")
 		//- Tabs
 		ul(class="h-full flex items-center justify-center")
 			//- active
-			li(class="h-full w-auto py-2 pl-6 pr-10 relative flex items-center [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
+			li(class="h-full w-auto pt-2 pl-6 pr-10 relative flex items-center [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-2xl mr-4 bg-[var(--dark300)]")
 				span(class="w-full text-ellipsis overflow-hidden text-[var(--favColor)]") Defualt Note
 				button(type="button" v-on:click="'closeTab()'" class="hover:scale-90 duration-150 hidden items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
 					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="scale-125"><path fill="var(--pink)" d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 10.5858L14.8284 7.75736L16.2426 9.17157L13.4142 12L16.2426 14.8284L14.8284 16.2426L12 13.4142L9.17157 16.2426L7.75736 14.8284L10.5858 12L7.75736 9.17157L9.17157 7.75736L12 10.5858Z"/></svg>
 			//- unactive
-			li(class="opacity-50 h-full w-auto py-2 pl-6 pr-10 flex items-center relative [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:hidden after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
+			li(class="opacity-50 scale-90 hover:cursor-pointer hover:scale-100 hover:opacity-100 duration-200 h-full w-auto pt-2 pl-6 pr-10 flex items-center relative [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:hidden after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-2xl mr-4 bg-[var(--dark300)]")
 				span(class="text-[var(--favColor)]") Defualt Note
 				button(type="button" class="hidden items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
 					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="scale-125"><path fill="var(--pink)" d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 10.5858L14.8284 7.75736L16.2426 9.17157L13.4142 12L16.2426 14.8284L14.8284 16.2426L12 13.4142L9.17157 16.2426L7.75736 14.8284L10.5858 12L7.75736 9.17157L9.17157 7.75736L12 10.5858Z"/></svg>
@@ -279,16 +247,11 @@ div(class="relative w-4/6 h-full flex flex-col items-center justify-start py-5 m
 		//-     button(class="") >
 
 	//- Tab Content
-	div(spellcheck="false" class="w-full h-full p-4 overflow-hidden flex flex-col items-center outline-none rounded-3xl border border-[var(--dark200)] text-[var(--white)] bg-[var(--dark300)]")
-		//- TipEditor
-		//- <tip-tap v-model="content"></tip-tap>
-
-		perfect-scrollbar
+	div(spellcheck="false" class="w-full h-full p-3 overflow-hidden flex flex-col items-center outline-none rounded-xl border border-[var(--dark200)] text-[var(--white)] bg-[var(--dark300)]")
+		perfect-scrollbar(class="w-full")
 			div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
-				<editor-content class="w-full p-4" :editor="editor" />
+				<editor-content class="w-full pt-0 p-2" :editor="editor" />
 			div( class="character-count mt-10" v-if="editor") words {{ editor.storage.characterCount.words() }} <br> characters {{ editor.storage.characterCount.characters() }}/{{ limit }}
-
-
 		//- div(class="content w-full h-auto p-4 bg-gray-800 mt-8 ")
 		//- 	h3(class="mb-5") OutPut Content =>:
 		//- 	pre(class="pl-10")

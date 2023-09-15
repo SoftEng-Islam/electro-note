@@ -22,9 +22,6 @@ import StarterKit from "@tiptap/starter-kit";
 
 const content = ref(`<h2> Hi there, </h2> <p> this is a basic <em>basic</em> example of <strong>tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists: </p> <ul> <li> That’s a bullet list with one … </li> <li> … or two list items. </li> </ul> <p> Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block: </p> <pre><code class="language-css">body { display: none; }</code></pre> <p> I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too. </p> <blockquote> Wow, that’s amazing. Good work, boy! 👏 <br /> — Mom </blockquote>`);
 
-
-
-
 const CustomParagraph = Paragraph.extend({
 	draggable: true,
 	addAttributes() {
@@ -126,8 +123,9 @@ function addColor(color: string) {
 </script>
 
 <template lang="pug">
-div(class="relative flex flex-col items-center w-4/6 h-[90%] mb-10 mx-5")
+div(class="relative w-4/6 h-full flex flex-col items-center justify-start py-5 mx-5")
 
+	//- Tiptap ToolsBar
 	div(class="bg-[var(--dark400)] border border-[var(--dark200)] p-2 rounded-lg mb-5 flex flex-row flex-wrap gap-3 [&_button]:rounded-md [&>button>svg]:w-5 [&>button>svg]:fill-white " v-if="editor")
 		button(@click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }")
 			<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 11H12.5C13.8807 11 15 9.88071 15 8.5C15 7.11929 13.8807 6 12.5 6H8V11ZM18 15.5C18 17.9853 15.9853 20 13.5 20H6V4H12.5C14.9853 4 17 6.01472 17 8.5C17 9.70431 16.5269 10.7981 15.7564 11.6058C17.0979 12.3847 18 13.837 18 15.5ZM8 13V18H13.5C14.8807 18 16 16.8807 16 15.5C16 14.1193 14.8807 13 13.5 13H8Z"/></svg>
@@ -256,23 +254,19 @@ div(class="relative flex flex-col items-center w-4/6 h-[90%] mb-10 mx-5")
 					button( class="text-start w-full hover:opacity-60" type="button" :disabled="!editor.can().goToPreviousCell()" @click="editor.chain().focus().goToPreviousCell().run()" ) goToPreviousCell
 
 
-
-
 	//- Tabs Header
-	div(class="h-16 flex items-center w-full pl-7")
+	div(class="h-14 flex items-center w-full pl-7")
 		//- Tabs
 		ul(class="h-full flex items-center justify-center")
 			//- active
-			li(class="flex items-center h-full w-auto relative p-2 px-6 pr-10 border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
-				span(class="text-[var(--favColor)]")
-					| {{ 'myOpenedTabs[0].id'}} Defualt Note
-				button(type="button" v-on:click="'closeTab()'" class="hover:scale-90 duration-150 flex items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
+			li(class="flex items-center h-14 w-auto relative p-2 px-6 pr-10 [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
+				span(class="w-full text-ellipsis overflow-hidden text-[var(--favColor)]") Defualt Note
+				button(type="button" v-on:click="'closeTab()'" class="hover:scale-90 duration-150 hidden items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
 					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="scale-125"><path fill="var(--pink)" d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 10.5858L14.8284 7.75736L16.2426 9.17157L13.4142 12L16.2426 14.8284L14.8284 16.2426L12 13.4142L9.17157 16.2426L7.75736 14.8284L10.5858 12L7.75736 9.17157L9.17157 7.75736L12 10.5858Z"/></svg>
 			//- unactive
-			li(class="opacity-50 flex items-center h-full w-auto relative p-2 px-6 pr-10 border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:hidden after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
-				span(class="text-[var(--favColor)]")
-					| Defualt Note
-				button(type="button" class="flex items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
+			li(class="opacity-50 flex items-center h-full w-auto relative p-2 px-6 pr-10 [&>button]:hover:flex border border-[var(--dark200)] border-solid border-b-[var(--dark300)] after:content-[''] after:absolute after:w-full after:h-2 after:hidden after:bg-[var(--dark300)] after:bottom-[-3px] after:left-0 rounded-t-3xl mr-4 bg-[var(--dark300)]")
+				span(class="text-[var(--favColor)]") Defualt Note
+				button(type="button" class="hidden items-center justify-center bg-[var(--dark300)] h-8 w-8 rounded-full absolute right-[-6px] top-[-6px]")
 					<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="scale-125"><path fill="var(--pink)" d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM12 10.5858L14.8284 7.75736L16.2426 9.17157L13.4142 12L16.2426 14.8284L14.8284 16.2426L12 13.4142L9.17157 16.2426L7.75736 14.8284L10.5858 12L7.75736 9.17157L9.17157 7.75736L12 10.5858Z"/></svg>
 			//- Add New Page
 			//- li(class="mb-2 w-8 h-8 flex items-center justify-center")
@@ -285,7 +279,7 @@ div(class="relative flex flex-col items-center w-4/6 h-[90%] mb-10 mx-5")
 		//-     button(class="") >
 
 	//- Tab Content
-	div(spellcheck="false" class="w-full h-full flex flex-col items-center outline-none p-4 text-[var(--white)] border border-[var(--dark200)] border-solid rounded-3xl bg-[var(--dark300)]")
+	div(spellcheck="false" class="w-full h-full p-4 overflow-hidden flex flex-col items-center outline-none rounded-3xl border border-[var(--dark200)] text-[var(--white)] bg-[var(--dark300)]")
 		//- TipEditor
 		//- <tip-tap v-model="content"></tip-tap>
 

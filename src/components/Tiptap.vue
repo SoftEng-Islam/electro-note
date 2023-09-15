@@ -35,9 +35,6 @@ const SetColorClass = Extension.create({
 
 })
 
-
-
-
 const props = defineProps({
 	modelValue: {
 		type: String,
@@ -257,6 +254,9 @@ perfect-scrollbar
 		<editor-content class="w-full p-4" :editor="editor" />
 	div( class="character-count mt-10" v-if="editor") words {{ editor.storage.characterCount.words() }} <br> characters {{ editor.storage.characterCount.characters() }}/{{ limit }}
 </template>
+
+
+
 
 <style lang="scss">
 .ProseMirror {

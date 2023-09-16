@@ -251,6 +251,7 @@ div(class="relative w-4/6 h-full flex flex-col items-center justify-start py-5 m
 			div(class="bg-[var(--dark400)] flex flex-wrap w-full text-start rounded-lg")
 				<editor-content class="w-full pt-0 p-2" :editor="editor" />
 			div( class="character-count mt-10" v-if="editor") words {{ editor.storage.characterCount.words() }} <br> characters {{ editor.storage.characterCount.characters() }}/{{ limit }}
+		//- output content
 		div(class="content w-full h-auto p-4 bg-gray-800 mt-8 ")
 			h3(class="mb-5") OutPut Content =>:
 			pre(class="pl-10")

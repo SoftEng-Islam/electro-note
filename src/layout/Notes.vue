@@ -86,7 +86,8 @@ div(class="duration-200 z-10 relative h-full bg-[var(--dark400)]  p-3 w-1/5 bord
 		//- Notes
 		div(:style="{'width': notesStyle}" class="w-full pt-5 p-3 border-t border-solid border-[var(--dark100)]")
 			ul(class="w-full")
-				li(v-for="note in NotesListRF" @click="enterNote(note)" @contextmenu="noteContextmenu(note)" class="duration-150 cursor-pointer hover:bg-[var(--dark200)] p-2 pl-4 my-5 rounded-xl text-[var(--favColor)] bg-[var(--dark300)]") {{ note || "New Note" }}
+				li(v-for="note in NotesListRF" @click="enterNote(note)" @contextmenu="noteContextmenu(note)" class="relative p-2 pl-5 my-5 duration-150 cursor-pointer rounded-lg text-[var(--favColor)] hover:bg-[var(--dark200)] bg-[var(--dark300)]") {{ note || "New Note" }}
+					button(class="absolute left-0 top-0 h-full w-3 rounded-lg cursor-pointer hover:opacity-50 bg-[var(--favColor)]")
 		//- Create Note
 		div(class="mt-auto overflow-hidden flex gap-2 flex-row  items-center justify-center duration-300")
 			input(v-model="enteredValue" v-on:keydown.enter="createNote" class="w-[85%] rounded-xl placeholder:text-gray-400 bg-[var(--dark200)] text-white" type="text" :placeholder="notePlaceholder" @focus="notePlaceholder = ''" @focusout="notePlaceholder = 'Create Note'")

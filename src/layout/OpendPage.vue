@@ -64,8 +64,7 @@ const editor = useEditor({
 					...this.parent?.(),
 					backgroundColor: {
 						default: null,
-						parseHTML: (element) =>
-							element.getAttribute("data-background-color"),
+						parseHTML: (element) => element.getAttribute("data-background-color"),
 						renderHTML: (attributes) => {
 							return {
 								"data-background-color":

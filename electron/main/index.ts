@@ -7,24 +7,27 @@ import windowStateKeeper from "electron-window-state";
 // Database
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./Databases/ElectronNote.db");
+// -----------------------------------------
 
 
+// Application Configuration
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL ? join(process.env.DIST_ELECTRON, "../public") : process.env.DIST;
-
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
-
 // Set application name for Windows 10+ notifications
 if (process.platform === "win32") app.setAppUserModelId(app.getName());
-
 if (!app.requestSingleInstanceLock()) {
 	app.quit();
 	process.exit(0);
 }
-
 process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "false";
+// -----------------------------------------
+
+
+
+
 
 // Our Windows
 let win: BrowserWindow | null = null;
@@ -60,6 +63,8 @@ function createTray() {
 // #########################
 // #### Context Menu
 // #########################
+
+
 // let mainMenu = Menu.buildFromTemplate(require("./menu"));
 let contextMenu = Menu.buildFromTemplate([
 	{ label: "Item 1" },

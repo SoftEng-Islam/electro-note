@@ -68,6 +68,17 @@ let contextMenu = Menu.buildFromTemplate([
 ]);
 
 
+
+let NoteContextMenu = Menu.buildFromTemplate([
+	{ label: "Item 1" },
+	{ role: "editMenu" },
+	{ label: "Item 3" },
+]);
+
+
+
+
+
 // #########################
 // #### Create Window
 // #########################

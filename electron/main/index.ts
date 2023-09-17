@@ -175,11 +175,25 @@ async function createWindow() {
 }
 
 
+
+
+
+
+
+
+
+
+
+
 app.whenReady().then(createWindow);
+
+
 app.on("window-all-closed", () => {
 	win = null;
+	login = null;
 	if (process.platform !== "darwin") app.quit();
 });
+
 app.on("second-instance", () => {
 	if (win) {
 		// Focus on the main window if the user tried to open another
@@ -187,6 +201,7 @@ app.on("second-instance", () => {
 		win.focus();
 	}
 });
+
 app.on("activate", () => {
 	const allWindows = BrowserWindow.getAllWindows();
 	if (allWindows.length) {
@@ -195,8 +210,6 @@ app.on("activate", () => {
 		createWindow();
 	}
 });
-
-
 
 // New window example arg: new windows url
 ipcMain.handle("open-win", (_, arg) => {

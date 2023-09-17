@@ -85,6 +85,7 @@ async function createWindow() {
 		defaultHeight: 800,
 	});
 
+
 	win = new BrowserWindow({
 		// transparent: true,
 		width: winState.width,
@@ -121,46 +122,31 @@ async function createWindow() {
 	if (process.env.VITE_DEV_SERVER_URL) {
 		win.loadURL(url!);
 		win.webContents.openDevTools();
+		// login.loadURL(url!);
 	} else {
 		win.loadFile(indexHtml);
+		// login.loadFile(loginHtml);
 	}
-
-
-	// win.loadURL(url!);
-	// login.loadURL(url!);
-	// login.loadFile(loginHtml);
-
-
-	/**
-	 * Menus
-	 */
-	// Menu.setApplicationMenu(mainMenu);
-	win.webContents.on("context-menu", (e) => {
-		contextMenu.popup();
-	});
-
-
-
-
-
-
-
-
 	electron.powerMonitor.on("resume", (e) => {if (!win) createWindow();});
 	electron.powerMonitor.on("suspend", (e) => {console.log("Saving Some Data");});
 
-
 	// close
 	ipcMain.on("closeApp", () => {win!.close();});
-
 	// minimizeApp
 	ipcMain.on("minimizeApp", () => {win!.minimize();});
-
 	// maximizeApp
 	ipcMain.on("maximizeApp", () => {
 		if (win!.isMaximized()) {win!.restore();}
 		else {win!.maximize();}
 	});
+
+
+
+	// Menu.setApplicationMenu(mainMenu);
+	win.webContents.on("context-menu", (e) => {
+		contextMenu.popup();
+	});
+
 
 
 	// Test actively push message to the Electron-Renderer
@@ -229,3 +215,4 @@ ipcMain.handle("open-win", (_, arg) => {
 	}
 });
 
+import './modules/DataHandler';

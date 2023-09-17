@@ -78,8 +78,6 @@ let NoteContextMenu = Menu.buildFromTemplate([
 
 
 
-
-
 // #########################
 // #### Create Window
 // #########################
@@ -123,12 +121,16 @@ async function createWindow() {
 		},
 	});
 
-	if (process.env.VITE_DEV_SERVER_URL) {
-		win.loadURL(url!);
-		win.webContents.openDevTools();
-	} else {
-		win.loadFile(indexHtml);
-	}
+	// if (process.env.VITE_DEV_SERVER_URL) {
+	// 	win.loadURL(url!);
+	// 	win.webContents.openDevTools();
+	// } else {
+	// 	win.loadFile(indexHtml);
+	// }
+
+	win.loadURL(url!);
+	win.webContents.openDevTools();
+
 	// login.loadURL(url!);
 	// login.loadFile(loginHtml);
 

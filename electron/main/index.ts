@@ -62,9 +62,6 @@ function createTray() {
 
 // #########################
 // #### Context Menu
-// #########################
-
-
 // let mainMenu = Menu.buildFromTemplate(require("./menu"));
 let contextMenu = Menu.buildFromTemplate([
 	{ label: "Item 1" },
@@ -72,8 +69,7 @@ let contextMenu = Menu.buildFromTemplate([
 	{ label: "Item 3" },
 ]);
 
-
-
+// Note Contextmenu
 let NoteContextMenu = Menu.buildFromTemplate([
 	{ label: "Item 1" },
 	{ role: "editMenu" },

@@ -35,11 +35,8 @@ const CustomParagraph = Paragraph.extend({
 const SetColorClass = Extension.create({
 	name: "setColorClass",
 })
-
-
 // Char Limit
 const limit: number = 2000;
-
 
 
 const editor = useEditor({

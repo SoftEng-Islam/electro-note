@@ -49,6 +49,24 @@ export default defineConfig(({ command }) => {
 						},
 					},
 				},
+
+				{
+					entry: [
+						"electron/main/models/dbmgr.ts",
+						"electron/main/models/testmgr.ts",
+						"electron/main/models/menu.ts",
+					],
+					vite: {
+						build: {
+							sourcemap,
+							minify: isBuild,
+							outDir: "dist-electron/main/models",
+							rollupOptions: {
+								external: Object.keys("dependencies" in pkg ? pkg.dependencies : {}),
+							},
+						},
+					},
+				},
 				{
 					entry: "electron/preload/index.ts",
 					onstart({ reload }) {

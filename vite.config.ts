@@ -1,11 +1,11 @@
-import { URL } from 'node:url';
+import { URL } from "node:url";
 import { rmSync } from "node:fs";
 import { defineConfig } from "vite";
 
 import vue from "@vitejs/plugin-vue";
 import electron from "vite-plugin-electron";
 import renderer from "vite-plugin-electron-renderer";
-import pkg from './package.json';
+import pkg from "./package.json";
 import vuePugPlugin from "vue-pug-plugin";
 
 export default defineConfig(({ command }) => {
@@ -42,49 +42,31 @@ export default defineConfig(({ command }) => {
 							outDir: "dist-electron/main",
 							rollupOptions: {
 								external: Object.keys(
-									"dependencies" in pkg
-										? pkg.dependencies
-										: {}
+									"dependencies" in pkg ? pkg.dependencies : {}
 								),
 							},
 						},
 					},
 				},
 				{
-					entry: "electron/main/preloader.ts",
-					onstart(options) {
-						options.reload();
+					entry: "electron/preload/index.ts",
+					onstart({ reload }) {
+						// Notify the Renderer process to reload the page when the Preload scripts build is complete,
+						// instead of restarting the entire Electron App.
+						reload();
 					},
 					vite: {
 						build: {
-							sourcemap: sourcemap ? "inline" : undefined,
+							sourcemap: sourcemap ? "inline" : undefined, // #332
 							minify: isBuild,
-							outDir: "dist-electron/main",
+							outDir: "dist-electron/preload",
 							rollupOptions: {
 								external: Object.keys(
-									"dependencies" in pkg
-										? pkg.dependencies
-										: {}
+									"dependencies" in pkg ? pkg.dependencies : {}
 								),
 							},
 						},
-					},
-				},
-				{
-					entry: "electron/main/menu.ts",
-					vite: {
-						build: {
-							sourcemap: sourcemap ? "inline" : undefined,
-							minify: isBuild,
-							outDir: "dist-electron/main",
-							rollupOptions: {
-								external: Object.keys(
-									"dependencies" in pkg
-										? pkg.dependencies
-										: {}
-								),
-							},
-						},
+						plugins: [isServe && notBundle()],
 					},
 				},
 			]),
@@ -102,9 +84,8 @@ export default defineConfig(({ command }) => {
 		clearScreen: false,
 		resolve: {
 			alias: {
-				'vue': 'vue/dist/vue.esm-bundler',
+				vue: "vue/dist/vue.esm-bundler",
 			},
-		}
+		},
 	};
-
 });

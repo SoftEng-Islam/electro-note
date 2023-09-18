@@ -1,24 +1,22 @@
-{	"compileOnSave": false,
+{
+	// "compileOnSave": false,
 	"compilerOptions": {
-		"target": "esnext",
-		"useDefineForClassFields": true,
-		"module": "esnext",
-		"moduleResolution": "node",
-		"strict": true,
-		"jsx": "preserve",
-		"sourceMap": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"composite": true,
-		"lib": [
-			"esnext",
-			"dom"
-		],
-		"types": [
-			"node"
-		]
+		"target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "noEmit": true,
+		// "sourceMap": true,
+		// "allowSyntheticDefaultImports": true,
+		// "composite": true,
+		// "types": ["node"]
 	},
 	"files": [
 		"./package.json"
@@ -30,4 +28,7 @@
 		"src/**/*.vue",
 		"./vite.config.ts"
 	],
+	"references": [
+    { "path": "./tsconfig.node.json" }
+  ]
 }

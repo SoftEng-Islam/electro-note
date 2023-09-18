@@ -227,5 +227,3 @@ ipcMain.handle("open-win", (_, arg) => {
 		childWindow.loadFile(indexHtml, { hash: arg });
 	}
 });
-
-import './modules/DataHandler';

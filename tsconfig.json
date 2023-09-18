@@ -1,7 +1,7 @@
 {
 	// "compileOnSave": false,
 	"compilerOptions": {
-		"target": "ESNext",
+    "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
     "moduleResolution": "Node",
@@ -12,22 +12,16 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "noEmit": true,
+    "noEmit": true
 		// "sourceMap": true,
 		// "allowSyntheticDefaultImports": true,
 		// "composite": true,
 		// "types": ["node"]
 	},
-	"files": [
-		"./package.json"
-	],
-	"include": [
-		"src/**/*.ts",
-		"src/**/*.d.ts",
-		"src/**/*.tsx",
-		"src/**/*.vue",
-		"./vite.config.ts"
-	],
+	// "files": [
+	// 	"./package.json"
+	// ],
+  "include": ["src"],
 	"references": [
     { "path": "./tsconfig.node.json" }
   ]

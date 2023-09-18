@@ -1,12 +1,13 @@
-import { URL } from "node:url";
 import { rmSync } from "node:fs";
 import { defineConfig } from "vite";
-
 import vue from "@vitejs/plugin-vue";
 import electron from "vite-plugin-electron";
 import renderer from "vite-plugin-electron-renderer";
+import { notBundle } from 'vite-plugin-electron/plugin'
 import pkg from "./package.json";
+import { URL } from "node:url";
 import vuePugPlugin from "vue-pug-plugin";
+
 
 export default defineConfig(({ command }) => {
 	rmSync("dist-electron", { recursive: true, force: true });

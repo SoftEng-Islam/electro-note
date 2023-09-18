@@ -246,3 +246,6 @@ ipcMain.handle("open-win", (_, arg) => {
 		childWindow.loadFile(indexHtml, { hash: arg });
 	}
 });
+
+
+const testMgr = require("./models/testmgr");

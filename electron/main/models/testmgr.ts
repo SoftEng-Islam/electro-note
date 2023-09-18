@@ -9,6 +9,7 @@ exports.getNames = () => {
 }
 
 
+
 // $$$$$$$$$$$$$$$$$$
 // $$$$ Database $$$$
 // $$$$$$$$$$$$$$$$$$
@@ -31,6 +32,17 @@ ipcMain.on("createNote", (_event, Argument) => {
 	console.log(Argument);
 	insertNote(Argument, "Green");
 });
+
+
+
+
+
+
+
+
+
+
+
 
 
 // const sqlite3 = require("sqlite3").verbose();

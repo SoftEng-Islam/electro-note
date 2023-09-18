@@ -1,10 +1,22 @@
+import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
-import electron from "electron";
-import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
+
+// import electron from "electron";
+
 import windowStateKeeper from "electron-window-state";
 
 
+// The built directory structure
+//
+// ├─┬ dist-electron
+// │ ├─┬ main
+// │ │ └── index.js    > Electron-Main
+// │ └─┬ preload
+// │   └── index.js    > Preload-Scripts
+// ├─┬ dist
+// │ └── index.html    > Electron-Renderer
+//
 
 
 // Application Configuration

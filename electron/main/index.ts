@@ -1,9 +1,8 @@
-import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
+import { app, BrowserWindow, shell, ipcMain, Tray, Menu} from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
 
-// import electron from "electron";
-
+import electron from "electron";
 import windowStateKeeper from "electron-window-state";
 
 
@@ -17,22 +16,26 @@ import windowStateKeeper from "electron-window-state";
 // ├─┬ dist
 // │ └── index.html    > Electron-Renderer
 //
-
-
-// Application Configuration
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL ? join(process.env.DIST_ELECTRON, "../public") : process.env.DIST;
+
+
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
+
 // Set application name for Windows 10+ notifications
 if (process.platform === "win32") app.setAppUserModelId(app.getName());
+
 if (!app.requestSingleInstanceLock()) {
 	app.quit();
 	process.exit(0);
 }
-process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "false";
-// -----------------------------------------
+
+// Remove electron security warnings
+// This warning only shows in development mode
+// Read more on https://www.electronjs.org/docs/latest/tutorial/security
+// process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 
 
@@ -43,16 +46,18 @@ let win: BrowserWindow | null = null;
 let login: BrowserWindow | null = null;
 
 
-// const preload = join(__dirname, "./preloader.js");
+// Here, you can also use other preload
+const preload = join(__dirname, '../preload/index.js')
+
 const url: string | undefined = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 const loginHtml = join(process.env.DIST, "login.html");
 
 
 
-// #########################
+// #########
 // #### Tray
-// #########################
+// #########
 let trayMenu = Menu.buildFromTemplate([{ label: "Item 1" }, { role: "quit" }]);
 let tray;
 function createTray() {
@@ -69,8 +74,8 @@ function createTray() {
 }
 
 
-// #########################
-// #### Context Menu
+// #################
+// Context Menu
 // let mainMenu = Menu.buildFromTemplate(require("./menu"));
 let contextMenu = Menu.buildFromTemplate([
 	{ label: "Item 1" },
@@ -78,6 +83,7 @@ let contextMenu = Menu.buildFromTemplate([
 	{ label: "Item 3" },
 ]);
 
+// #################
 // Note Contextmenu
 let NoteContextMenu = Menu.buildFromTemplate([
 	{ label: "Item 1" },
@@ -87,9 +93,9 @@ let NoteContextMenu = Menu.buildFromTemplate([
 
 
 
-// #########################
+// ##################
 // #### Create Window
-// #########################
+// ##################
 async function createWindow() {
 	createTray();
 	let winState = windowStateKeeper({
@@ -111,7 +117,8 @@ async function createWindow() {
 			// enableRemoteModule: true,
 			nodeIntegration: true,
 			contextIsolation: false,
-			preload: join(__dirname, "./preloader.js"),
+			// preload: join(__dirname, "./preloader.js"),
+			preload: preload,
 		},
 	});
 
@@ -127,7 +134,7 @@ async function createWindow() {
 		webPreferences: {
 			// nodeIntegration: true,
 			// contextIsolation: false,
-			// preload: join(__dirname, "./preloader.js"),
+			// preload: preload,
 		},
 	});
 

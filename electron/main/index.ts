@@ -41,25 +41,11 @@ if (!app.requestSingleInstanceLock()) {
 
 
 
-// Our Windows
-let win: BrowserWindow | null = null;
-let login: BrowserWindow | null = null;
 
 
-// Here, you can also use other preload
-const preload = join(__dirname, '../preload/index.js')
-
-const url: string | undefined = process.env.VITE_DEV_SERVER_URL;
-const indexHtml = join(process.env.DIST, "index.html");
-const loginHtml = join(process.env.DIST, "login.html");
-
-
-
-// #########
-// #### Tray
-// #########
-let trayMenu = Menu.buildFromTemplate([{ label: "Item 1" }, { role: "quit" }]);
-let tray;
+// Tray
+let trayMenu = Menu.buildFromTemplate([{ label: "Item 1" }, { role: "quit" }]),
+tray: Tray;
 function createTray() {
 	tray = new Tray(join(process.env.DIST!, "../public/logo.png"));
 	tray.setToolTip("ElectroNote");
@@ -73,8 +59,6 @@ function createTray() {
 	tray.setContextMenu(trayMenu);
 }
 
-
-// #################
 // Context Menu
 // let mainMenu = Menu.buildFromTemplate(require("./menu"));
 let contextMenu = Menu.buildFromTemplate([
@@ -83,7 +67,6 @@ let contextMenu = Menu.buildFromTemplate([
 	{ label: "Item 3" },
 ]);
 
-// #################
 // Note Contextmenu
 let NoteContextMenu = Menu.buildFromTemplate([
 	{ label: "Item 1" },
@@ -92,10 +75,17 @@ let NoteContextMenu = Menu.buildFromTemplate([
 ]);
 
 
+// Our Windows
+let win: BrowserWindow | null = null;
 
-// ##################
-// #### Create Window
-// ##################
+// Here, you can also use other preload
+const preload = join(__dirname, '../preload/index.js')
+
+const url: string | undefined = process.env.VITE_DEV_SERVER_URL;
+const indexHtml = join(process.env.DIST, "index.html");
+
+
+
 async function createWindow() {
 	createTray();
 	let winState = windowStateKeeper({
@@ -105,67 +95,33 @@ async function createWindow() {
 
 
 	win = new BrowserWindow({
-		// transparent: true,
+		title: "ElectroNote",
 		width: winState.width,
 		height: winState.height,
 		x: winState.x,
 		y: winState.y,
+		backgroundColor: '#161616',
+		show: false,
 		frame: false,
-		title: "ElectroNote",
-		// icon: join("favicon.ico"),
+		// transparent: true,
+    // icon: join(process.env.VITE_PUBLIC, 'favicon.ico'),
 		webPreferences: {
-			// enableRemoteModule: true,
+			preload,
+			// Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
+      // Consider using contextBridge.exposeInMainWorld
+      // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
 			nodeIntegration: true,
 			contextIsolation: false,
-			// preload: join(__dirname, "./preloader.js"),
-			preload: preload,
 		},
 	});
 
-	login = new BrowserWindow({
-		width: 450,
-		height: 450,
-		frame: false,
-		transparent: true,
-		title: "Login",
-		// icon: join(process.env.PUBLIC, "favicon.ico"),
-		parent: win,
-		show: false,
-		webPreferences: {
-			// nodeIntegration: true,
-			// contextIsolation: false,
-			// preload: preload,
-		},
-	});
 
 	if (process.env.VITE_DEV_SERVER_URL) {
 		win.loadURL(url!);
 		win.webContents.openDevTools();
-		// login.loadURL(url!);
 	} else {
 		win.loadFile(indexHtml);
-		// login.loadFile(loginHtml);
 	}
-	electron.powerMonitor.on("resume", (e) => {if (!win) createWindow();});
-	electron.powerMonitor.on("suspend", (e) => {console.log("Saving Some Data");});
-
-	// close
-	ipcMain.on("closeApp", () => {win!.close();});
-	// minimizeApp
-	ipcMain.on("minimizeApp", () => {win!.minimize();});
-	// maximizeApp
-	ipcMain.on("maximizeApp", () => {
-		if (win!.isMaximized()) {win!.restore();}
-		else {win!.maximize();}
-	});
-
-
-
-	// Menu.setApplicationMenu(mainMenu);
-	win.webContents.on("context-menu", (e) => {
-		contextMenu.popup();
-	});
-
 
 
 	// Test actively push message to the Electron-Renderer
@@ -190,26 +146,40 @@ async function createWindow() {
 		if (url.startsWith("https:")) shell.openExternal(url);
 		return { action: "deny" };
 	});
-	// win.webContents.on('will-navigate', (event, url) => { }) #344
+	win.webContents.on('will-navigate', (event, url) => { })
+
+
+
+	electron.powerMonitor.on("resume", (e) => {if (!win) createWindow();});
+	electron.powerMonitor.on("suspend", (e) => {console.log("Saving Some Data");});
+	// close
+	ipcMain.on("closeApp", () => {win!.close();});
+	// minimizeApp
+	ipcMain.on("minimizeApp", () => {win!.minimize();});
+	// maximizeApp
+	ipcMain.on("maximizeApp", () => {
+		if (win!.isMaximized()) {win!.restore();}
+		else {win!.maximize();}
+	});
+
+
+
+
+	// Menu.setApplicationMenu(mainMenu);
+	win.webContents.on("context-menu", (e) => {
+		contextMenu.popup();
+	});
+
+
+	win.once('ready-to-show', () => {
+		win.show()
+	})
 }
-
-
-
-
-
-
-
-
-
-
-
 
 app.whenReady().then(createWindow);
 
-
 app.on("window-all-closed", () => {
 	win = null;
-	login = null;
 	if (process.platform !== "darwin") app.quit();
 });
 
@@ -248,24 +218,14 @@ ipcMain.handle("open-win", (_, arg) => {
 });
 
 
+
+// Database
 import insertNote from "./models/testmgr";
-
-
-
-
 
 ipcMain.on("createNote", (_event, Argument) => {
 	console.log(Argument);
 	insertNote(Argument, "Green");
 });
-
-
-
-
-
-
-
-
 
 
 

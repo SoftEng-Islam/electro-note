@@ -7,6 +7,9 @@
 				fullName: '',
 				userName: '',
 				passWord: '',
+				FullNameValid: true,
+				UsernameValid: true,
+				PasswordValid: true
 			}
 		}
 	}
@@ -23,9 +26,15 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 		span(v-show="true" class="text-black dark:text-white") {{ fullName }}
 	//- Input Fileds
 	div(class="flex flex-col items-center justify-center gap-y-3 py-4")
-		input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="FullName" v-model="fullName" type="text")
-		input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" :value="userName" type="text")
-		input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Password" :value="passWord" type="password")
+		div(class="flex items-center gap-x-1 ")
+			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="FullNameValid ? 'bg-green-500':'bg-red-500'")
+			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="FullName" v-model="fullName" type="text")
+		div(class="flex items-center gap-x-1 ")
+			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="UsernameValid ? 'bg-green-500':'bg-red-500'")
+			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" :value="userName" type="text")
+		div(class="flex items-center gap-x-1 ")
+			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="PasswordValid ? 'bg-green-500':'bg-red-500'")
+			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Password" :value="passWord" type="password")
 	//- create account or Login
 	div(class="flex flex-col items-center justify-center gap-y-2")
 		div(class="flex items-center justify-center gap-x-2")

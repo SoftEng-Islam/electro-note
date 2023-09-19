@@ -41,8 +41,6 @@ if (!app.requestSingleInstanceLock()) {
 
 
 
-
-
 // Tray
 let trayMenu = Menu.buildFromTemplate([{ label: "Item 1" }, { role: "quit" }]),
 tray: Tray;
@@ -216,6 +214,19 @@ ipcMain.handle("open-win", (_, arg) => {
 		childWindow.loadFile(indexHtml, { hash: arg });
 	}
 });
+
+
+
+
+
+
+
+
+
+
+// Check If there Any User
+
+
 
 
 

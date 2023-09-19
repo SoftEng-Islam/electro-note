@@ -3,6 +3,8 @@
 		name: "LoginApp",
 		data() {
 			return {
+				username: '',
+				password: '',
 
 			}
 		}
@@ -20,8 +22,8 @@ div(class="z-50 flex flex-col items-center justify-center fixed left-[50%] top-[
 		span(class="text-black dark:text-white") Islam Ahmed
 	//- Input Fileds
 	div(class="flex flex-col items-center justify-center gap-y-3 py-4")
-		input(class="rounded-xl" placeholder="Username" value="" type="text")
-		input(class="rounded-xl" placeholder="Password" value="" type="password")
+		input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" :value="username" type="text")
+		input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Password" :value="password" type="password")
 	//- create account or Login
 	div(class="flex flex-col items-center justify-center gap-y-2")
 		div(class="flex items-center justify-center gap-x-2")

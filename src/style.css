@@ -54,7 +54,7 @@
 	--green: #49c46e;
 	--yellow: #fdc063;
 	--sky: #64ecda;
-	--favColor: var(--yellow);
+	--favColor: var(--dark100);
 	--HeaderHeight: 3rem;
 	--linearGradient: linear-gradient(-45deg, #20b173 0%, #13a868 25%, #faae28 25%, #f78723 50%, #f67e9b 50%, #f33a6c 75%, #c237c0 75%, #d43c7d 100%);
 	--bgG: var(--linearGradient);

@@ -21,9 +21,9 @@ export default {
 		}
 	},
 	methods: {
-		changeAppColor(color: any) {
+		changeAppColor(color: string, _alt: any) {
 			this.LiColorActive = color;
-			this.rootElement.style.setProperty("--favColor", color);
+			this.rootElement.style.setProperty("--favColor", _alt);
 			// Error Typescript Element implicitly has an 'any' type because expression of type 'any' can't be used to index type
 			this.rootElement.style.setProperty("--bgG", this.gradin[color]);
 		},
@@ -67,7 +67,7 @@ header(class="w-full p-2 h-[var(--HeaderHeight)] flex items-center select-none b
 		li( @click="changeAppColor('var(--blue)')" 		:class="LiColorActive === 'var(--blue)' ? 'scale-125 mx-2': ''" 	class="cursor-pointer duration-200 hover:scale-95 h-5 w-5 rounded-full m-1 bg-[var(--blue)]")
 		li( @click="changeAppColor('var(--sky)')" 		:class="LiColorActive === 'var(--sky)' ? 'scale-125 mx-2': ''" 		class="cursor-pointer duration-200 hover:scale-95 h-5 w-5 rounded-full m-1 bg-[var(--sky)]")
 		li( @click="changeAppColor('var(--purple)')" 	:class="LiColorActive === 'var(--purple)' ? 'scale-125 mx-2': ''" 	class="cursor-pointer duration-200 hover:scale-95 h-5 w-5 rounded-full m-1 bg-[var(--purple)]")
-		li( @click="changeAppColor('var(--linearGradient)')" 	:class="LiColorActive === 'var(--linearGradient)' ? 'scale-125 mx-2': ''" 	class="cursor-pointer duration-200 hover:scale-95 h-5 w-5 rounded-full m-1" style="background: var(--linearGradient)")
+		li( @click="changeAppColor('var(--linearGradient)','var(--dark100)')" 	:class="LiColorActive === 'var(--linearGradient)' ? 'scale-125 mx-2': ''" 	class="cursor-pointer duration-200 hover:scale-95 h-5 w-5 rounded-full m-1" style="background: var(--linearGradient)")
 		li( @click="changeAppColor('var(--green)')" 	:class="LiColorActive === 'var(--green)' ? 'scale-125 mx-2': ''" 	class="cursor-pointer duration-200 hover:scale-95 h-5 w-5 rounded-full m-1 bg-[var(--green)]")
 		li( @click="changeAppColor('var(--yellow)')" 	:class="LiColorActive === 'var(--yellow)' ? 'scale-125 mx-2': ''" 	class="cursor-pointer duration-200 hover:scale-95 h-5 w-5 rounded-full m-1 bg-[var(--yellow)]")
 		li( @click="changeAppColor('var(--pink)')" 		:class="LiColorActive === 'var(--pink)' ? 'scale-125 mx-2': ''" 	class="cursor-pointer duration-200 hover:scale-95 h-5 w-5 rounded-full m-1 bg-[var(--pink)]")

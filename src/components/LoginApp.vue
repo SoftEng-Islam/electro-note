@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ipcRenderer } from 'electron';
 	export default {
 		name: "LoginApp",
 		data() {
@@ -19,16 +20,17 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 	div(class="w-full flex flex-col items-center justify-center")
 		div(class="")
 			<svg class="w-20 fill-black dark:fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM6.02332 15.4163C7.49083 17.6069 9.69511 19 12.1597 19C14.6243 19 16.8286 17.6069 18.2961 15.4163C16.6885 13.9172 14.5312 13 12.1597 13C9.78821 13 7.63095 13.9172 6.02332 15.4163ZM12 11C13.6569 11 15 9.65685 15 8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8C9 9.65685 10.3431 11 12 11Z"/></svg>
-		span(v-show="false" class="text-black dark:text-white") Islam Ahmed
+		span(v-show="true" class="text-black dark:text-white") {{ fullName }}
 	//- Input Fileds
 	div(class="flex flex-col items-center justify-center gap-y-3 py-4")
-		input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="FullName" :value="fullName" type="text")
+		input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="FullName" v-model="fullName" type="text")
 		input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" :value="userName" type="text")
 		input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Password" :value="passWord" type="password")
 	//- create account or Login
 	div(class="flex flex-col items-center justify-center gap-y-2")
 		div(class="flex items-center justify-center gap-x-2")
-			button(type="button" class="opacity-60 pt-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Login
-			button(type="button" class="text-xs hover:opacity-50 pt-1 text-blue-500") Create New Account
-		button(type="button" class="text-xs opacity-50 hover:opacity-100  text-red-500") Reset Password
+			button(type="button" class="opacity-60 pt-2 pb-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Create Account
+			button(v-show="false" type="button" class="opacity-60 pt-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Login
+			button(v-show="false" type="button" class="text-xs hover:opacity-50 pt-1 text-blue-500") Create New Account
+		button(v-show="false" type="button" class="text-xs opacity-50 hover:opacity-100  text-red-500") Reset Password
 </template>

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { ipcRenderer } from 'electron';
+import { ipcRenderer } from 'electron';
+import { ref, Ref } from 'vue';
 	export default {
 		name: "LoginApp",
 		data() {
@@ -12,10 +13,25 @@
 				PasswordValid: true
 			}
 		},
-		methods: {
-			createUser(fullname: string, username: string, password: string | number){
+		setup(){
+			let UsersListRF = ref([]);
+			let enteredValue: Ref = ref("");
 
+			ipcRenderer.on("fetchUsers", (_event, args)=> {UsersListRF.value = args});
+
+			function createUser(){
+				console.log("Done");
+				console.log(enteredValue.value);
+				UsersListRF.value.push(enteredValue.value);
+				ipcRenderer.send("createNote", enteredValue.value);
 			}
+			return {
+				UsersListRF,
+				enteredValue,
+				createUser
+			}
+		},
+		methods: {
 		}
 	}
 </script>

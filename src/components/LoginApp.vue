@@ -11,6 +11,11 @@
 				UsernameValid: true,
 				PasswordValid: true
 			}
+		},
+		methods: {
+			createUser(fullname: string, username: string, password: string | number){
+
+			}
 		}
 	}
 </script>
@@ -31,15 +36,15 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="FullName" v-model="fullName" type="text")
 		div(class="flex items-center gap-x-1 ")
 			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="UsernameValid ? 'bg-green-500':'bg-red-500'")
-			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" :value="userName" type="text")
+			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" v-model="userName" type="text")
 		div(class="flex items-center gap-x-1 ")
 			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="PasswordValid ? 'bg-green-500':'bg-red-500'")
-			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Password" :value="passWord" type="password")
+			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Password" v-model="passWord" type="password")
 	//- create account or Login
 	div(class="flex flex-col items-center justify-center gap-y-2")
 		div(class="flex items-center justify-center gap-x-2")
 			button(type="button" class="opacity-60 pt-2 pb-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Create Account
 			button(v-show="false" type="button" class="opacity-60 pt-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Login
-			button(v-show="false" type="button" class="text-xs hover:opacity-50 pt-1 text-blue-500") Create New Account
+			button(@click="createUser()" v-show="false" type="button" class="text-xs hover:opacity-50 pt-1 text-blue-500") Create New Account
 		button(v-show="false" type="button" class="text-xs opacity-50 hover:opacity-100  text-red-500") Reset Password
 </template>

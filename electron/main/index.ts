@@ -72,17 +72,71 @@ let NoteContextMenu = Menu.buildFromTemplate([
 	{ label: "Item 3" },
 ]);
 
-
 // Our Windows
 let win: BrowserWindow | null = null;
-
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.js')
-
 const url: string | undefined = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
+//* ----------------------------------------------------------
 
 
+
+
+// Database
+const sqlite3 = require("sqlite3").verbose();
+// const db = new sqlite3.Database("./Databases/ElectronNote.db");
+
+
+function CreateDataBaseFileForUser(fullName, userName, passWord) {
+	const db = new sqlite3.Database(`./Users/${userName}.db`);
+	db.serialize(() => {
+		db.run("CREATE TABLE UserInfo (FullName,  TEXT)");
+		const stmt = db.prepare(
+			"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
+		);
+		stmt.run(NoteName, NoteColor);
+		stmt.finalize();
+		db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
+			console.log(row.id + ": " + row.NoteName);
+		});
+	});
+}
+
+
+function insertNote(NoteName, NoteColor) {
+	db.serialize(() => {
+		//	db.run("CREATE TABLE Notes (NoteName TEXT)");
+		const stmt = db.prepare(
+			"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
+		);
+		stmt.run(NoteName, NoteColor);
+		stmt.finalize();
+		db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
+			console.log(row.id + ": " + row.NoteName);
+		});
+	});
+	// db.close();
+}
+
+
+ipcMain.on("createNote", (_event, Argument) => {
+	console.log(Argument);
+	insertNote(Argument, "Green");
+});
+
+
+ipcMain.on("createUser", (_event, fullname, username, password) => {
+	console.log(fullname, username , password);
+	CreateDataBaseFileForUser(fullname, username, password);
+});
+
+
+
+
+
+//* ------------------------------------------------------------------
+//! Create Windows
 
 async function createWindow() {
 	createTray();
@@ -219,66 +273,6 @@ ipcMain.handle("open-win", (_, arg) => {
 
 
 
-
-
-
-
-
-// Check If there Any User
-
-
-
-
-
-// Database
-const sqlite3 = require("sqlite3").verbose();
-// const db = new sqlite3.Database("./Databases/ElectronNote.db");
-
-
-function CreateDataBaseFileForUser(fullName, userName, passWord) {
-	const db = new sqlite3.Database(`./Users/${userName}.db`);
-	db.serialize(() => {
-		db.run("CREATE TABLE UserInfo (FullName,  TEXT)");
-		const stmt = db.prepare(
-			"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
-		);
-		stmt.run(NoteName, NoteColor);
-		stmt.finalize();
-		db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
-			console.log(row.id + ": " + row.NoteName);
-		});
-	});
-}
-
-
-function insertNote(NoteName, NoteColor) {
-	db.serialize(() => {
-		//	db.run("CREATE TABLE Notes (NoteName TEXT)");
-		const stmt = db.prepare(
-			"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
-		);
-		stmt.run(NoteName, NoteColor);
-		stmt.finalize();
-		db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
-			console.log(row.id + ": " + row.NoteName);
-		});
-	});
-	// db.close();
-}
-
-
-
-
-ipcMain.on("createNote", (_event, Argument) => {
-	console.log(Argument);
-	insertNote(Argument, "Green");
-});
-
-
-ipcMain.on("createUser", (_event, fullname, username, password) => {
-	console.log(fullname, username , password);
-	CreateDataBaseFileForUser(fullname, username, password);
-});
 
 
 

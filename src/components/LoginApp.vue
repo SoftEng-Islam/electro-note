@@ -23,7 +23,7 @@ import { ref, Ref } from 'vue';
 				console.log("Done");
 				console.log(enteredValue.value);
 				UsersListRF.value.push(enteredValue.value);
-				ipcRenderer.send("createNote", enteredValue.value);
+				ipcRenderer.send("createUser", enteredValue.value);
 			}
 			return {
 				UsersListRF,

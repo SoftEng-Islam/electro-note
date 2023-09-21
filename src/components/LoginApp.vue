@@ -10,7 +10,8 @@ import { ref, Ref } from 'vue';
 				passWord: '',
 				FullNameValid: true,
 				UsernameValid: true,
-				PasswordValid: true
+				PasswordValid: true,
+				validUser: false
 			}
 		},
 		setup(){
@@ -49,7 +50,7 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 	div(class="flex flex-col items-center justify-center gap-y-3 py-4")
 		div(class="flex items-center gap-x-1 ")
 			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="FullNameValid ? 'bg-green-500':'bg-red-500'")
-			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="FullName" v-model="fullName" type="text")
+			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Full Name" v-model="fullName" type="text")
 		div(class="flex items-center gap-x-1 ")
 			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="UsernameValid ? 'bg-green-500':'bg-red-500'")
 			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" v-model="userName" type="text")
@@ -59,8 +60,8 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 	//- create account or Login
 	div(class="flex flex-col items-center justify-center gap-y-2")
 		div(class="flex items-center justify-center gap-x-2")
-			button(type="button" class="opacity-60 pt-2 pb-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Create Account
-			button(v-show="false" type="button" class="opacity-60 pt-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Login
-			button(@click="createUser()" v-show="false" type="button" class="text-xs hover:opacity-50 pt-1 text-blue-500") Create New Account
-		button(v-show="false" type="button" class="text-xs opacity-50 hover:opacity-100  text-red-500") Reset Password
+			button(type="button" :disabled="validUser" :class="validUser ? 'opacity-100 cursor-pointer':'opacity-50 cursor-not-allowed'" class="pt-2 pb-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Create Account
+			button(type="button" v-show="false" class="opacity-60 pt-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Login
+			button(type="button" v-show="false" @click="createUser()" class="text-xs hover:opacity-50 pt-1 text-blue-500") Create New Account
+		button(type="button" v-show="false" class="text-xs opacity-50 hover:opacity-100  text-red-500") Reset Password
 </template>

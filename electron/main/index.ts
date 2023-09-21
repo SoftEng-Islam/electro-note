@@ -133,6 +133,17 @@ ipcMain.on("createUser", (_event, fullname, username, password) => {
 
 
 
+// ? Send Data For User
+// let	myNotes = [];
+// db1.serialize(() => {
+// 	db1.each("SELECT rowid AS id, NoteName FROM Notes", (err, row ) => {
+// 		// console.log("line 167: " + row.id + ": " + row.NoteName);
+// 		myNotes.push(row.NoteName);
+// 		win?.webContents.send('fetchNotes', myNotes);
+// 		console.log(myNotes);
+// 	});
+// })
+
 
 
 //* ------------------------------------------------------------------
@@ -180,17 +191,7 @@ async function createWindow() {
 	win.webContents.on("did-finish-load", () => {
 		win?.webContents.send("main-process-message", new Date().toLocaleString());
 
-		const sqlite31 = require("sqlite3").verbose();
-		const db1 = new sqlite31.Database("./Databases/ElectronNote.db");
-		let	myNotes = [];
-		db1.serialize(() => {
-			db1.each("SELECT rowid AS id, NoteName FROM Notes", (err, row ) => {
-				// console.log("line 167: " + row.id + ": " + row.NoteName);
-				myNotes.push(row.NoteName);
-				win?.webContents.send('fetchNotes', myNotes);
-				console.log(myNotes);
-			});
-		})
+
 	});
 
 	// Make all links open with the browser, not with the application
@@ -269,6 +270,7 @@ ipcMain.handle("open-win", (_, arg) => {
 	}
 });
 
+//* ------------------------------------------------------------------
 
 
 

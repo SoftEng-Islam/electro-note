@@ -67,6 +67,7 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 		div(class="flex items-center gap-x-1 ")
 			span(v-show="userName !== ''" class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="UsernameValid ? 'bg-green-500':'bg-red-500'")
 			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" v-on:input="userNameValidator" v-model="userName" type="text")
+		//- Password
 		div(class="flex items-center gap-x-1 ")
 			span(v-show="passWord !== ''" class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="PasswordValid ? 'bg-green-500':'bg-red-500'")
 			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Password" v-on:input="passWordValidator" v-model="passWord" type="password")

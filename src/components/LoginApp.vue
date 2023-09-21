@@ -33,6 +33,17 @@ import { ref, Ref } from 'vue';
 			}
 		},
 		methods: {
+			fullNameValidator(){
+				let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g ;
+				regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
+			},
+			userNameValidator(){
+				let regex = /^[a-zA-Z0-9]+.{4,}$/
+				regex.test(this.userName) ? this.UsernameValid = true : this.UsernameValid = false;
+			},
+			passWordValidator(){
+				this.passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
+			},
 		}
 	}
 </script>
@@ -49,14 +60,14 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 	//- Input Fileds
 	div(class="flex flex-col items-center justify-center gap-y-3 py-4")
 		div(class="flex items-center gap-x-1 ")
-			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="FullNameValid ? 'bg-green-500':'bg-red-500'")
-			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Full Name" v-model="fullName" type="text")
+			span(v-show="fullName !== ''" class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="FullNameValid ? 'bg-green-500':'bg-red-500'")
+			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Full Name" v-on:input="fullNameValidator" v-model="fullName" type="text")
 		div(class="flex items-center gap-x-1 ")
-			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="UsernameValid ? 'bg-green-500':'bg-red-500'")
-			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" v-model="userName" type="text")
+			span(v-show="userName !== ''" class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="UsernameValid ? 'bg-green-500':'bg-red-500'")
+			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Username" v-on:input="userNameValidator" v-model="userName" type="text")
 		div(class="flex items-center gap-x-1 ")
-			span(class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="PasswordValid ? 'bg-green-500':'bg-red-500'")
-			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Password" v-model="passWord" type="password")
+			span(v-show="passWord !== ''" class="absolute right-10 w-3 h-3 rounded-full border border-gray-800" :class="PasswordValid ? 'bg-green-500':'bg-red-500'")
+			input(class="outline-1 focus:outline-blue-500 rounded-xl" placeholder="Password" v-on:input="passWordValidator" v-model="passWord" type="password")
 	//- create account or Login
 	div(class="flex flex-col items-center justify-center gap-y-2")
 		div(class="flex items-center justify-center gap-x-2")

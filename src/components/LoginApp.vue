@@ -8,10 +8,10 @@ import { ref, Ref } from 'vue';
 				fullName: '',
 				userName: '',
 				passWord: '',
-				FullNameValid: true,
-				UsernameValid: true,
-				PasswordValid: true,
-				validUser: false
+				FullNameValid: false,
+				UsernameValid: false,
+				PasswordValid: false,
+				validUser: 0
 			}
 		},
 		setup(){
@@ -35,14 +35,32 @@ import { ref, Ref } from 'vue';
 		methods: {
 			fullNameValidator(){
 				let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g ;
-				regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
+				if(regex.test(this.fullName) ){
+					this.validUser = this.validUser + 1
+					this.FullNameValid = true;
+				} else {
+					this.FullNameValid = false;
+					this.validUser = this.validUser - 1
+				}
 			},
 			userNameValidator(){
 				let regex = /^(\w{5,})$/yg;
-				regex.test(this.userName) ? this.UsernameValid = true : this.UsernameValid = false;
+				if(regex.test(this.userName)){
+					this.validUser = this.validUser + 1
+					this.UsernameValid = true;
+				} else {
+					this.validUser = this.validUser - 1
+					this.UsernameValid = false;
+				}
 			},
 			passWordValidator(){
-				this.passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
+				if (this.passWord.length > 3) {
+					this.validUser = this.validUser + 1
+					this.PasswordValid = true
+				} else {
+					this.validUser = this.validUser - 1
+					this.PasswordValid = false;
+				}
 			},
 		}
 	}

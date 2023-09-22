@@ -35,35 +35,15 @@ import { ref, Ref } from 'vue';
 		methods: {
 			fullNameValidator(){
 				let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g ;
-				console.log(this.validUser);
-				if(regex.test(this.fullName) ){
-					this.validUser += 1
-					this.FullNameValid = true;
-				} else {
-					this.FullNameValid = false;
-					this.validUser -= 1
-				}
+				regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
+
 			},
 			userNameValidator(){
-				console.log(this.validUser);
 				let regex = /^(\w{5,})$/yg;
-				if(regex.test(this.userName)){
-					this.validUser += 1
-					this.UsernameValid = true;
-				} else {
-					this.validUser -= 1
-					this.UsernameValid = false;
-				}
+				regex.test(this.userName) ? this.UsernameValid = true : this.UsernameValid = false;
 			},
 			passWordValidator(){
-				console.log(this.validUser);
-				if (this.passWord.length > 3) {
-					this.validUser += 1
-					this.PasswordValid = true
-				} else {
-					this.validUser -= 1
-					this.PasswordValid = false;
-				}
+				this.passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
 			},
 		}
 	}

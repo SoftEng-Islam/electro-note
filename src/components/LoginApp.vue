@@ -11,7 +11,7 @@ import { ref, Ref } from 'vue';
 				FullNameValid: false,
 				UsernameValid: false,
 				PasswordValid: false,
-				validUser: 0
+				validUser: ''
 			}
 		},
 		setup(){
@@ -33,11 +33,9 @@ import { ref, Ref } from 'vue';
 			}
 		},
 		methods: {
-			// DISM /Online /Cleanup-Image /RestoreHealth
 			fullNameValidator(){
 				let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g ;
 				regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
-
 			},
 			userNameValidator(){
 				let regex = /^(\w{5,})$/yg;

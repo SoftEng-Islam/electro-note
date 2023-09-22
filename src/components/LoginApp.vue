@@ -38,7 +38,7 @@ import { ref, Ref } from 'vue';
 				regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
 			},
 			userNameValidator(){
-				let regex = /^[a-zA-Z0-9]+.{4,}$/
+				let regex = /^(\w{5,})$/yg;
 				regex.test(this.userName) ? this.UsernameValid = true : this.UsernameValid = false;
 			},
 			passWordValidator(){

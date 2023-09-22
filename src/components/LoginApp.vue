@@ -33,6 +33,7 @@ import { ref, Ref } from 'vue';
 			}
 		},
 		methods: {
+			// DISM /Online /Cleanup-Image /RestoreHealth
 			fullNameValidator(){
 				let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g ;
 				regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;

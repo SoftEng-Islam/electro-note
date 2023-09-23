@@ -275,10 +275,6 @@ ipcMain.handle("open-win", (_, arg) => {
 
 
 
-
-
-
-
 // const sqlite3 = require("sqlite3").verbose();
 // const filepath = "./Databases/ElectronNote.db";
 

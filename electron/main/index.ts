@@ -1,10 +1,9 @@
-import { app, BrowserWindow, shell, ipcMain, Tray, Menu} from "electron";
+import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
 
 import electron from "electron";
 import windowStateKeeper from "electron-window-state";
-
 
 // The built directory structure
 //
@@ -18,8 +17,9 @@ import windowStateKeeper from "electron-window-state";
 //
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
-process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL ? join(process.env.DIST_ELECTRON, "../public") : process.env.DIST;
-
+process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
+	? join(process.env.DIST_ELECTRON, "../public")
+	: process.env.DIST;
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -37,13 +37,9 @@ if (!app.requestSingleInstanceLock()) {
 // Read more on https://www.electronjs.org/docs/latest/tutorial/security
 // process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
-
-
-
-
 // Tray
 let trayMenu = Menu.buildFromTemplate([{ label: "Item 1" }, { role: "quit" }]),
-tray: Tray;
+	tray: Tray;
 function createTray() {
 	tray = new Tray(join(process.env.DIST!, "../public/logo.png"));
 	tray.setToolTip("ElectroNote");
@@ -75,18 +71,14 @@ let NoteContextMenu = Menu.buildFromTemplate([
 // Our Windows
 let win: BrowserWindow | null = null;
 // Here, you can also use other preload
-const preload = join(__dirname, '../preload/index.js')
+const preload = join(__dirname, "../preload/index.js");
 const url: string | undefined = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
 //* ----------------------------------------------------------
 
-
-
-
 // Database
 const sqlite3 = require("sqlite3").verbose();
 // const db = new sqlite3.Database("./Databases/ElectronNote.db");
-
 
 function CreateDataBaseFileForUser(fullName, userName, passWord) {
 	const db = new sqlite3.Database(`./Users/${userName}.db`);
@@ -103,7 +95,6 @@ function CreateDataBaseFileForUser(fullName, userName, passWord) {
 	});
 }
 
-
 function insertNote(NoteName, NoteColor) {
 	db.serialize(() => {
 		//	db.run("CREATE TABLE Notes (NoteName TEXT)");
@@ -119,19 +110,15 @@ function insertNote(NoteName, NoteColor) {
 	// db.close();
 }
 
-
 ipcMain.on("createNote", (_event, Argument) => {
 	console.log(Argument);
 	insertNote(Argument, "Green");
 });
 
-
 ipcMain.on("createUser", (_event, fullname, username, password) => {
-	console.log(fullname, username , password);
+	console.log(fullname, username, password);
 	CreateDataBaseFileForUser(fullname, username, password);
 });
-
-
 
 // ? Send Data For User
 // let	myNotes = [];
@@ -144,8 +131,6 @@ ipcMain.on("createUser", (_event, fullname, username, password) => {
 // 	});
 // })
 
-
-
 //* ------------------------------------------------------------------
 //! Create Windows
 
@@ -156,14 +141,13 @@ async function createWindow() {
 		defaultHeight: 800,
 	});
 
-
 	win = new BrowserWindow({
 		title: "ElectroNote",
 		width: winState.width,
 		height: winState.height,
 		x: winState.x,
 		y: winState.y,
-		backgroundColor: '#161616',
+		backgroundColor: "#161616",
 		show: false,
 		frame: false,
 		// transparent: true,
@@ -178,7 +162,6 @@ async function createWindow() {
 		},
 	});
 
-
 	if (process.env.VITE_DEV_SERVER_URL) {
 		win.loadURL(url!);
 		win.webContents.openDevTools();
@@ -186,12 +169,9 @@ async function createWindow() {
 		win.loadFile(indexHtml);
 	}
 
-
 	// Test actively push message to the Electron-Renderer
 	win.webContents.on("did-finish-load", () => {
 		win?.webContents.send("main-process-message", new Date().toLocaleString());
-
-
 	});
 
 	// Make all links open with the browser, not with the application
@@ -199,33 +179,40 @@ async function createWindow() {
 		if (url.startsWith("https:")) shell.openExternal(url);
 		return { action: "deny" };
 	});
-	win.webContents.on('will-navigate', (event, url) => { })
+	win.webContents.on("will-navigate", (event, url) => {});
 
-
-
-	electron.powerMonitor.on("resume", (e) => {if (!win) createWindow();});
-	electron.powerMonitor.on("suspend", (e) => {console.log("Saving Some Data");});
+	electron.powerMonitor.on("resume", (e) => {
+		if (!win) createWindow();
+	});
+	electron.powerMonitor.on("suspend", (e) => {
+		console.log("Saving Some Data");
+	});
 	// close
-	ipcMain.on("closeApp", () => {win!.close();});
+	ipcMain.on("closeApp", () => {
+		win!.close();
+	});
 	// minimizeApp
-	ipcMain.on("minimizeApp", () => {win!.minimize();});
+	ipcMain.on("minimizeApp", () => {
+		win!.minimize();
+	});
 	// maximizeApp
 	ipcMain.on("maximizeApp", () => {
-		if (win!.isMaximized()) {win!.restore();}
-		else {win!.maximize();}
+		if (win!.isMaximized()) {
+			win!.restore();
+		} else {
+			win!.maximize();
+		}
 	});
-
 
 	// Menu.setApplicationMenu(mainMenu);
 	win.webContents.on("context-menu", (e) => {
 		contextMenu.popup();
 	});
 
-	win.once('ready-to-show', () => {
-		win.show()
-	})
+	win.once("ready-to-show", () => {
+		win.show();
+	});
 }
-
 
 app.whenReady().then(createWindow);
 
@@ -269,9 +256,6 @@ ipcMain.handle("open-win", (_, arg) => {
 });
 
 //* ------------------------------------------------------------------
-
-
-
 
 // const sqlite3 = require("sqlite3").verbose();
 // const filepath = "./Databases/ElectronNote.db";

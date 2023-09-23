@@ -216,18 +216,16 @@ async function createWindow() {
 	});
 
 
-
-
 	// Menu.setApplicationMenu(mainMenu);
 	win.webContents.on("context-menu", (e) => {
 		contextMenu.popup();
 	});
 
-
 	win.once('ready-to-show', () => {
 		win.show()
 	})
 }
+
 
 app.whenReady().then(createWindow);
 

@@ -1,51 +1,51 @@
 <script lang="ts">
 import { ipcRenderer } from 'electron';
 import { ref, Ref } from 'vue';
-	export default {
-		name: "LoginApp",
-		data() {
-			return {
-				fullName: '',
-				userName: '',
-				passWord: '',
-				FullNameValid: false,
-				UsernameValid: false,
-				PasswordValid: false,
-				validUser: '',
-			}
-		},
-		setup(){
-			let UsersListRF = ref([]);
-			let enteredValue: Ref = ref("");
-
-			ipcRenderer.on("fetchUsers", (_event, args)=> {UsersListRF.value = args});
-
-			function createUser(){
-				console.log("Done");
-				console.log(enteredValue.value);
-				UsersListRF.value.push(enteredValue.value);
-				ipcRenderer.send("createUser", enteredValue.value);
-			}
-			return {
-				UsersListRF,
-				enteredValue,
-				createUser
-			}
-		},
-		methods: {
-			fullNameValidator(){
-				let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g ;
-				regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
-			},
-			userNameValidator(){
-				let regex = /^(\w{5,})$/yg;
-				regex.test(this.userName) ? this.UsernameValid = true : this.UsernameValid = false;
-			},
-			passWordValidator(){
-				this.passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
-			},
+export default {
+	name: "LoginApp",
+	data() {
+		return {
+			fullName: '',
+			userName: '',
+			passWord: '',
+			FullNameValid: false,
+			UsernameValid: false,
+			PasswordValid: false,
+			validUser: '',
 		}
+	},
+	setup() {
+		let UsersListRF = ref([]);
+		let enteredValue: Ref = ref("");
+
+		ipcRenderer.on("fetchUsers", (_event, args) => { UsersListRF.value = args });
+
+		function createUser() {
+			console.log("Done");
+			console.log(enteredValue.value);
+			UsersListRF.value.push(enteredValue.value);
+			ipcRenderer.send("createUser", enteredValue.value);
+		}
+		return {
+			UsersListRF,
+			enteredValue,
+			createUser
+		}
+	},
+	methods: {
+		fullNameValidator() {
+			let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g;
+			regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
+		},
+		userNameValidator() {
+			let regex = /^(\w{5,})$/yg;
+			regex.test(this.userName) ? this.UsernameValid = true : this.UsernameValid = false;
+		},
+		passWordValidator() {
+			this.passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
+		},
 	}
+}
 </script>
 <template lang="pug">
 //- Overlay

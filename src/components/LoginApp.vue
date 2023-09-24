@@ -16,14 +16,14 @@ export default {
 	},
 	setup() {
 		let UsersListRF = ref([]);
-		let enteredValue = ref<string | never>();
+		let enteredValue = ref<[]>([]);
 
 		ipcRenderer.on("fetchUsers", (_event, args) => { UsersListRF.value = args });
 
 		function createUser() {
 			console.log("Done");
 			console.log(enteredValue.value);
-			UsersListRF.value.push(enteredValue.value);
+			UsersListRF.value.push(...enteredValue.value);
 			ipcRenderer.send("createUser", enteredValue.value);
 		}
 		return {

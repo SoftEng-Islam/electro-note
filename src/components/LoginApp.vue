@@ -16,7 +16,7 @@ export default {
 	},
 	setup() {
 		let UsersListRF = ref([]);
-		let enteredValue: Ref<string[]> = ref([]);
+		let enteredValue = ref<string | never>();
 
 		ipcRenderer.on("fetchUsers", (_event, args) => { UsersListRF.value = args });
 

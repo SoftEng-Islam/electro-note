@@ -18,7 +18,7 @@ export default {
 	},
 	setup() {
 		let NotesListRF = ref([]);
-		let enteredValue: Ref = ref("");
+		let enteredValue: Ref<[]> = ref([]);
 
 		ipcRenderer.on("fetchNotes", (_event, args)=> {NotesListRF.value = args});
 		// console.log(ipcRenderer.on("fetchNotes", (_event, args)=> {NotesListRF.value = args}));
@@ -26,7 +26,7 @@ export default {
 		const createNote = () => {
 			console.log("Done");
 			console.log(enteredValue.value);
-			NotesListRF.value.push(enteredValue.value);
+			NotesListRF.value.push(...enteredValue.value);
 			ipcRenderer.send("createNote", enteredValue.value);
 		};
 		return {

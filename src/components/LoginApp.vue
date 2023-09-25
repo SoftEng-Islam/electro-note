@@ -71,8 +71,9 @@ div(v-show="true" class="z-40 fixed w-screen h-full left-0 top-0 backdrop-blur")
 div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-72 p-3 rounded-3xl shadow-lg" style="background: var(--bgG)")
 	//- Avatar
 	div(class="w-full flex flex-col items-center justify-center")
-		div(class="w-20 h-20 border-2 border-gray-800 flex items-center justify-center rounded-full shadow-xl")
+		div(class="relative w-20 h-20 border-2 border-gray-800 flex items-center justify-center rounded-full shadow-xl")
 			<svg class="w-full fill-black dark:fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM6.02332 15.4163C7.49083 17.6069 9.69511 19 12.1597 19C14.6243 19 16.8286 17.6069 18.2961 15.4163C16.6885 13.9172 14.5312 13 12.1597 13C9.78821 13 7.63095 13.9172 6.02332 15.4163ZM12 11C13.6569 11 15 9.65685 15 8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8C9 9.65685 10.3431 11 12 11Z"/></svg>
+			<svg class="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-full fill-[var(--dark300)]"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z"/></svg>
 		span(v-show="true" class="text-black dark:text-white") {{ fullName }}
 	//- Input Fileds
 	div(class="flex flex-col items-center justify-center gap-y-3 py-4")
@@ -95,7 +96,7 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 	div(class="flex flex-col items-center justify-center gap-y-2")
 		div(class="flex items-center justify-center gap-x-2")
 			//- Create Account
-			button(type="button" :disabled="FullNameValid && UsernameValid && PasswordValid === false" :class="validUser ? 'opacity-100 cursor-pointer':'opacity-50 cursor-not-allowed'" class="pt-2 pb-1 px-3 font-bold rounded-full  text-gray-400 bg-black shadow-xl") Create Account
+			button(type="button" :disabled="FullNameValid && UsernameValid && PasswordValid === false" :class="validUser ? 'opacity-100 cursor-pointer':'opacity-50 cursor-not-allowed'" class="py-2 px-3 font-bold rounded-full  text-gray-400 bg-black shadow-xl") Create Account
 			//- Login
 			button(type="button" v-show="false" class="opacity-60 pt-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Login
 		button(type="button" v-show="false" class="text-xs opacity-50 hover:opacity-100  text-red-500") Reset Password

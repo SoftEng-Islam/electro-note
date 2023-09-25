@@ -86,7 +86,7 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 	div(class="flex flex-col items-center justify-center gap-y-2")
 		div(class="flex items-center justify-center gap-x-2")
 			//- Create Account
-			button(type="button" :disabled="FullNameValid && UsernameValid && PasswordValid === false" :class="validUser ? 'opacity-100 cursor-pointer':'opacity-50 cursor-not-allowed'" class="pt-2 pb-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Create Account
+			button(type="button" :disabled="FullNameValid && UsernameValid && PasswordValid === false" :class="validUser ? 'opacity-100 cursor-pointer':'opacity-50 cursor-not-allowed'" class="pt-2 pb-1 px-3 font-bold rounded-full  text-gray-400 bg-black shadow-xl") Create Account
 			//- Login
 			button(type="button" v-show="false" class="opacity-60 pt-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Login
 			//- Create New Account

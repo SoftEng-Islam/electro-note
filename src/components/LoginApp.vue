@@ -36,8 +36,8 @@ export default {
 		}
 	},
 	watch: {
-		validUser(vLU){
-			if (vLU === true) {
+		validUser(newValue, oldValue){
+			if (newValue === true) {
 				console.log('true')
 			} else {
 				console.log('false')

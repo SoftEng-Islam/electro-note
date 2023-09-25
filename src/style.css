@@ -24,6 +24,9 @@
 	input[type='text']:focus {
 		@apply ring-0;
 	}
+	input[type='password']:focus {
+		@apply ring-0;
+	}
 	input {
 		@apply outline-none border-none;
 	}

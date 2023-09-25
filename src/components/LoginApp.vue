@@ -11,7 +11,7 @@ export default {
 			FullNameValid: false,
 			UsernameValid: false,
 			PasswordValid: false,
-			validUser: '',
+			validUser: this.FullNameValid && this.UsernameValid && this.PasswordValid,
 			eyeOFF: true,
 			eyeON: false,
 			PassType: 'password'
@@ -33,6 +33,15 @@ export default {
 			UsersListRF,
 			enteredValue,
 			createUser
+		}
+	},
+	watch: {
+		validUser(vLU){
+			if (vLU === true) {
+				console.log('true')
+			} else {
+				console.log('false')
+			}
 		}
 	},
 	methods: {

@@ -89,7 +89,5 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 			button(type="button" :disabled="FullNameValid && UsernameValid && PasswordValid === false" :class="validUser ? 'opacity-100 cursor-pointer':'opacity-50 cursor-not-allowed'" class="pt-2 pb-1 px-3 font-bold rounded-full  text-gray-400 bg-black shadow-xl") Create Account
 			//- Login
 			button(type="button" v-show="false" class="opacity-60 pt-1 px-3 font-bold rounded-full border-2 border-green-600 text-green-600 bg-black dark:bg-white") Login
-			//- Create New Account
-			button(type="button" v-show="false" @click="createUser()" class="text-xs hover:opacity-50 pt-1 text-blue-500") Create New Account
 		button(type="button" v-show="false" class="text-xs opacity-50 hover:opacity-100  text-red-500") Reset Password
 </template>

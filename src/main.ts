@@ -3,8 +3,9 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router/index";
 
-import "./style.css";
 import "./samples/node-api";
+
+import "./style.css";
 import "animate.css";
 
 import PerfectScrollbar from "vue3-perfect-scrollbar";

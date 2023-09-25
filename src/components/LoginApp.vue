@@ -78,15 +78,15 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 	div(class="flex flex-col items-center justify-center gap-y-3 py-4")
 		//- Full Name
 		div(class="flex items-center gap-x-1 ")
-			span(v-show="fullName !== ''" class="absolute right-6 w-3 h-3 rounded-full border border-gray-800" :class="FullNameValid ? 'bg-green-500':'bg-red-500'")
+			span(v-show="fullName !== ''" class="absolute right-7 w-3 h-3 rounded-full border border-gray-800" :class="FullNameValid ? 'bg-green-500':'bg-red-500'")
 			input(class="outline-1 focus:outline-gray-600 rounded-xl" placeholder="Full Name" v-on:input="fullNameValidator" v-model="fullName" type="text")
 		//- Username
 		div(class="flex items-center gap-x-1 ")
-			span(v-show="userName !== ''" class="absolute right-6 w-3 h-3 rounded-full border border-gray-800" :class="UsernameValid ? 'bg-green-500':'bg-red-500'")
+			span(v-show="userName !== ''" class="absolute right-7 w-3 h-3 rounded-full border border-gray-800" :class="UsernameValid ? 'bg-green-500':'bg-red-500'")
 			input(class="outline-1 focus:outline-gray-600 rounded-xl" placeholder="Username" v-on:input="userNameValidator" v-model="userName" type="text")
 		//- Password
 		div(class="flex items-center gap-x-1 ")
-			span(v-show="passWord !== ''" class="absolute right-6 w-3 h-3 rounded-full border border-gray-800" :class="PasswordValid ? 'bg-green-500':'bg-red-500'")
+			span(v-show="passWord !== ''" class="absolute right-7 w-3 h-3 rounded-full border border-gray-800" :class="PasswordValid ? 'bg-green-500':'bg-red-500'")
 			input(class="outline-1 focus:outline-gray-600 rounded-xl" placeholder="Password" v-on:input="passWordValidator" v-model="passWord" :type="PassType")
 			button(type="button" class="w-5 h-full absolute right-12 cursor-pointer" @click="showPass")
 				<svg v-show="eyeON"  class="w-4 mx-auto" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1.18164 12C2.12215 6.87976 6.60812 3 12.0003 3C17.3924 3 21.8784 6.87976 22.8189 12C21.8784 17.1202 17.3924 21 12.0003 21C6.60812 21 2.12215 17.1202 1.18164 12ZM12.0003 17C14.7617 17 17.0003 14.7614 17.0003 12C17.0003 9.23858 14.7617 7 12.0003 7C9.23884 7 7.00026 9.23858 7.00026 12C7.00026 14.7614 9.23884 17 12.0003 17ZM12.0003 15C10.3434 15 9.00026 13.6569 9.00026 12C9.00026 10.3431 10.3434 9 12.0003 9C13.6571 9 15.0003 10.3431 15.0003 12C15.0003 13.6569 13.6571 15 12.0003 15Z"/></svg>

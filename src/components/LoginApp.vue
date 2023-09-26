@@ -36,7 +36,7 @@ export default {
 		}
 	},
 	watch: {
-		validUser(newValue, oldValue){
+		validUser(newValue, oldValue) {
 			if (newValue === true) {
 				console.log('true')
 			} else {
@@ -71,9 +71,9 @@ div(v-show="true" class="z-40 fixed w-screen h-full left-0 top-0 backdrop-blur")
 div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-72 p-3 rounded-3xl shadow-lg" style="background: var(--bgG)")
 	//- Avatar
 	div(class="w-full flex flex-col items-center justify-center")
-		div(class="relative w-20 h-20 border-2 border-white flex items-center justify-center rounded-full shadow-xl")
+		button(class="relative w-24 h-24 p-2 border-2 border-white backdrop-blur flex items-center justify-center rounded-full shadow-xl")
 			<svg class="w-full fill-black dark:fill-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM6.02332 15.4163C7.49083 17.6069 9.69511 19 12.1597 19C14.6243 19 16.8286 17.6069 18.2961 15.4163C16.6885 13.9172 14.5312 13 12.1597 13C9.78821 13 7.63095 13.9172 6.02332 15.4163ZM12 11C13.6569 11 15 9.65685 15 8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8C9 9.65685 10.3431 11 12 11Z"/></svg>
-			<svg class="w-6 absolute right-0 bottom-0  " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"/></svg>
+			<svg class="w-5 h-5 p-1 absolute right-1 bottom-1 fill-black bg-white rounded-full shadow-lg" viewBox="0 0 32 32" ><path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/></svg>
 		span(v-show="true" class="text-black dark:text-white") {{ fullName }}
 	//- Input Fileds
 	div(class="flex flex-col items-center justify-center gap-y-3 py-4")

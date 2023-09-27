@@ -67,7 +67,7 @@ export default {
 </script>
 <template lang="pug">
 //- Overlay
-div(v-show="true" class="z-40 fixed w-screen h-full left-0 top-0 backdrop-blur")
+div(v-show="true" class="z-40 fixed w-screen h-full left-0 top-0 backdrop-blur-sm")
 //- Login Form
 div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-72 p-3 rounded-3xl shadow-lg" style="background: var(--bgG)")
 	//- Avatar

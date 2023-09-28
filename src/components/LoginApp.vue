@@ -51,16 +51,16 @@ export default {
 		fullNameValidator() {
 			let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g;
 			regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
-			this.FullNameValid === true && this.UsernameValid === true && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
 		},
 		userNameValidator() {
 			let regex = /^(\w{5,})$/yg;
 			regex.test(this.userName) ? this.UsernameValid = true : this.UsernameValid = false;
-			this.FullNameValid === true && this.UsernameValid === true && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
 		},
 		passWordValidator() {
 			this.passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
-			this.FullNameValid === true && this.UsernameValid === true && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
 		},
 		showPass() {
 			this.eyeOFF = !this.eyeOFF;

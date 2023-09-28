@@ -14,7 +14,7 @@ export default {
 			FullNameValid: false,
 			UsernameValid: false,
 			PasswordValid: false,
-			validUser: this.FullNameValid && this.UsernameValid && this.PasswordValid,
+			validUser: false,
 			eyeOFF: true,
 			eyeON: false,
 			PassType: 'password'
@@ -51,13 +51,19 @@ export default {
 		fullNameValidator() {
 			let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g;
 			regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
+			this.FullNameValid === true && this.UsernameValid === true && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+			console.log(this.validUser);
 		},
 		userNameValidator() {
 			let regex = /^(\w{5,})$/yg;
 			regex.test(this.userName) ? this.UsernameValid = true : this.UsernameValid = false;
+			this.FullNameValid === true && this.UsernameValid === true && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+			console.log(this.validUser);
 		},
 		passWordValidator() {
 			this.passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
+			this.FullNameValid === true && this.UsernameValid === true && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+			console.log(this.validUser);
 		},
 		showPass() {
 			this.eyeOFF = !this.eyeOFF;

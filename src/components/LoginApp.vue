@@ -5,10 +5,6 @@ export default {
 	name: "LoginApp",
 	data() {
 		return {
-			Users: [''],
-			srcAvatar: ``,
-			isAvatar: false,
-			validUser: false,
 			eyeOFF: true,
 			eyeON: false,
 			PassType: 'password'
@@ -22,11 +18,15 @@ export default {
 
 		let FullNameValid = false,
 			UsernameValid = false,
-			PasswordValid = false;
+			PasswordValid = false,
+			Users = [''],
+			srcAvatar = ``,
+			isAvatar = false,
+			validUser = false,
 
-		let UsersListRF = ref([]),
+
+			let UsersListRF = ref([]),
 			enteredValue = ref<[]>([]);
-
 
 		ipcRenderer.on("fetchUsers", (_event, args) => { UsersListRF.value = args });
 
@@ -40,8 +40,8 @@ export default {
 
 		function fullNameValidator() {
 			let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g;
-			regex.test(fullName) ? this.FullNameValid = true : this.FullNameValid = false;
-			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+			regex.test(fullName) ? FullNameValid = true : FullNameValid = false;
+			FullNameValid && UsernameValid && PasswordValid === true ? validUser = true : validUser = false;
 		};
 		function userNameValidator() {
 			let regex = /^(\w{5,})$/yg;

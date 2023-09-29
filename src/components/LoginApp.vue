@@ -8,12 +8,6 @@ export default {
 			Users: [''],
 			srcAvatar: ``,
 			isAvatar: false,
-			fullName: '',
-			userName: '',
-			passWord: '',
-			FullNameValid: false,
-			UsernameValid: false,
-			PasswordValid: false,
 			validUser: false,
 			eyeOFF: true,
 			eyeON: false,
@@ -22,10 +16,17 @@ export default {
 	},
 	setup() {
 
+		let fullName = ref<string>(),
+			userName = ref<string>(),
+			passWord = ref<string>();
 
+		let FullNameValid = false,
+			UsernameValid = false,
+			PasswordValid = false;
 
-		let UsersListRF = ref([]);
-		let enteredValue = ref<[]>([]);
+		let UsersListRF = ref([]),
+			enteredValue = ref<[]>([]);
+
 
 		ipcRenderer.on("fetchUsers", (_event, args) => { UsersListRF.value = args });
 
@@ -35,7 +36,29 @@ export default {
 			UsersListRF.value.push(...enteredValue.value);
 			ipcRenderer.send("createUser", enteredValue.value);
 		}
+
+
+		function fullNameValidator() {
+			let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g;
+			regex.test(fullName) ? this.FullNameValid = true : this.FullNameValid = false;
+			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+		};
+		function userNameValidator() {
+			let regex = /^(\w{5,})$/yg;
+			regex.test(userName) ? this.UsernameValid = true : this.UsernameValid = false;
+			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+		};
+		function passWordValidator() {
+			passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
+			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+		};
+
+
+
 		return {
+			fullName,
+			userName,
+			passWord,
 			UsersListRF,
 			enteredValue,
 			createUser
@@ -51,20 +74,7 @@ export default {
 		}
 	},
 	methods: {
-		fullNameValidator() {
-			let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g;
-			regex.test(this.fullName) ? this.FullNameValid = true : this.FullNameValid = false;
-			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
-		},
-		userNameValidator() {
-			let regex = /^(\w{5,})$/yg;
-			regex.test(this.userName) ? this.UsernameValid = true : this.UsernameValid = false;
-			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
-		},
-		passWordValidator() {
-			this.passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
-			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
-		},
+
 		showPass() {
 			this.eyeOFF = !this.eyeOFF;
 			this.eyeON = !this.eyeON;

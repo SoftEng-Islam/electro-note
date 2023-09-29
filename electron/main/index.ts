@@ -1,7 +1,8 @@
 import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
-
+// let fs = require('fs');
+import fs from "fs";
 import electron from "electron";
 import windowStateKeeper from "electron-window-state";
 
@@ -253,6 +254,11 @@ ipcMain.handle("open-win", (_, arg) => {
 	} else {
 		childWindow.loadFile(indexHtml, { hash: arg });
 	}
+});
+
+ipcMain.on("createFile", (_event, Argument) => {
+	console.log(Argument);
+	fs.appendFile("./testData.txt", "lalala"); // appendFile insert data to file
 });
 
 //* ------------------------------------------------------------------

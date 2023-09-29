@@ -32,28 +32,28 @@ export default {
 			console.log(args);
 		});
 
-		function createUser() {
-			UsersList.value.push(...NewUsersList.value);
-			ipcRenderer.send("createUser", NewUsersList.value);
-		}
-
 		function checkForm() {
 			FullNameValid && UsernameValid && PasswordValid === true ? validUser = true : validUser = false;
 		};
 
-		function fullNameValidator() {
+		const fullNameValidator = () => {
 			/^[a-zA-Z]+\s[a-zA-Z]+$/g.test(fullName) ? FullNameValid = true : FullNameValid = false;
 			checkForm();
 		};
-		function userNameValidator() {
+		const userNameValidator = () => {
 			/^(\w{5,})$/yg.test(userName) ? UsernameValid = true : UsernameValid = false;
 			checkForm();
 		};
-		function passWordValidator() {
+		const passWordValidator = () => {
 			passWord.length > 3 ? PasswordValid = true : PasswordValid = false;
 			checkForm();
 		};
 
+
+		const createUser = () => {
+			UsersList.value.push(...NewUsersList.value);
+			ipcRenderer.send("createUser", NewUsersList.value);
+		}
 
 		return {
 			fullName,
@@ -61,6 +61,9 @@ export default {
 			passWord,
 			UsersList,
 			NewUsersList,
+			fullNameValidator,
+			userNameValidator,
+			passWordValidator,
 			createUser
 		}
 	},

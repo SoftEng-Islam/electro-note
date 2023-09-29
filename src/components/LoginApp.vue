@@ -36,22 +36,24 @@ export default {
 			ipcRenderer.send("createUser", enteredValue.value);
 		}
 
+		function checkForm() {
+			FullNameValid && UsernameValid && PasswordValid === true ? validUser = true : validUser = false;
+		};
 
 		function fullNameValidator() {
 			let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g;
 			regex.test(fullName) ? FullNameValid = true : FullNameValid = false;
-			FullNameValid && UsernameValid && PasswordValid === true ? validUser = true : validUser = false;
+			checkForm();
 		};
 		function userNameValidator() {
 			let regex = /^(\w{5,})$/yg;
 			regex.test(userName) ? UsernameValid = true : UsernameValid = false;
-			FullNameValid && UsernameValid && PasswordValid === true ? validUser = true : validUser = false;
+			checkForm();
 		};
 		function passWordValidator() {
 			passWord.length > 3 ? PasswordValid = true : PasswordValid = false;
-			FullNameValid && UsernameValid && PasswordValid === true ? validUser = true : validUser = false;
+			checkForm();
 		};
-
 
 
 		return {

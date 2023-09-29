@@ -22,13 +22,7 @@ export default {
 	},
 	setup() {
 
-		// Check if there any users
-		// Login
-		// OR
-		// Create Account
 
-		// No users
-		// Create User
 
 		let UsersListRF = ref([]);
 		let enteredValue = ref<[]>([]);

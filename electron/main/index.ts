@@ -83,6 +83,9 @@ const sqlite3 = require("sqlite3").verbose();
 
 function CreateDataBaseFileForUser(fullName, userName, passWord) {
 	const db = new sqlite3.Database(`./Users/${userName}.db`);
+	fs.writeFile(`${userName}.db`, "", (err) => {
+		if (err) console.log("Error");
+	});
 	db.serialize(() => {
 		db.run("CREATE TABLE UserInfo (FullName,  TEXT)");
 		const stmt = db.prepare(
@@ -254,14 +257,6 @@ ipcMain.handle("open-win", (_, arg) => {
 	} else {
 		childWindow.loadFile(indexHtml, { hash: arg });
 	}
-});
-
-ipcMain.on("createFile", (_event, Argument) => {
-	console.log(Argument);
-	fs.appendFile("./testData.txt", Argument, (err) => {
-		if (err) throw err;
-		console.log('The "data to append" was appended to file!');
-	}); // appendFile insert data to file
 });
 
 //* ------------------------------------------------------------------

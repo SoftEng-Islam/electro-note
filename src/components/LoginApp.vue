@@ -12,7 +12,7 @@ export default {
 	},
 	setup() {
 
-		let srcAvatar = ``,
+		let srcAvatar = "",
 			fullName = "",
 			userName = "",
 			passWord = "";
@@ -24,16 +24,21 @@ export default {
 			validUser = false;
 
 
-		let UsersListRF = ref([]),
-			enteredValue = ref<[]>([]);
+		let UsersList = ref([]),
+			NewUsersList = ref<[]>([]);
 
-		ipcRenderer.on("fetchUsers", (_event, args) => { UsersListRF.value = args });
+
+
+		// Get List OF User
+		ipcRenderer.on("fetchUsers", (_event, args) => {
+			UsersList.value = args
+			console.log(args);
+		});
+
 
 		function createUser() {
-			console.log("Done");
-			console.log(enteredValue.value);
-			UsersListRF.value.push(...enteredValue.value);
-			ipcRenderer.send("createUser", enteredValue.value);
+			UsersList.value.push(...NewUsersList.value);
+			ipcRenderer.send("createUser", NewUsersList.value);
 		}
 
 		function checkForm() {
@@ -60,8 +65,8 @@ export default {
 			fullName,
 			userName,
 			passWord,
-			UsersListRF,
-			enteredValue,
+			UsersList,
+			NewUsersList,
 			createUser
 		}
 	},

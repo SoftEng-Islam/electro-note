@@ -258,7 +258,10 @@ ipcMain.handle("open-win", (_, arg) => {
 
 ipcMain.on("createFile", (_event, Argument) => {
 	console.log(Argument);
-	fs.appendFile("./testData.txt", "lalala"); // appendFile insert data to file
+	fs.appendFile("./testData.txt", Argument, (err) => {
+		if (err) throw err;
+		console.log('The "data to append" was appended to file!');
+	}); // appendFile insert data to file
 });
 
 //* ------------------------------------------------------------------

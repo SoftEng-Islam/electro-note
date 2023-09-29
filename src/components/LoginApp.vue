@@ -23,18 +23,14 @@ export default {
 			isAvatar = false,
 			validUser = false;
 
-
 		let UsersList = ref([]),
 			NewUsersList = ref<[]>([]);
-
-
 
 		// Get List OF User
 		ipcRenderer.on("fetchUsers", (_event, args) => {
 			UsersList.value = args
 			console.log(args);
 		});
-
 
 		function createUser() {
 			UsersList.value.push(...NewUsersList.value);
@@ -46,13 +42,11 @@ export default {
 		};
 
 		function fullNameValidator() {
-			let regex = /^[a-zA-Z]+\s[a-zA-Z]+$/g;
-			regex.test(fullName) ? FullNameValid = true : FullNameValid = false;
+			/^[a-zA-Z]+\s[a-zA-Z]+$/g.test(fullName) ? FullNameValid = true : FullNameValid = false;
 			checkForm();
 		};
 		function userNameValidator() {
-			let regex = /^(\w{5,})$/yg;
-			regex.test(userName) ? UsernameValid = true : UsernameValid = false;
+			/^(\w{5,})$/yg.test(userName) ? UsernameValid = true : UsernameValid = false;
 			checkForm();
 		};
 		function passWordValidator() {

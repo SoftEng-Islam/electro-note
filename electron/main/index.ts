@@ -82,21 +82,22 @@ const sqlite3 = require("sqlite3").verbose();
 // const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
 function CreateDataBaseFileForUser(fullName, userName, passWord) {
-	const db = new sqlite3.Database(`./Users/${userName}.db`);
-	fs.writeFile(`${userName}.db`, "", (err) => {
-		if (err) console.log("Error");
-	});
-	db.serialize(() => {
-		db.run("CREATE TABLE UserInfo (FullName,  TEXT)");
-		const stmt = db.prepare(
-			"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
-		);
-		stmt.run(NoteName, NoteColor);
-		stmt.finalize();
-		db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
-			console.log(row.id + ": " + row.NoteName);
-		});
-	});
+	// Read Dir and Return list Of users(Files)
+	// const db = new sqlite3.Database(`./Users/${userName}.db`);
+	// fs.writeFile(`${userName}.db`, "", (err) => {
+	// 	if (err) console.log("Error");
+	// });
+	// db.serialize(() => {
+	// 	db.run("CREATE TABLE UserInfo (FullName,  TEXT)");
+	// 	const stmt = db.prepare(
+	// 		"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
+	// 	);
+	// 	stmt.run(NoteName, NoteColor);
+	// 	stmt.finalize();
+	// 	db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
+	// 		console.log(row.id + ": " + row.NoteName);
+	// 	});
+	// });
 }
 
 function insertNote(NoteName, NoteColor) {

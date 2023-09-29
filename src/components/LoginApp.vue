@@ -12,20 +12,19 @@ export default {
 	},
 	setup() {
 
-		let fullName = ref<string>(),
-			userName = ref<string>(),
-			passWord = ref<string>();
+		let srcAvatar = ``,
+			fullName = "",
+			userName = "",
+			passWord = "";
 
 		let FullNameValid = false,
 			UsernameValid = false,
 			PasswordValid = false,
-			Users = [''],
-			srcAvatar = ``,
 			isAvatar = false,
-			validUser = false,
+			validUser = false;
 
 
-			let UsersListRF = ref([]),
+		let UsersListRF = ref([]),
 			enteredValue = ref<[]>([]);
 
 		ipcRenderer.on("fetchUsers", (_event, args) => { UsersListRF.value = args });
@@ -45,12 +44,12 @@ export default {
 		};
 		function userNameValidator() {
 			let regex = /^(\w{5,})$/yg;
-			regex.test(userName) ? this.UsernameValid = true : this.UsernameValid = false;
-			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+			regex.test(userName) ? UsernameValid = true : UsernameValid = false;
+			FullNameValid && UsernameValid && PasswordValid === true ? validUser = true : validUser = false;
 		};
 		function passWordValidator() {
-			passWord.length > 3 ? this.PasswordValid = true : this.PasswordValid = false;
-			this.FullNameValid && this.UsernameValid && this.PasswordValid === true ? this.validUser = true : this.validUser = false;
+			passWord.length > 3 ? PasswordValid = true : PasswordValid = false;
+			FullNameValid && UsernameValid && PasswordValid === true ? validUser = true : validUser = false;
 		};
 
 

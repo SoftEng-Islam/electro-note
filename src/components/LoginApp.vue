@@ -52,7 +52,7 @@ export default {
 
 		const createUser = () => {
 			UsersList.value.push(...NewUsersList.value);
-			ipcRenderer.send("createUser", NewUsersList.value);
+			ipcRenderer.send("createUser", fullName, userName, passWord);
 		}
 
 		return {

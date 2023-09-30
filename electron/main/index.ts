@@ -81,7 +81,7 @@ const indexHtml = join(process.env.DIST, "index.html");
 const sqlite3 = require("sqlite3").verbose();
 // const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
-function CreateDataBaseFileForUser(fullName, userName, passWord) {
+function CreateDataBaseFileForUser() {
 	// Read Dir and Return list Of users(Files)
 
 	const directoryPath = path.join(__dirname, "Users");
@@ -135,9 +135,9 @@ ipcMain.on("createNote", (_event, Argument) => {
 	insertNote(Argument, "Green");
 });
 
-ipcMain.on("createUser", (_event, fullname, username, password) => {
-	console.log(fullname, username, password);
-	CreateDataBaseFileForUser(fullname, username, password);
+ipcMain.on("createUser", (_event, Args) => {
+	console.log(Args);
+	// CreateDataBaseFileForUser();
 });
 
 // ? Send Data For User

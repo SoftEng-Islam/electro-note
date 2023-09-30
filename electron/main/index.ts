@@ -1,7 +1,7 @@
 import { app, BrowserWindow, shell, ipcMain, Tray, Menu } from "electron";
 import { release } from "node:os";
 import { join } from "node:path";
-// let fs = require('fs');
+import path from "path";
 import fs from "fs";
 import electron from "electron";
 import windowStateKeeper from "electron-window-state";
@@ -79,10 +79,25 @@ const indexHtml = join(process.env.DIST, "index.html");
 
 // Database
 const sqlite3 = require("sqlite3").verbose();
-// const db = new sqlite3.Database("./Databases/ElectronNote.db");
+const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
 function CreateDataBaseFileForUser(fullName, userName, passWord) {
 	// Read Dir and Return list Of users(Files)
+
+	const directoryPath = path.join(__dirname, "Users");
+	//passsing directoryPath and callback function
+	fs.readdir(directoryPath, function (err, files) {
+		//handling error
+		if (err) {
+			return console.log("Unable to scan directory: " + err);
+		}
+		//listing all files using forEach
+		files.forEach(function (file) {
+			// Do whatever you want to do with the file
+			console.log(file);
+		});
+	});
+
 	// const db = new sqlite3.Database(`./Users/${userName}.db`);
 	// fs.writeFile(`${userName}.db`, "", (err) => {
 	// 	if (err) console.log("Error");

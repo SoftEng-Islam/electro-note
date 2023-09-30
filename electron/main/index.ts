@@ -79,7 +79,7 @@ const indexHtml = join(process.env.DIST, "index.html");
 
 // Database
 const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("./Databases/ElectronNote.db");
+// const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
 function CreateDataBaseFileForUser(fullName, userName, passWord) {
 	// Read Dir and Return list Of users(Files)
@@ -116,17 +116,17 @@ function CreateDataBaseFileForUser(fullName, userName, passWord) {
 }
 
 function insertNote(NoteName, NoteColor) {
-	db.serialize(() => {
-		//	db.run("CREATE TABLE Notes (NoteName TEXT)");
-		const stmt = db.prepare(
-			"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
-		);
-		stmt.run(NoteName, NoteColor);
-		stmt.finalize();
-		db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
-			console.log(row.id + ": " + row.NoteName);
-		});
-	});
+	// db.serialize(() => {
+	// 	//	db.run("CREATE TABLE Notes (NoteName TEXT)");
+	// 	const stmt = db.prepare(
+	// 		"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
+	// 	);
+	// 	stmt.run(NoteName, NoteColor);
+	// 	stmt.finalize();
+	// 	db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
+	// 		console.log(row.id + ": " + row.NoteName);
+	// 	});
+	// });
 	// db.close();
 }
 

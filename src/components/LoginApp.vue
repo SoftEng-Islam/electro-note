@@ -3,25 +3,23 @@ import { ipcRenderer } from 'electron';
 import { ref } from 'vue';
 export default {
 	name: "LoginApp",
-	data() {
-		return {
-			eyeOFF: true,
-			eyeON: false,
-			PassType: 'password'
-		}
-	},
 	setup() {
 
-		let srcAvatar = "",
-			fullName = "",
-			userName = "",
-			passWord = "";
+		let srcAvatar = ref<string>(""),
+			fullName = ref<string>(""),
+			userName = ref<string>(""),
+			passWord = ref<string>("");
 
-		let FullNameValid = false,
-			UsernameValid = false,
-			PasswordValid = false,
-			isAvatar = false,
-			validUser = false;
+		let eyeOFF = ref<boolean>(true),
+			eyeON = ref<boolean>(false),
+			PassType = ref<string>('password');
+
+		let
+			FullNameValid = ref<boolean>(false),
+			UsernameValid = ref<boolean>(false),
+			PasswordValid = ref<boolean>(false),
+			isAvatar = ref<boolean>(false),
+			validUser = ref<boolean>(false);
 
 		let UsersList = ref([]),
 			NewUsersList = ref<[]>([]);
@@ -33,22 +31,27 @@ export default {
 		});
 
 		function checkForm() {
-			FullNameValid && UsernameValid && PasswordValid === true ? validUser = true : validUser = false;
+			FullNameValid.value && UsernameValid.value && PasswordValid.value === true ? validUser.value = true : validUser.value = false;
 		};
 
 		const fullNameValidator = () => {
-			/^[a-zA-Z]+\s[a-zA-Z]+$/g.test(fullName) ? FullNameValid = true : FullNameValid = false;
+			/^[a-zA-Z]+\s[a-zA-Z]+$/g.test(fullName.value) ? FullNameValid.value = true : FullNameValid.value = false;
 			checkForm();
 		};
 		const userNameValidator = () => {
-			/^(\w{5,})$/yg.test(userName) ? UsernameValid = true : UsernameValid = false;
+			/^(\w{5,})$/yg.test(userName.value) ? UsernameValid.value = true : UsernameValid.value = false;
 			checkForm();
 		};
 		const passWordValidator = () => {
-			passWord.length > 3 ? PasswordValid = true : PasswordValid = false;
+			passWord.value.length > 3 ? PasswordValid.value = true : PasswordValid.value = false;
 			checkForm();
 		};
 
+		const showPass = () => {
+			eyeOFF.value = !eyeOFF.value;
+			eyeON.value = !eyeON.value;
+			PassType.value === 'password' ? PassType.value = 'text' : PassType.value = 'password'
+		}
 
 		const createUser = () => {
 			UsersList.value.push(...NewUsersList.value);
@@ -56,34 +59,27 @@ export default {
 		}
 
 		return {
+			srcAvatar,
 			fullName,
 			userName,
 			passWord,
 			UsersList,
 			NewUsersList,
+			validUser,
+			isAvatar,
+			PassType,
+			eyeOFF,
+			eyeON,
+			FullNameValid,
+			UsernameValid,
+			PasswordValid,
 			fullNameValidator,
 			userNameValidator,
 			passWordValidator,
+			showPass,
 			createUser
 		}
 	},
-	watch: {
-		validUser(newValue, oldValue) {
-			if (newValue === true) {
-				console.log('true')
-			} else {
-				console.log('false')
-			}
-		}
-	},
-	methods: {
-
-		showPass() {
-			this.eyeOFF = !this.eyeOFF;
-			this.eyeON = !this.eyeON;
-			this.PassType === 'password' ? this.PassType = 'text' : this.PassType = 'password'
-		}
-	}
 }
 </script>
 <template lang="pug">
@@ -104,7 +100,7 @@ div(v-show="true" class="z-50 flex flex-col items-center justify-center fixed le
 	div(class="flex flex-col items-center justify-center gap-y-3 py-4")
 		//- Full Name
 		div(class="flex items-center gap-x-1 ")
-			span(v-show="fullName !== ''" class="absolute right-7 w-3 h-3 rounded-full border border-gray-800" :class="FullNameValid ? 'bg-green-500':'bg-red-500 animate__animated animate__heartBeat animate__faster animate__infinite infinite'")
+			span(v-show="fullName !== ''" class="absolute right-7 w-3 h-3 rounded-full border border-gray-800" :class="FullNameValid  ? 'bg-green-500':'bg-red-500 animate__animated animate__heartBeat animate__faster animate__infinite infinite'")
 			input(class="outline-1 focus:outline-gray-600 rounded-xl" placeholder="Full Name" v-on:input="fullNameValidator" v-model="fullName" type="text")
 		//- Username
 		div(class="flex items-center gap-x-1 ")

@@ -82,18 +82,22 @@ const indexHtml = join(process.env.DIST, "index.html");
 const sqlite3 = require("sqlite3").verbose();
 // const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
-function CreateDataBaseFileForUser() {
-	fs.readdir(path.join(__dirname, "../../Users"), function (err, files) {
+function CreateDataBaseFileForUser(args) {
+	let userName = args[1];
+	const directoryPath = path.join(__dirname, "../../Users");
+	fs.readdir(directoryPath, (err, files) => {
 		if (err) console.log("Unable to scan directory: " + err);
 		files.forEach((file) => {
 			console.log(file);
 		});
-	});
 
-	// const db = new sqlite3.Database(`./Users/${userName}.db`);
-	// fs.writeFile(`${userName}.db`, "", (err) => {
-	// 	if (err) console.log("Error");
-	// });
+		if (files.find((ele) => ele !== userName)) {
+			fs.writeFile(`${directoryPath}/${userName}.db`, "", (err) => {
+				if (err) console.log("Error");
+			});
+			const db = new sqlite3.Database(`${directoryPath}/${userName}.db`);
+		}
+	});
 	// db.serialize(() => {
 	// 	db.run("CREATE TABLE UserInfo (FullName,  TEXT)");
 	// 	const stmt = db.prepare(
@@ -128,8 +132,8 @@ ipcMain.on("createNote", (_event, Argument) => {
 });
 
 ipcMain.on("createUser", (_event, Args) => {
-	console.log("Hiiiiiiiiiiii");
-	CreateDataBaseFileForUser();
+	console.log(Args);
+	CreateDataBaseFileForUser(Args);
 });
 
 // ? Send Data For User

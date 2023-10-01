@@ -93,11 +93,15 @@ function CreateDataBaseFileForUser() {
 		if (err) {
 			return console.log("Unable to scan directory: " + err);
 		}
-		//listing all files using forEach
-		files.forEach(function (file) {
-			// Do whatever you want to do with the file
-			console.log(file);
-		});
+		if (files) {
+			//listing all files using forEach
+			files.forEach(function (file) {
+				// Do whatever you want to do with the file
+				console.log(file);
+			});
+		} else {
+			console.log("no Files");
+		}
 	});
 
 	// const db = new sqlite3.Database(`./Users/${userName}.db`);

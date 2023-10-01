@@ -85,7 +85,6 @@ const sqlite3 = require("sqlite3").verbose();
 function CreateDataBaseFileForUser() {
 	fs.readdir(path.join(__dirname, "../../Users"), function (err, files) {
 		if (err) console.log("Unable to scan directory: " + err);
-
 		files.forEach((file) => {
 			console.log(file);
 		});

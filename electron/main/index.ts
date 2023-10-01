@@ -96,19 +96,19 @@ function CreateDataBaseFileForUser(args) {
 				if (err) console.log("Error");
 			});
 			const db = new sqlite3.Database(`${directoryPath}/${userName}.db`);
+			db.serialize(() => {
+				db.run("CREATE TABLE UserInfo (FullName,  TEXT)");
+				const stmt = db.prepare(
+					"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
+				);
+				stmt.run(NoteName, NoteColor);
+				stmt.finalize();
+				db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
+					console.log(row.id + ": " + row.NoteName);
+				});
+			});
 		}
 	});
-	// db.serialize(() => {
-	// 	db.run("CREATE TABLE UserInfo (FullName,  TEXT)");
-	// 	const stmt = db.prepare(
-	// 		"INSERT INTO Notes (NoteName , NoteColor) VALUES  (?,?)"
-	// 	);
-	// 	stmt.run(NoteName, NoteColor);
-	// 	stmt.finalize();
-	// 	db.each("SELECT rowid AS id, NoteName FROM Notes", (err, row) => {
-	// 		console.log(row.id + ": " + row.NoteName);
-	// 	});
-	// });
 }
 
 function insertNote(NoteName, NoteColor) {

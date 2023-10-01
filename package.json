@@ -32,6 +32,7 @@
 		"semver": "^7.5.4",
 		"sqlite3": "^5.1.6",
 		"tar": "^6.2.0",
+		"v8-compile-cache": "^2.4.0",
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {

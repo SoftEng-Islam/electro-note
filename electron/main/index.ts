@@ -5,6 +5,7 @@ import path from "path";
 import fs from "fs";
 import electron from "electron";
 import windowStateKeeper from "electron-window-state";
+require("v8-compile-cache");
 
 // The built directory structure
 //
@@ -85,6 +86,7 @@ function CreateDataBaseFileForUser() {
 	// Read Dir and Return list Of users(Files)
 
 	const directoryPath = path.join(__dirname, "Users");
+	console.log(directoryPath);
 	//passsing directoryPath and callback function
 	fs.readdir(directoryPath, function (err, files) {
 		//handling error
@@ -136,8 +138,8 @@ ipcMain.on("createNote", (_event, Argument) => {
 });
 
 ipcMain.on("createUser", (_event, Args) => {
-	console.log(Args);
-	// CreateDataBaseFileForUser();
+	console.log("Hiiiiiiiiiiii");
+	CreateDataBaseFileForUser();
 });
 
 // ? Send Data For User
@@ -236,11 +238,6 @@ async function createWindow() {
 
 app.whenReady().then(createWindow);
 
-app.on("window-all-closed", () => {
-	win = null;
-	if (process.platform !== "darwin") app.quit();
-});
-
 app.on("second-instance", () => {
 	if (win) {
 		// Focus on the main window if the user tried to open another
@@ -273,6 +270,12 @@ ipcMain.handle("open-win", (_, arg) => {
 	} else {
 		childWindow.loadFile(indexHtml, { hash: arg });
 	}
+});
+
+app.on("window-all-closed", () => {
+	win = null;
+	// if (process.platform !== "darwin") app.quit();
+	app.quit();
 });
 
 //* ------------------------------------------------------------------

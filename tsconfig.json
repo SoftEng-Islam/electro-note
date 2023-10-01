@@ -1,28 +1,33 @@
 {
-	// "compileOnSave": false,
 	"compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": true,
-    "jsx": "preserve",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "skipLibCheck": true,
-    "noEmit": true
-		// "sourceMap": true,
-		// "allowSyntheticDefaultImports": true,
-		// "composite": true,
-		// "types": ["node"]
+		"target": "ESNext",
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"strict": true,
+		"jsx": "preserve",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"lib": [
+			"ESNext",
+			"DOM"
+		],
+		"skipLibCheck": true,
+		"noEmit": true
 	},
-	// "files": [
-	// 	"./package.json"
-	// ],
-  "include": ["src"],
+	"include": [
+		"src"
+	],
 	"references": [
-    { "path": "./tsconfig.node.json" }
-  ]
+		{
+			"path": "./tsconfig.node.json"
+		}
+	],
+	"watchOptions": {
+		"excludeDirectories": [
+			"**/.dist-electron/**",
+			"**/dist/**"
+		],
+	},
 }

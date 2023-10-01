@@ -83,19 +83,10 @@ const sqlite3 = require("sqlite3").verbose();
 // const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
 function CreateDataBaseFileForUser() {
-	// Read Dir and Return list Of users(Files)
+	fs.readdir(path.join(__dirname, "../../Users"), function (err, files) {
+		if (err) console.log("Unable to scan directory: " + err);
 
-	const directoryPath = path.join(__dirname, "../../Users");
-	console.log(directoryPath);
-	//passsing directoryPath and callback function
-	fs.readdir(directoryPath, function (err, files) {
-		//handling error
-		if (err) {
-			return console.log("Unable to scan directory: " + err);
-		}
-		//listing all files using forEach
-		files.forEach(function (file) {
-			// Do whatever you want to do with the file
+		files.forEach((file) => {
 			console.log(file);
 		});
 	});

@@ -85,7 +85,7 @@ const sqlite3 = require("sqlite3").verbose();
 function CreateDataBaseFileForUser() {
 	// Read Dir and Return list Of users(Files)
 
-	const directoryPath = path.join(__dirname, "Users");
+	const directoryPath = path.join(__dirname, "../../Users");
 	console.log(directoryPath);
 	//passsing directoryPath and callback function
 	fs.readdir(directoryPath, function (err, files) {

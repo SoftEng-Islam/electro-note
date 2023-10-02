@@ -80,7 +80,6 @@ const indexHtml = join(process.env.DIST, "index.html");
 
 // Database
 const sqlite3 = require("sqlite3").verbose();
-// const db = new sqlite3.Database("./Databases/ElectronNote.db");
 
 function CreateDataBaseFileForUser(args) {
 	let userName = args[1];
